@@ -1,0 +1,57 @@
+import img1 from '@/assets/image 44 (1).png';
+import img2 from '@/assets/Andergassen-Druck-1101 1 (2).png';
+import img3 from '@/assets/Andergassen-Druck-1101 1 (3).png';
+import img4 from '@/assets/Andergassen-Druck-1101 1 (1).png';
+import img5 from '@/assets/Container.png';
+import img6 from '@/assets/Andergassen-Druck-2428 1.png';
+
+export function VisualMemories() {
+  return (
+    <section id="visual-memories" className="w-full max-w-[1440px] mx-auto bg-white flex flex-col items-center py-[80px] gap-[40px]">
+      <div className="w-full flex flex-col items-start gap-[8px] px-[40px] text-left">
+        <span className="font-['Manrope'] font-normal text-[16px] leading-[1.5] text-[#323232]">- Visual Memories -</span>
+        <h2 className="font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4]">
+          A Glimpse of Paradise
+        </h2>
+        <p className="font-['Manrope'] text-[16px] text-[#323232]/70 leading-[1.5] font-normal">
+          From golden sunrises on the terrace to cozy evenings by the fireplace.
+        </p>
+      </div>
+
+      <div className="w-full px-[40px] flex flex-row gap-[16px] justify-center">
+        {/* Left Section (Columns 1 & 2) */}
+        <div className="flex flex-col gap-[16px] w-[888px] flex-none">
+          <div className="flex flex-row gap-[16px] w-full">
+            {/* Column 1 */}
+            <div className="flex flex-col justify-between w-[436px] h-[608px] flex-none">
+              <img src={img1} alt="Skyline" className="w-[436px] h-[291px] object-cover" />
+              <img src={img4} alt="Coastal Town" className="w-[436px] h-[296px] object-cover" />
+            </div>
+            {/* Column 2 */}
+            <img src={img2} alt="Tuscany Hills" className="w-[436px] h-[608px] object-cover flex-none" />
+          </div>
+          {/* Bottom row spanning 1 & 2 */}
+          <img src={img6} alt="Pool Terrace" className="w-full h-[292px] object-cover" />
+        </div>
+
+        {/* Right Section (Column 3) */}
+        <div className="flex flex-col gap-[16px] w-[456px] flex-none">
+          <img src={img3} alt="Colosseum" className="w-full h-[335px] object-cover" />
+          <div className="relative w-full h-[565px] group cursor-pointer overflow-hidden">
+            <img src={img5} alt="Dark Hills" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+              <div className="flex flex-row items-center gap-[8px] text-white">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
+                </svg>
+                <span className="font-['Manrope'] font-normal text-[18px] underline underline-offset-4">See All Photos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
