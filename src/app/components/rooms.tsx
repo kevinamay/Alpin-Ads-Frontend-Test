@@ -33,10 +33,10 @@ const roomsData = [
 export function Rooms() {
   return (
     <section id="rooms" className="w-full max-w-[1440px] mx-auto bg-[#F4F3F0] overflow-hidden flex flex-col items-center pt-[88px] pb-[88px] gap-[10px]">
-      <div className="w-full flex flex-col items-center px-[40px] gap-[40px]">
+      <div className="w-full flex flex-col items-center gap-[40px]">
         
         {/* Header Section ('container-text') */}
-        <div className="w-full flex flex-col items-center text-center gap-[12px]">
+        <div className="w-full px-[40px] flex flex-col items-center text-center gap-[12px]">
           {/* 'container-title' */}
           <div className="w-full flex flex-col items-center gap-[8px]">
             <div className="flex flex-row items-center justify-center gap-[6px] w-fit h-[40px] py-[8px]">
@@ -44,21 +44,21 @@ export function Rooms() {
               <span className="font-['Manrope'] font-normal text-[16px] leading-[1.5] text-[#323232]">Your Private Sanctuary</span>
               <span className="font-['Manrope'] font-normal text-[16px] leading-[1.5] text-[#323232]">-</span>
             </div>
-            <h2 className="w-full text-[40px] font-normal text-[#323232] leading-[1.4] font-['Manrope']">
+            <h2 className="w-full text-center text-[40px] font-normal text-[#323232] leading-[1.4] font-['Manrope']">
               Designed for Deep Rest
             </h2>
           </div>
-          <p className="w-full text-[#323232] leading-[1.5] font-['Manrope'] text-[16px] font-normal">
+          <p className="w-full text-center text-[#323232] leading-[1.5] font-['Manrope'] text-[16px] font-normal">
             Explore our selection of light-flooded suites, each featuring a private panoramic terrace and the soothing scent of natural pine wood.
           </p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[24px] w-full">
+        {/* Cards Grid ('Frame 2147234709') */}
+        <div className="flex flex-row gap-[16px] px-[32px] w-full justify-start">
           {roomsData.map((room, idx) => (
-            <div key={idx} className="flex flex-col bg-white rounded-[8px] overflow-hidden">
+            <div key={idx} className="flex flex-col shrink-0 w-[465px] h-[545px] bg-white rounded-[8px] overflow-hidden">
               {/* Image Container */}
-              <div className="relative w-full h-[320px]">
+              <div className="relative w-full h-[327px]">
                 <img 
                   src={room.img} 
                   alt={room.name} 
@@ -67,35 +67,35 @@ export function Rooms() {
               </div>
 
               {/* Content Container */}
-              <div className="flex flex-col p-[32px] gap-[24px] flex-grow">
+              <div className="flex flex-col p-[12px] gap-[16px] flex-grow">
                 {/* Text */}
                 <div className="flex flex-col gap-[12px]">
-                  <h3 className="text-[24px] font-normal text-[#323232] leading-[1.4] font-['Manrope']">
+                  <h3 className="w-full text-[20px] font-normal text-[#323232] leading-[1.5] font-['Manrope']">
                     {room.name}
                   </h3>
-                  <p className="text-[#767676] leading-[1.5] font-['Manrope'] text-[16px] font-normal min-h-[48px]">
+                  <p className="w-full text-[#323232]/70 leading-[1.5] font-['Manrope'] text-[16px] font-normal">
                     {room.desc}
                   </p>
                 </div>
 
                 {/* Stats */}
-                <div className="flex items-center gap-[24px] mt-auto pb-[12px]">
+                <div className="flex flex-row items-center gap-[12px] w-full h-[24px] mt-auto">
                   <div className="flex items-center gap-[8px]">
-                    <Users className="w-[18px] h-[18px] text-[#323232]" strokeWidth={1.5} />
-                    <span className="font-['Manrope'] font-normal text-[14px] text-[#323232]">
+                    <Users className="w-[24px] h-[24px] text-[#323232]" strokeWidth={2} />
+                    <span className="font-['Manrope'] font-normal text-[16px] leading-[24px] text-[#323232]">
                       {room.capacity}
                     </span>
                   </div>
                   <div className="flex items-center gap-[8px]">
-                    <MoveHorizontal className="w-[18px] h-[18px] text-[#323232]" strokeWidth={1.5} />
-                    <span className="font-['Manrope'] font-normal text-[14px] text-[#323232]">
+                    <MoveHorizontal className="w-[24px] h-[24px] text-[#323232]" strokeWidth={2} />
+                    <span className="font-['Manrope'] font-normal text-[16px] leading-[24px] text-[#323232]">
                       {room.size}
                     </span>
                   </div>
                 </div>
 
                 {/* Button */}
-                <button className="w-full h-[48px] flex items-center justify-center border border-[#E5E5E5] rounded-[4px] hover:bg-black/5 transition-colors text-[#323232] font-['Manrope'] font-normal text-[14px] tracking-[0.05em] uppercase">
+                <button className="w-full h-[48px] flex items-center justify-center gap-[10px] py-[12px] px-[32px] border border-[#323232]/20 rounded-[4px] backdrop-blur-[20px] hover:bg-black/5 transition-colors text-[#323232] font-['Manrope'] font-normal text-[16px] leading-[1.5] tracking-[0.05em] uppercase">
                   SEE DETAILS
                 </button>
               </div>
@@ -104,12 +104,12 @@ export function Rooms() {
         </div>
 
         {/* Pagination Controls */}
-        <div className="flex items-center justify-center gap-[4px] h-[45px] mt-[12px]">
+        <div className="w-full flex flex-row items-center justify-center gap-[4px] h-[45px]">
           <button className="flex items-center justify-center w-[45px] h-[45px] rounded-[8px] bg-[#A49781] opacity-50 backdrop-blur-[20px] hover:opacity-80 transition-opacity cursor-pointer">
-            <ArrowLeft className="w-5 h-5 text-white" strokeWidth={1.5} />
+            <ArrowLeft className="w-[18px] h-[18px] text-[#323232]" strokeWidth={1.5} />
           </button>
           <button className="flex items-center justify-center w-[45px] h-[45px] rounded-[8px] bg-[#A49781] backdrop-blur-[20px] hover:opacity-80 transition-opacity cursor-pointer">
-            <ArrowRight className="w-5 h-5 text-white" strokeWidth={1.5} />
+            <ArrowRight className="w-[18px] h-[18px] text-white" strokeWidth={1.5} />
           </button>
         </div>
 
