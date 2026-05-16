@@ -1,4 +1,5 @@
-import { Hero } from "./components/hero";
+import { HeroSection } from "./components/HeroSection";
+import { IntroductionSection } from "./components/IntroductionSection";
 import { About } from "./components/about";
 import { Rooms } from "./components/rooms";
 import { Amenities } from "./components/amenities";
@@ -9,8 +10,8 @@ import { Toaster } from "./components/ui/sonner";
 export default function App() {
   return (
     <div className="min-h-screen w-full bg-background">
-      <Hero />
-      <About />
+      <HeroSection />
+      <IntroductionSection />
       <Rooms />
       <Amenities />
       <Reserve />
