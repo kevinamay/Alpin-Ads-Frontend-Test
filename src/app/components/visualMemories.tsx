@@ -38,13 +38,13 @@ export function VisualMemories() {
             </div>
           </div>
           {/* Bottom Block (292px high) */}
-          <img src={bottomSpanImage} alt="Panoramic View" className="w-[888px] h-[292px] object-cover" />
+          <img src={bottomSpanImage} alt="Pool Terrace" className="w-[888px] h-[292px] object-cover" />
         </div>
         
         {/* Right Section (Column 3) Width 456px */}
         <div className="flex flex-col gap-[16px] w-[456px] flex-none">
           <img src={colosseumImage} alt="Colosseum" className="w-[456px] h-[335px] object-cover" />
-          <img src={containerTextImg} alt="Architecture Detail" className="w-[456px] h-[565px] object-cover" />
+          <img src={containerTextImg} alt="See All Photos" className="w-[456px] h-[565px] object-cover cursor-pointer" />
         </div>
       </div>
     </section>
