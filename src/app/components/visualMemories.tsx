@@ -33,8 +33,8 @@ export function VisualMemories() {
           <div className="flex flex-row gap-[16px] w-full h-[608px]">
             <img src={landscapeImage} alt="Landscape" className="w-[436px] h-[608px] object-cover" />
             <div className="flex flex-col gap-[16px] w-[436px] h-[608px]">
-              <img src={florenceImage} alt="Florence" className="w-[436px] h-[296px] object-cover" />
               <img src={cinqueTerreImage} alt="Coastal town" className="w-[436px] h-[296px] object-cover" />
+              <img src={florenceImage} alt="Florence" className="w-[436px] h-[296px] object-cover" />
             </div>
           </div>
           {/* Bottom Block (292px high) */}
