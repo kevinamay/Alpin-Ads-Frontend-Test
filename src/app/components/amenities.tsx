@@ -1,9 +1,9 @@
 import type { SVGProps } from "react";
 import poolIcon from '@/assets/Vector.svg';
-import skierIcon from '@/assets/Vector(1).svg';
+import skierIcon from '@/assets/Vector(3).svg';
 import lotusIcon from '@/assets/Vector(2).svg';
-import bikeIcon from '@/assets/Vector(3).svg';
-import wineIcon from '@/assets/Vector(4).svg';
+import bikeIcon from '@/assets/Vector(4).svg';
+import wineIcon from '@/assets/Vector(1).svg';
 import yogaIcon from '@/assets/Vector(5).svg';
 
 const items = [
