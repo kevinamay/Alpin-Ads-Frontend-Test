@@ -31,11 +31,11 @@ export function VisualMemories() {
         <div className="flex flex-col gap-[16px] w-[888px] flex-none">
           {/* Top Block (608px high) */}
           <div className="flex flex-row gap-[16px] w-full h-[608px]">
-            <img src={landscapeImage} alt="Landscape" className="w-[436px] h-[608px] object-cover" />
             <div className="flex flex-col gap-[16px] w-[436px] h-[608px]">
-              <img src={cinqueTerreImage} alt="Coastal town" className="w-[436px] h-[296px] object-cover" />
               <img src={florenceImage} alt="Florence" className="w-[436px] h-[296px] object-cover" />
+              <img src={cinqueTerreImage} alt="Coastal town" className="w-[436px] h-[296px] object-cover" />
             </div>
+            <img src={landscapeImage} alt="Landscape" className="w-[436px] h-[608px] object-cover" />
           </div>
           {/* Bottom Block (292px high) */}
           <img src={bottomSpanImage} alt="Pool Terrace" className="w-[888px] h-[292px] object-cover" />
