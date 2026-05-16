@@ -20,13 +20,13 @@ export function VisualMemories() {
           <h2 className="w-full font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4] text-left">
             A Glimpse of Paradise
           </h2>
-          <p className="font-['Manrope'] text-[16px] text-[#323232]/70 leading-[1.5] font-normal">
+          <p className="font-['Manrope'] text-[16px] text-[#323232] leading-[1.5] font-normal">
             From golden sunrises on the terrace to cozy evenings by the fireplace.
           </p>
         </div>
       </div>
 
-      <div className="w-full px-[40px] flex flex-row gap-[16px] justify-center">
+      <div className="w-full h-[916px] px-[40px] flex flex-row gap-[16px] justify-center">
         {/* Left Section (Columns 1 & 2) */}
         <div className="flex flex-col gap-[16px] w-[888px] flex-none">
           <div className="flex flex-row gap-[16px] w-full">
