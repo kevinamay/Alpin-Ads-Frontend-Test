@@ -17,7 +17,7 @@ export function VisualMemories() {
             <span className="font-['Manrope'] font-normal text-[16px] leading-[1.5] text-[#323232]">Visual Memories</span>
             <span className="font-['Manrope'] font-normal text-[16px] leading-[1.5] text-[#323232]">-</span>
           </div>
-          <h2 className="w-full font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.3] text-left">
+          <h2 className="w-full font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4] text-left">
             A Glimpse of Paradise
           </h2>
           <p className="font-['Manrope'] text-[16px] text-[#323232]/70 leading-[1.5] font-normal">
