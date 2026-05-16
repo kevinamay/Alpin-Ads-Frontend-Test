@@ -67,8 +67,8 @@ export function Amenities() {
                 <div className="flex flex-row flex-none items-center justify-center p-[8px] w-[56px] h-[56px] bg-white rounded-[8px] gap-[10px]">
                   <img src={item.icon} alt={item.title} className="w-full h-full object-none" />
                 </div>
-                <div className="flex flex-col gap-[16px]">
-                  <h3 className="font-['Manrope'] text-[24px] text-[#323232] font-normal leading-[1.4]">
+                <div className="flex flex-col gap-[12px]">
+                  <h3 className="font-['Manrope'] text-[28px] text-[#323232] font-normal leading-[1.5]">
                     {item.title}
                   </h3>
                   <p className="font-['Manrope'] text-[16px] text-[#323232]/70 leading-[1.5] font-normal text-left">
