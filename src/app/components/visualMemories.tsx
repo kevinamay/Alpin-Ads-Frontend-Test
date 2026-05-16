@@ -7,15 +7,21 @@ import img6 from '@/assets/Andergassen-Druck-2428 1.png';
 
 export function VisualMemories() {
   return (
-    <section id="visual-memories" className="w-full max-w-[1440px] mx-auto bg-white flex flex-col items-center py-[80px] gap-[40px]">
-      <div className="w-full flex flex-col items-start gap-[8px] px-[40px] text-left">
-        <span className="font-['Manrope'] font-normal text-[16px] leading-[1.5] text-[#323232]">- Visual Memories -</span>
-        <h2 className="font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4]">
-          A Glimpse of Paradise
-        </h2>
-        <p className="font-['Manrope'] text-[16px] text-[#323232]/70 leading-[1.5] font-normal">
-          From golden sunrises on the terrace to cozy evenings by the fireplace.
-        </p>
+    <section id="visual-memories" className="w-full max-w-[1440px] mx-auto bg-white flex flex-col items-center pt-[80px] pb-[120px] gap-[40px]">
+      {/* Header */}
+      <div className="w-full flex flex-row px-[40px] gap-[120px]">
+        <div className="w-full flex flex-col items-start text-left gap-[10px]">
+          {/* Badge */}
+          <div className="flex flex-row items-center justify-start py-[8px] h-[40px]">
+            <span className="font-['Manrope'] font-normal text-[16px] leading-[1.5] text-[#323232]">- Visual Memories -</span>
+          </div>
+          <h2 className="w-full font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4] text-left">
+            A Glimpse of Paradise
+          </h2>
+          <p className="font-['Manrope'] text-[16px] text-[#323232]/70 leading-[1.5] font-normal">
+            From golden sunrises on the terrace to cozy evenings by the fireplace.
+          </p>
+        </div>
       </div>
 
       <div className="w-full px-[40px] flex flex-row gap-[16px] justify-center">
