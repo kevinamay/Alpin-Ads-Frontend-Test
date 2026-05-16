@@ -63,11 +63,11 @@ export function Amenities() {
           {items.map((item, index) => {
             const Icon = item.icon;
             return (
-              <div key={index} className="flex flex-col items-start bg-[#F4F3F0] rounded-[8px] px-[32px] py-[24px] w-full gap-[24px]">
+              <div key={index} className="flex flex-col items-start bg-[#F4F3F0] rounded-[8px] p-[16px] w-full gap-[24px]">
                 <div className="flex flex-none items-center justify-center p-[8px] w-[56px] h-[56px] bg-white rounded-[8px]">
                   <img src={item.icon} alt={item.title} className="w-full h-full object-contain" />
                 </div>
-                <div className="flex flex-col gap-[8px]">
+                <div className="flex flex-col gap-[16px]">
                   <h3 className="font-['Manrope'] text-[24px] text-[#323232] font-normal leading-[1.4]">
                     {item.title}
                   </h3>
