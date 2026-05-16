@@ -39,16 +39,6 @@ export function VisualMemories() {
           <img src={img3} alt="Colosseum" className="w-full h-[335px] object-cover" />
           <div className="relative w-full h-[565px] group cursor-pointer overflow-hidden">
             <img src={img5} alt="Dark Hills" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-              <div className="flex flex-row items-center gap-[8px] text-white">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <polyline points="21 15 16 10 5 21" />
-                </svg>
-                <span className="font-['Manrope'] font-normal text-[18px] underline underline-offset-4">See All Photos</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
