@@ -1,9 +1,9 @@
-import img1 from '@/assets/image 44 (1).png';
-import img2 from '@/assets/Andergassen-Druck-1101 1 (2).png';
-import img3 from '@/assets/Andergassen-Druck-1101 1 (3).png';
-import img4 from '@/assets/Andergassen-Druck-1101 1 (1).png';
-import img5 from '@/assets/Container.png';
-import img6 from '@/assets/Andergassen-Druck-2428 1.png';
+import florenceImage from '../../assets/Andergassen-Druck-1101 1 (1).png';
+import landscapeImage from '../../assets/Andergassen-Druck-1101 1 (2).png';
+import colosseumImage from '../../assets/Andergassen-Druck-1101 1 (3).png';
+import bottomSpanImage from '../../assets/Andergassen-Druck-2428 1.png';
+import cinqueTerreImage from '../../assets/image 44 (1).png';
+import containerTextImg from '../../assets/Container.png';
 
 export function VisualMemories() {
   return (
@@ -27,27 +27,24 @@ export function VisualMemories() {
       </div>
 
       <div className="w-full h-[916px] px-[40px] flex flex-row gap-[16px] justify-center">
-        {/* Left Section (Columns 1 & 2) */}
+        {/* Left Section (Columns 1 & 2) Width 888px */}
         <div className="flex flex-col gap-[16px] w-[888px] flex-none">
-          <div className="flex flex-row gap-[16px] w-full">
-            {/* Column 1 */}
-            <div className="flex flex-col justify-between w-[436px] h-[608px] flex-none">
-              <img src={img1} alt="Skyline" className="w-[436px] h-[291px] object-cover" />
-              <img src={img4} alt="Coastal Town" className="w-[436px] h-[296px] object-cover" />
+          {/* Top Block (608px high) */}
+          <div className="flex flex-row gap-[16px] w-full h-[608px]">
+            <img src={landscapeImage} alt="Landscape" className="w-[436px] h-[608px] object-cover" />
+            <div className="flex flex-col gap-[16px] w-[436px] h-[608px]">
+              <img src={florenceImage} alt="Florence" className="w-[436px] h-[296px] object-cover" />
+              <img src={cinqueTerreImage} alt="Coastal town" className="w-[436px] h-[296px] object-cover" />
             </div>
-            {/* Column 2 */}
-            <img src={img2} alt="Tuscany Hills" className="w-[436px] h-[608px] object-cover flex-none" />
           </div>
-          {/* Bottom row spanning 1 & 2 */}
-          <img src={img6} alt="Pool Terrace" className="w-full h-[292px] object-cover" />
+          {/* Bottom Block (292px high) */}
+          <img src={bottomSpanImage} alt="Panoramic View" className="w-[888px] h-[292px] object-cover" />
         </div>
-
-        {/* Right Section (Column 3) */}
+        
+        {/* Right Section (Column 3) Width 456px */}
         <div className="flex flex-col gap-[16px] w-[456px] flex-none">
-          <img src={img3} alt="Colosseum" className="w-full h-[335px] object-cover" />
-          <div className="relative w-full h-[565px] group cursor-pointer overflow-hidden">
-            <img src={img5} alt="Dark Hills" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
+          <img src={colosseumImage} alt="Colosseum" className="w-[456px] h-[335px] object-cover" />
+          <img src={containerTextImg} alt="Architecture Detail" className="w-[456px] h-[565px] object-cover" />
         </div>
       </div>
     </section>
