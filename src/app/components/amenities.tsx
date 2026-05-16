@@ -93,35 +93,44 @@ const items = [
 
 export function Amenities() {
   return (
-    <section id="amenities" className="w-full max-w-[1440px] mx-auto bg-white flex flex-col items-center pt-[88px] pb-[88px] gap-[64px]">
-      {/* Header */}
-      <div className="flex flex-col items-center text-center gap-[16px] px-[40px]">
-        <span className="font-['Manrope'] text-[16px] text-[#323232]/70 font-normal">
-          - Amenities -
-        </span>
-        <h2 className="font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.2]">
-          Everything you'd hope for, and more.
-        </h2>
-      </div>
-
-      {/* Grid */}
-      <div className="w-full px-[40px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
-        {items.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <div key={index} className="flex flex-col items-start bg-[#F4F3F0] rounded-[8px] p-[32px] w-full">
-              <div className="flex items-center justify-center w-[56px] h-[56px] bg-white rounded-[8px] mb-[24px] shadow-sm">
-                <Icon className="w-[24px] h-[24px] text-[#A49781]" />
-              </div>
-              <h3 className="font-['Manrope'] text-[24px] text-[#323232] font-normal mb-[12px]">
-                {item.title}
-              </h3>
-              <p className="font-['Manrope'] text-[16px] text-[#323232]/70 leading-[1.5] font-normal text-left">
-                {item.desc}
-              </p>
+    <section id="amenities" className="w-full max-w-[1440px] mx-auto bg-white flex flex-col items-center pt-[80px] pb-[120px] gap-[10px]">
+      <div className="w-full flex flex-col items-center gap-[40px]">
+        {/* Header */}
+        <div className="w-full flex flex-row px-[40px] gap-[120px]">
+          <div className="w-full flex flex-col items-center text-center gap-[8px]">
+            {/* Badge */}
+            <div className="flex flex-row items-center justify-center gap-[6px] py-[8px] h-[40px]">
+              <span className="font-['Manrope'] font-normal text-[16px] leading-[1.5] text-[#323232]">-</span>
+              <span className="font-['Manrope'] font-normal text-[16px] leading-[1.5] text-[#323232]">Amenities</span>
+              <span className="font-['Manrope'] font-normal text-[16px] leading-[1.5] text-[#323232]">-</span>
             </div>
-          );
-        })}
+            <h2 className="w-full font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4] text-center">
+              Everything you'd hope for, and more.
+            </h2>
+          </div>
+        </div>
+
+        {/* Grid */}
+        <div className="w-full px-[40px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[16px]">
+          {items.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div key={index} className="flex flex-col items-start bg-[#F4F3F0] rounded-[8px] p-[16px] w-full gap-[24px]">
+                <div className="flex flex-none items-center justify-center p-[8px] w-[56px] h-[56px] bg-white rounded-[8px] shadow-sm">
+                  <Icon className="w-[40px] h-[40px] text-[#A49781]" />
+                </div>
+                <div className="flex flex-col gap-[12px]">
+                  <h3 className="font-['Manrope'] text-[24px] text-[#323232] font-normal leading-[1.4]">
+                    {item.title}
+                  </h3>
+                  <p className="font-['Manrope'] text-[16px] text-[#323232]/70 leading-[1.5] font-normal text-left">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
