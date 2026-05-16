@@ -1,91 +1,97 @@
 import type { SVGProps } from "react";
 
-const PoolIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M7 3v9" />
-    <path d="M11 3v9" />
-    <path d="M7 6h4" />
-    <path d="M7 9h4" />
-    <path d="M2 15c2 0 3-1.5 5-1.5s3 1.5 5 1.5 3-1.5 5-1.5 3 1.5 5 1.5" />
-    <path d="M2 19c2 0 3-1.5 5-1.5s3 1.5 5 1.5 3-1.5 5-1.5 3 1.5 5 1.5" />
+const Pool = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M10 4v9" />
+    <path d="M14 4v9" />
+    <path d="M10 6h4" />
+    <path d="M10 9h4" />
+    <path d="M10 12h4" />
+    <path d="M3 16c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0" />
+    <path d="M3 20c1.5-1.5 3-1.5 4.5 0s3 1.5 4.5 0 3-1.5 4.5 0 3 1.5 4.5 0" />
   </svg>
 );
 
-const WineIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M8 22h8" />
-    <path d="M12 15v7" />
-    <path d="M7 3v3.5A5.5 5.5 0 0 0 12 12A5.5 5.5 0 0 0 17 6.5V3H7z" />
-    <path d="M7 7h10" />
+const Wine = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M7 6v5c0 2.8 2.2 5 5 5s5-2.2 5-5V6H7z" />
+    <path d="M12 16v5" />
+    <path d="M9 21h6" />
+    <path d="M7 10h10" />
   </svg>
 );
 
-const LotusIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M12 22c-4-4-5-9-5-12s5-7 5-7 5 4 5 7-1 8-5 12z" />
-    <path d="M12 22c-2-3-7-4-10-8s0-8 0-8 6 1 10 8z" />
-    <path d="M12 22c2-3 7-4 10-8s0-8 0-8-6 1-10 8z" />
+const Lotus = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M12 5c-2 4-2 8 0 12 2-4 2-8 0-12z" />
+    <path d="M12 17c-3-1-6-4-7-8 2-1 5 1 7 8z" />
+    <path d="M12 17c3-1 6-4 7-8-2-1-5 1-7 8z" />
+    <path d="M12 17c-4 0-8-1-9-4 2-2 6-1 9 4z" />
+    <path d="M12 17c4 0 8-1 9-4-2-2-6-1-9 4z" />
   </svg>
 );
 
-const SkierIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <circle cx="10" cy="5" r="2" />
-    <path d="M10 7l-2 5 4 4" />
-    <path d="M8 12l4-2 4 4" />
-    <path d="M4 18h16" />
-    <path d="M16 14l-4 4" />
+const Skier = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <circle cx="16" cy="6" r="2" />
+    <path d="M15 8c-2 2-4 4-5 5" />
+    <path d="M10 13l-3 4" />
+    <path d="M10 13l2 4" />
+    <path d="M3 19h16l2-2" />
+    <path d="M14 9l-4 1" />
+    <path d="M10 10l-6 6" />
   </svg>
 );
 
-const BikeIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <circle cx="5" cy="18" r="4" />
-    <circle cx="19" cy="18" r="4" />
-    <path d="M5 18l4-8h5l4 8" />
-    <path d="M9 10L7 6h4" />
-    <path d="M14 10l2-4h4" />
+const Bike = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <circle cx="6" cy="17" r="3" />
+    <circle cx="18" cy="17" r="3" />
+    <path d="M6 17l2.5-6h5l4.5 6" />
+    <path d="M8.5 11l3 6" />
+    <path d="M13.5 11v-3h2" />
+    <path d="M8.5 11v-2h-2" />
+    <circle cx="11.5" cy="17" r="1.5" />
   </svg>
 );
 
-const YogaIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <circle cx="12" cy="6" r="2" />
-    <path d="M12 8v6" />
-    <path d="M12 10l-4 4" />
-    <path d="M12 10l4 4" />
-    <path d="M12 14l-4 4h8l-4-4" />
+const Yoga = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <circle cx="12" cy="5" r="2" />
+    <path d="M12 7v6.5" />
+    <path d="M7 12l5-3.5 5 3.5" />
+    <path d="M12 13.5l-5 4.5h10z" />
   </svg>
 );
 
 const items = [
   { 
-    icon: PoolIcon, 
+    icon: Pool, 
     title: "Sky Infinity Pool", 
     desc: "Experience the sensation of swimming in our 25-meter heated pool that appears to float directly into the rugged Dolomite peaks." 
   },
   { 
-    icon: WineIcon, 
+    icon: Wine, 
     title: "Forest-to-Table Dining", 
     desc: "Indulge in 5-course gourmet dinners featuring organic ingredients sourced daily from our own gardens and local Alpine farmers." 
   },
   { 
-    icon: LotusIcon, 
+    icon: Lotus, 
     title: "Vitalis Panoramic Spa", 
     desc: "Recharge in our panoramic saunas and enjoy authentic herbal treatments inspired by ancient Alpine healing traditions." 
   },
   { 
-    icon: SkierIcon, 
+    icon: Skier, 
     title: "Ski-In / Ski-Out Access", 
     desc: "Enjoy seamless access to the Dolomiti Superski slopes directly from the hotel's ski room—no shuttles, no waiting." 
   },
   { 
-    icon: BikeIcon, 
+    icon: Bike, 
     title: "E-Bike & Hiking Hub", 
     desc: "Explore the mountains with ease using our premium fleet of e-bikes and professional hiking gear available exclusively for guests." 
   },
   { 
-    icon: YogaIcon, 
+    icon: Yoga, 
     title: "Mindful Yoga Studio", 
     desc: "Find your inner peace in our glass-walled studio overlooking the pine forest, offering daily guided meditation and yoga sessions." 
   },
