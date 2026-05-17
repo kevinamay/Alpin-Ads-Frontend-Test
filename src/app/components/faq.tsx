@@ -37,7 +37,10 @@ export const Faq = () => {
             <h2 className="font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4]">
               Frequently Asked Questions
             </h2>
-            <p className="font-['Manrope'] text-[16px] text-[#666666] leading-[1.5]">
+            <p
+              className="font-['Manrope'] text-[16px] font-normal text-[#323232] leading-[1.5]"
+              style={{ opacity: 0.8, letterSpacing: "-0.01em" }}
+            >
               Answers to the most common questions, so you can focus on enjoying your time with us.
             </p>
           </div>
@@ -53,7 +56,7 @@ export const Faq = () => {
 
         {/* Kolom Kanan: Accordion FAQ */}
         <div className="flex flex-col flex-1">
-          <Accordion type="single" collapsible defaultValue="item-0" className="w-full flex flex-col gap-[16px]">
+          <Accordion type="single" collapsible defaultValue="item-0" className="w-full flex flex-col gap-[20px]">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
