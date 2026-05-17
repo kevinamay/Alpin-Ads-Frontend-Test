@@ -70,7 +70,10 @@ function CheckboxField({ label, checked, onChange }: { label: string; checked: b
       <div className={`w-[18px] h-[18px] border rounded-[3px] flex items-center justify-center flex-none transition-colors ${checked ? "bg-[#323232] border-[#323232]" : "border-[#CCCCCC] bg-white"}`}>
         {checked && <span className="text-white"><CheckIcon /></span>}
       </div>
-      <span className="font-['Manrope'] text-[14px] text-[#323232]">{label}</span>
+      <span
+        className="font-['Manrope'] text-[16px] font-normal text-[#323232] leading-[1.5]"
+        style={{ letterSpacing: "-0.01em" }}
+      >{label}</span>
     </button>
   );
 }
@@ -210,9 +213,10 @@ export function Reserve() {
               Special Requests
             </p>
             <textarea
-              rows={4}
+              rows={5}
               placeholder="Anniversary, dietary preferences, arrival time..."
-              className="w-full px-[16px] py-[14px] bg-white border border-[#E5E5E5] rounded-[4px] outline-none font-['Manrope'] text-[14px] text-[#323232] placeholder:text-[#999999] resize-none"
+              className="w-full px-[16px] py-[14px] bg-[#FAFAFA] border border-[#323232]/10 rounded-[8px] outline-none font-['Manrope'] text-[16px] text-[#323232] placeholder:text-[#323232] placeholder:opacity-50 resize-none leading-[1.5]"
+              style={{ letterSpacing: "-0.01em" }}
             />
           </div>
 
