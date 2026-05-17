@@ -1,13 +1,9 @@
-import { useState } from 'react';
 import { Users, Calendar, ChevronDown, ArrowLeft, ArrowRight } from 'lucide-react';
 import HeroBg from '../../assets/Background.png';
 import Logo from '../../assets/logoipsum.svg';
-import { GalleryPopup } from './GalleryPopup';
 
 export function HeroSection() {
-  const [galleryOpen, setGalleryOpen] = useState(false);
   return (
-    <>
     <section className="relative w-full max-w-[1440px] mx-auto h-[1024px] overflow-hidden font-sans">
       {/* Background Image with Overlays */}
       <div
@@ -100,22 +96,6 @@ export function HeroSection() {
         </div>
         </div>
       </div>
-      {/* SEE ALL PHOTOS button — bottom right corner */}
-      <div className="absolute bottom-[168px] right-[24px] z-20">
-        <button
-          onClick={() => setGalleryOpen(true)}
-          className="flex items-center gap-[8px] px-[16px] py-[10px] bg-black/30 border border-white/30 backdrop-blur-[20px] rounded-[6px] text-white font-['Manrope'] text-[12px] tracking-[0.08em] uppercase hover:bg-black/50 transition-colors cursor-pointer"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="m21 15-5-5L5 21"/><circle cx="8.5" cy="8.5" r="1.5"/>
-          </svg>
-          See All Photos
-        </button>
-      </div>
     </section>
-
-      {/* Gallery Popup */}
-      <GalleryPopup isOpen={galleryOpen} onClose={() => setGalleryOpen(false)} />
-    </>
   );
 }
