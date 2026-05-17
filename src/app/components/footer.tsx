@@ -72,17 +72,14 @@ function ContactRow({ icon, value }: { icon: React.ReactNode; value: string }) {
 
 export function Footer() {
   return (
-    // PERUBAHAN UTAMA: Footer dikunci maksimal 1440px dan rata tengah
-    <footer id="contact" className="w-full max-w-[1440px] mx-auto bg-[#2D2D2D]">
+    <footer id="contact" className="w-full bg-[#2D2D2D]">
 
-      {/* Main footer content - Padding diubah jadi px-[24px] md:px-[60px] lg:px-[120px] agar mirip komponen lainnya */}
-      <div className="w-full py-[60px] px-[24px] flex flex-col md:flex-row flex-wrap items-start justify-between gap-[40px]">
+      {/* container-top: Horizontal, Fill 1376px (px-[32px] of 1440), Hug 208px, space-between */}
+      <div className="w-full max-w-[1440px] mx-auto px-[32px] py-[54px] flex flex-row items-start justify-between gap-[40px]">
 
         {/* Col 1: Logo + Address */}
-        <div className="flex flex-col gap-[40px] w-full md:w-[220px] flex-none">
-          <div className="flex flex-row items-center gap-[10px]">
-            <img src={logoSvg} alt="Logoipsum" style={{ width: "224px", height: "100px" }} />
-          </div>
+        <div className="flex flex-col gap-[32px] flex-none">
+          <img src={logoSvg} alt="Logoipsum" style={{ width: "224px", height: "100px" }} />
           <div className="flex flex-col gap-[4px]">
             <p className="font-['Manrope'] text-[14px] text-white/60 leading-[1.5]">San Valentino,</p>
             <p className="font-['Manrope'] text-[14px] text-white/60 leading-[1.5]">South Tyrol, Italy.</p>
@@ -149,13 +146,13 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar - Padding diubah ke px-[24px] agar sejajar */}
+      {/* Bottom bar */}
       <div className="w-full border-t border-white/10">
-        <div className="w-full px-[24px] py-[24px] flex flex-col md:flex-row items-center justify-between gap-[16px]">
+        <div className="w-full max-w-[1440px] mx-auto px-[32px] py-[24px] flex flex-row items-center justify-between">
           <p className="font-['Manrope'] text-[13px] text-white/50">
             © 2026 Hotel Ipsum
           </p>
-          <div className="flex flex-col items-center md:items-end gap-[4px]">
+          <div className="flex flex-col items-end gap-[4px]">
             <p className="font-['Manrope'] text-[11px] text-white/40">Design and Code by</p>
             <div className="flex flex-row items-center gap-[6px]">
               <AlpinAdsIcon />
