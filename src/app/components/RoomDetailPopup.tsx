@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from "react";
+import { useState, useRef, type ReactElement } from "react";
 
 // Icons
 const ArrowLeftIcon = () => (
@@ -77,6 +77,10 @@ interface RoomDetailPopupProps {
 
 export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  // "half" = bottom sheet at 55vh, "full" = 100vh
+  const [sheetState, setSheetState] = useState<"half" | "full">("half");
+  const dragStartY = useRef<number | null>(null);
+  const dragStartState = useRef<"half" | "full">("half");
 
   if (!isOpen || !room) return null;
 
@@ -89,129 +93,140 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
     "Mini Bar": <MiniBarIcon />,
   };
 
-  // ---- Shared inner content ----
-  const RoomContent = () => (
-    <>
-      <h2 className="font-['Manrope'] text-[22px] md:text-[24px] font-normal text-[#323232] leading-[1.3]">
-        {room.name}
-      </h2>
-      <hr className="border-[#E5E5E5]" />
+  // Drag handlers
+  const handleDragStart = (clientY: number) => {
+    dragStartY.current = clientY;
+    dragStartState.current = sheetState;
+  };
+  const handleDragEnd = (clientY: number) => {
+    if (dragStartY.current === null) return;
+    const delta = dragStartY.current - clientY; // positive = dragged up
+    if (dragStartState.current === "half") {
+      if (delta > 60) setSheetState("full");
+      else if (delta < -60) onClose();
+    } else {
+      if (delta < -60) setSheetState("half");
+    }
+    dragStartY.current = null;
+  };
 
-      {/* Specs — single column list */}
-      <div className="flex flex-col gap-[12px]">
-        <div className="flex flex-row items-center gap-[8px]">
-          <span className="text-[#666666]"><SizeIcon /></span>
-          <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.size}</span>
-        </div>
-        <div className="flex flex-row items-center gap-[8px]">
-          <span className="text-[#666666]"><GuestsIcon /></span>
-          <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.capacity}</span>
-        </div>
-        <div className="flex flex-row items-center gap-[8px]">
-          <span className="text-[#666666]"><BedIcon /></span>
-          <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.bedType}</span>
-        </div>
-        <div className="flex flex-row items-center gap-[8px]">
-          <span className="text-[#666666]"><PriceIcon /></span>
-          <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.price}</span>
-        </div>
-      </div>
+  // Touch events
+  const onTouchStart = (e: React.TouchEvent) => handleDragStart(e.touches[0].clientY);
+  const onTouchEnd = (e: React.TouchEvent) => handleDragEnd(e.changedTouches[0].clientY);
 
-      {/* Description */}
-      <p className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.7]">
-        {room.description}
-      </p>
+  // Mouse events (for desktop testing)
+  const onMouseDown = (e: React.MouseEvent) => handleDragStart(e.clientY);
+  const onMouseUp = (e: React.MouseEvent) => handleDragEnd(e.clientY);
 
-      {/* Amenities */}
-      <div className="flex flex-col gap-[10px]">
-        <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Amenities:</p>
-        <div className="flex flex-row flex-wrap gap-[16px]">
-          {room.amenities.map((a) => (
-            <div key={a} className="flex flex-row items-center gap-[6px] text-[#666666]">
-              {amenityIcons[a] ?? <WifiIcon />}
-              <span className="font-['Manrope'] text-[13px] text-[#323232]">{a}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Services */}
-      <div className="flex flex-col gap-[10px]">
-        <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Included services:</p>
-        <div className="flex flex-col gap-[8px]">
-          {room.services.map((service, i) => (
-            <div key={i} className="flex flex-row items-start gap-[8px]">
-              <span className="flex-none mt-[1px]"><CheckCircleIcon /></span>
-              <span className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.5]">{service}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Buttons */}
-      <div className="flex flex-row gap-[12px] pt-[8px]">
-        <button
-          onClick={onClose}
-          className="flex-1 h-[48px] flex items-center justify-center border border-[#323232]/30 rounded-[4px] font-['Manrope'] text-[12px] font-medium text-[#323232] uppercase tracking-[0.1em] hover:bg-black/5 transition-colors cursor-pointer"
-        >
-          Close
-        </button>
-        <button
-          className="flex-1 h-[48px] flex items-center justify-center bg-[#9C8E7A] hover:bg-[#8a7c69] rounded-[4px] font-['Manrope'] text-[12px] font-medium text-white uppercase tracking-[0.1em] transition-colors cursor-pointer"
-        >
-          Reserve This Suite
-        </button>
-      </div>
-    </>
-  );
-
-  // ---- Shared photo carousel ----
-  const PhotoCarousel = ({ height }: { height: string }) => (
-    <div className="relative w-full flex-none bg-black overflow-hidden" style={{ height }}>
-      <img src={room.images[currentSlide]} alt={room.name} className="w-full h-full object-cover" />
-      <button
-        onClick={prevSlide}
-        className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[36px] h-[36px] flex items-center justify-center bg-white/80 hover:bg-white rounded-full transition-colors text-[#323232]"
-      >
-        <ArrowLeftIcon />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-[12px] top-1/2 -translate-y-1/2 w-[36px] h-[36px] flex items-center justify-center bg-white/80 hover:bg-white rounded-full transition-colors text-[#323232]"
-      >
-        <ArrowRightIcon />
-      </button>
-      <div className="absolute bottom-[14px] left-1/2 -translate-x-1/2 flex flex-row gap-[8px]">
-        {room.images.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrentSlide(i)}
-            className={`w-[8px] h-[8px] rounded-full transition-colors ${i === currentSlide ? "bg-white" : "bg-white/40"}`}
-          />
-        ))}
-      </div>
-    </div>
-  );
+  const sheetHeight = sheetState === "full" ? "100dvh" : "58dvh";
+  const photoHeight = sheetState === "full" ? "280px" : "200px";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/50" onClick={onClose}>
-
-      {/* ===== MOBILE: Full-screen sheet ===== */}
+    <div
+      className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/50"
+      onClick={onClose}
+    >
+      {/* ===== MOBILE: Draggable bottom sheet ===== */}
       <div
-        className="flex md:hidden flex-col w-full bg-white rounded-t-[16px] overflow-hidden h-screen"
+        className="flex md:hidden flex-col w-full bg-white rounded-t-[20px] overflow-hidden"
+        style={{
+          height: sheetHeight,
+          transition: "height 0.35s cubic-bezier(0.32,0.72,0,1)",
+        }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Drag handle */}
-        <div className="flex items-center justify-center pt-[12px] pb-[4px] flex-none">
-          <div className="w-[40px] h-[4px] rounded-full bg-[#E0E0E0]" />
+        {/* Drag handle area — draggable */}
+        <div
+          className="flex items-center justify-center pt-[12px] pb-[10px] flex-none cursor-grab active:cursor-grabbing select-none"
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
+        >
+          <div className="w-[44px] h-[5px] rounded-full bg-[#DEDEDE]" />
         </div>
 
         {/* Photo carousel */}
-        <PhotoCarousel height="260px" />
+        <div
+          className="relative w-full flex-none bg-black overflow-hidden"
+          style={{
+            height: photoHeight,
+            transition: "height 0.35s cubic-bezier(0.32,0.72,0,1)",
+          }}
+        >
+          <img src={room.images[currentSlide]} alt={room.name} className="w-full h-full object-cover" />
+          <button onClick={prevSlide} className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[36px] h-[36px] flex items-center justify-center bg-white/80 hover:bg-white rounded-full transition-colors text-[#323232]">
+            <ArrowLeftIcon />
+          </button>
+          <button onClick={nextSlide} className="absolute right-[12px] top-1/2 -translate-y-1/2 w-[36px] h-[36px] flex items-center justify-center bg-white/80 hover:bg-white rounded-full transition-colors text-[#323232]">
+            <ArrowRightIcon />
+          </button>
+          <div className="absolute bottom-[12px] left-1/2 -translate-x-1/2 flex flex-row gap-[8px]">
+            {room.images.map((_, i) => (
+              <button key={i} onClick={() => setCurrentSlide(i)} className={`w-[8px] h-[8px] rounded-full transition-colors ${i === currentSlide ? "bg-white" : "bg-white/40"}`} />
+            ))}
+          </div>
+        </div>
 
         {/* Scrollable content */}
         <div className="flex flex-col overflow-y-auto p-[20px] gap-[16px]">
-          <RoomContent />
+          <h2 className="font-['Manrope'] text-[22px] font-normal text-[#323232] leading-[1.3]">{room.name}</h2>
+          <hr className="border-[#E5E5E5]" />
+
+          {/* Specs — single column */}
+          <div className="flex flex-col gap-[12px]">
+            <div className="flex flex-row items-center gap-[8px]">
+              <span className="text-[#666666]"><SizeIcon /></span>
+              <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.size}</span>
+            </div>
+            <div className="flex flex-row items-center gap-[8px]">
+              <span className="text-[#666666]"><GuestsIcon /></span>
+              <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.capacity}</span>
+            </div>
+            <div className="flex flex-row items-center gap-[8px]">
+              <span className="text-[#666666]"><BedIcon /></span>
+              <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.bedType}</span>
+            </div>
+            <div className="flex flex-row items-center gap-[8px]">
+              <span className="text-[#666666]"><PriceIcon /></span>
+              <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.price}</span>
+            </div>
+          </div>
+
+          <p className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.7]">{room.description}</p>
+
+          <div className="flex flex-col gap-[10px]">
+            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Amenities:</p>
+            <div className="flex flex-col gap-[8px]">
+              {room.amenities.map((a) => (
+                <div key={a} className="flex flex-row items-center gap-[6px] text-[#666666]">
+                  {amenityIcons[a] ?? <WifiIcon />}
+                  <span className="font-['Manrope'] text-[13px] text-[#323232]">{a}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-[10px]">
+            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Included services:</p>
+            <div className="flex flex-col gap-[8px]">
+              {room.services.map((service, i) => (
+                <div key={i} className="flex flex-row items-start gap-[8px]">
+                  <span className="flex-none mt-[1px]"><CheckCircleIcon /></span>
+                  <span className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.5]">{service}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-row gap-[12px] pt-[4px] pb-[8px]">
+            <button onClick={onClose} className="flex-1 h-[48px] flex items-center justify-center border border-[#323232]/30 rounded-[4px] font-['Manrope'] text-[12px] font-medium text-[#323232] uppercase tracking-[0.1em] hover:bg-black/5 transition-colors cursor-pointer">
+              Close
+            </button>
+            <button className="flex-1 h-[48px] flex items-center justify-center bg-[#9C8E7A] hover:bg-[#8a7c69] rounded-[4px] font-['Manrope'] text-[12px] font-medium text-white uppercase tracking-[0.1em] transition-colors cursor-pointer">
+              Reserve This Suite
+            </button>
+          </div>
         </div>
       </div>
 
@@ -220,14 +235,9 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
         className="hidden md:flex relative bg-white rounded-[12px] overflow-hidden flex-row w-full max-w-[980px] max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-[16px] right-[16px] z-10 w-[36px] h-[36px] flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-md transition-colors text-[#323232] cursor-pointer"
-        >
+        <button onClick={onClose} className="absolute top-[16px] right-[16px] z-10 w-[36px] h-[36px] flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-md transition-colors text-[#323232] cursor-pointer">
           <CloseIcon />
         </button>
-
         {/* LEFT: Image Gallery */}
         <div className="relative w-[52%] flex-none bg-black">
           <img src={room.images[currentSlide]} alt={room.name} className="w-full h-full object-cover" />
@@ -243,10 +253,43 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
             ))}
           </div>
         </div>
-
         {/* RIGHT: Room Details */}
         <div className="flex flex-col flex-1 overflow-y-auto p-[32px] gap-[20px]">
-          <RoomContent />
+          <h2 className="font-['Manrope'] text-[24px] font-normal text-[#323232] leading-[1.3]">{room.name}</h2>
+          <hr className="border-[#E5E5E5]" />
+          <div className="grid grid-cols-2 gap-y-[12px] gap-x-[16px]">
+            <div className="flex flex-row items-center gap-[8px]"><span className="text-[#666666]"><SizeIcon /></span><span className="font-['Manrope'] text-[14px] text-[#323232]">{room.size}</span></div>
+            <div className="flex flex-row items-center gap-[8px]"><span className="text-[#666666]"><BedIcon /></span><span className="font-['Manrope'] text-[14px] text-[#323232]">{room.bedType}</span></div>
+            <div className="flex flex-row items-center gap-[8px]"><span className="text-[#666666]"><GuestsIcon /></span><span className="font-['Manrope'] text-[14px] text-[#323232]">{room.capacity}</span></div>
+            <div className="flex flex-row items-center gap-[8px]"><span className="text-[#666666]"><PriceIcon /></span><span className="font-['Manrope'] text-[14px] text-[#323232]">{room.price}</span></div>
+          </div>
+          <p className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.7]">{room.description}</p>
+          <div className="flex flex-col gap-[10px]">
+            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Amenities:</p>
+            <div className="flex flex-row gap-[24px]">
+              {room.amenities.map((a) => (
+                <div key={a} className="flex flex-row items-center gap-[6px] text-[#666666]">
+                  {amenityIcons[a] ?? <WifiIcon />}
+                  <span className="font-['Manrope'] text-[13px] text-[#323232]">{a}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-[10px]">
+            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Included services:</p>
+            <div className="flex flex-col gap-[8px]">
+              {room.services.map((service, i) => (
+                <div key={i} className="flex flex-row items-start gap-[8px]">
+                  <span className="flex-none mt-[1px]"><CheckCircleIcon /></span>
+                  <span className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.5]">{service}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-row gap-[12px] mt-auto pt-[8px]">
+            <button onClick={onClose} className="flex-1 h-[48px] flex items-center justify-center border border-[#323232]/30 rounded-[4px] font-['Manrope'] text-[12px] font-medium text-[#323232] uppercase tracking-[0.1em] hover:bg-black/5 transition-colors cursor-pointer">Close</button>
+            <button className="flex-1 h-[48px] flex items-center justify-center bg-[#9C8E7A] hover:bg-[#8a7c69] rounded-[4px] font-['Manrope'] text-[12px] font-medium text-white uppercase tracking-[0.1em] transition-colors cursor-pointer">Reserve This Suite</button>
+          </div>
         </div>
       </div>
     </div>
