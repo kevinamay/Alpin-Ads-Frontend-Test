@@ -2,14 +2,11 @@ import { useState } from "react";
 import logoSvg from "../../assets/logoipsum.svg";
 import alpinLogo from "../../assets/Logo.svg";
 
-// Copy to clipboard icon
 const CopyIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
   </svg>
 );
-
-// Social icons
 const YoutubeIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
     <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#3a3a3a" />
@@ -41,7 +38,6 @@ const MailIcon = () => (
   </svg>
 );
 
-// Contact info row with copy button
 function ContactRow({ icon, value }: { icon: React.ReactNode; value: string }) {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
@@ -53,13 +49,9 @@ function ContactRow({ icon, value }: { icon: React.ReactNode; value: string }) {
     <div className="flex flex-row items-center justify-between gap-[12px] px-[16px] h-[48px] bg-white/5 border border-white/10 rounded-[4px]">
       <div className="flex flex-row items-center gap-[10px]">
         <span className="text-white/60">{icon}</span>
-        <span className="font-['Manrope'] text-[14px] text-white" style={{ color: '#FFFFFF' }}>{value}</span>
+        <span className="font-['Manrope'] text-[14px]" style={{ color: '#FFFFFF' }}>{value}</span>
       </div>
-      <button
-        onClick={handleCopy}
-        className="text-white/50 hover:text-white transition-colors cursor-pointer flex-none"
-        title="Copy"
-      >
+      <button onClick={handleCopy} className="text-white/50 hover:text-white transition-colors cursor-pointer flex-none" title="Copy">
         {copied ? <span className="text-[11px]">✓</span> : <CopyIcon />}
       </button>
     </div>
@@ -67,13 +59,74 @@ function ContactRow({ icon, value }: { icon: React.ReactNode; value: string }) {
 }
 
 export function Footer() {
+  const socialLinks = [
+    { icon: <YoutubeIcon />, label: "YouTube" },
+    { icon: <WhatsappIcon />, label: "WhatsApp" },
+    { icon: <InstagramIcon />, label: "Instagram" },
+    { icon: <FacebookIcon />, label: "Facebook" },
+  ];
+
   return (
     <footer id="contact" className="w-full max-w-[1440px] mx-auto bg-[#2D2D2D]">
-      {/* Tag footer sekarang mengunci background di 1440px dan rata tengah */}
 
-      {/* Bagian Atas Footer */}
-      <div className="w-full px-[20px] md:px-[24px] py-[40px] md:py-[54px] flex flex-col md:flex-row md:flex-wrap items-start justify-between gap-[32px] md:gap-[40px]">
+      {/* ========== MOBILE LAYOUT ========== */}
+      <div className="flex md:hidden flex-col px-[20px] py-[40px] gap-[32px]">
 
+        {/* Logo + Address — centered */}
+        <div className="flex flex-col items-center gap-[16px]">
+          <img src={logoSvg} alt="Logoipsum" style={{ width: "200px", height: "auto" }} />
+          <div className="flex flex-col items-center gap-[2px]">
+            <p className="font-['Manrope'] text-[14px] text-white/60 leading-[1.5]">San Valentino,</p>
+            <p className="font-['Manrope'] text-[14px] text-white/60 leading-[1.5]">South Tyrol, Italy.</p>
+          </div>
+        </div>
+
+        {/* Links + Legal — 2 columns side by side */}
+        <div className="flex flex-row gap-[16px]">
+          {/* Links */}
+          <div className="flex flex-col gap-[16px] flex-1">
+            <p className="font-['Montserrat'] text-[16px] font-medium text-white leading-[1.5]">Links</p>
+            <nav className="flex flex-col gap-[16px]">
+              {["Home", "Rooms", "Amenities", "Gallery"].map((item) => (
+                <a key={item} href={`#${item.toLowerCase()}`} className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]">
+                  {item}
+                </a>
+              ))}
+            </nav>
+          </div>
+          {/* Legal */}
+          <div className="flex flex-col gap-[16px] flex-1">
+            <p className="font-['Montserrat'] text-[16px] font-medium text-white leading-[1.5]">Legal</p>
+            <nav className="flex flex-col gap-[16px]">
+              {["Imprint", "Data Protection", "Privacy Settings", "Sitemap"].map((item) => (
+                <a key={item} href="#" className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]">
+                  {item}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+
+        {/* Contact */}
+        <div className="flex flex-col gap-[16px]">
+          <p className="font-['Manrope'] text-[14px] font-semibold text-white">Contact</p>
+          <div className="flex flex-col gap-[10px]">
+            <ContactRow icon={<PhoneIcon />} value="+43 123456789" />
+            <ContactRow icon={<MailIcon />} value="info@hotel.com" />
+          </div>
+          {/* Social icons */}
+          <div className="flex flex-row gap-[8px]">
+            {socialLinks.map(({ icon, label }) => (
+              <a key={label} href="#" aria-label={label} className="w-[40px] h-[40px] flex items-center justify-center bg-[#3A3A3A] rounded-[4px] text-white/70 hover:text-white hover:bg-[#4A4A4A] transition-colors">
+                {icon}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ========== DESKTOP LAYOUT ========== */}
+      <div className="hidden md:flex w-full px-[24px] py-[54px] flex-row flex-wrap items-start justify-between gap-[40px]">
         {/* Col 1: Logo + Address */}
         <div className="flex flex-col gap-[32px] flex-none">
           <img src={logoSvg} alt="Logoipsum" style={{ width: "224px", height: "100px" }} />
@@ -82,74 +135,44 @@ export function Footer() {
             <p className="font-['Manrope'] text-[14px] text-white/60 leading-[1.5]">South Tyrol, Italy.</p>
           </div>
         </div>
-
         {/* Col 2: Links */}
         <div className="flex flex-col gap-[20px] w-[128px]">
           <p className="font-['Montserrat'] text-[16px] font-medium text-white leading-[1.5]">Links</p>
           <nav className="flex flex-col gap-[20px]">
             {["Home", "Rooms", "Amenities", "Gallery"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]"
-              >
-                {item}
-              </a>
+              <a key={item} href={`#${item.toLowerCase()}`} className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]">{item}</a>
             ))}
           </nav>
         </div>
-
         {/* Col 3: Legals */}
         <div className="flex flex-col gap-[20px] w-[128px]">
           <p className="font-['Montserrat'] text-[16px] font-medium text-white leading-[1.5]">Legals</p>
           <nav className="flex flex-col gap-[20px]">
             {["Imprint", "Data Protection", "Privacy Settings", "Sitemap"].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]"
-              >
-                {item}
-              </a>
+              <a key={item} href="#" className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]">{item}</a>
             ))}
           </nav>
         </div>
-
         {/* Col 4: Contact */}
-        <div className="flex flex-col gap-[20px] w-full md:w-[260px] flex-none">
+        <div className="flex flex-col gap-[20px] w-[260px] flex-none">
           <p className="font-['Manrope'] text-[14px] font-semibold text-white">Contact</p>
           <div className="flex flex-col gap-[10px]">
             <ContactRow icon={<PhoneIcon />} value="+43 123456789" />
             <ContactRow icon={<MailIcon />} value="info@hotel.com" />
           </div>
-          {/* Social icons */}
           <div className="flex flex-row gap-[8px]">
-            {[
-              { icon: <YoutubeIcon />, label: "YouTube" },
-              { icon: <WhatsappIcon />, label: "WhatsApp" },
-              { icon: <InstagramIcon />, label: "Instagram" },
-              { icon: <FacebookIcon />, label: "Facebook" },
-            ].map(({ icon, label }) => (
-              <a
-                key={label}
-                href="#"
-                aria-label={label}
-                className="w-[40px] h-[40px] flex items-center justify-center bg-[#3A3A3A] rounded-[4px] text-white/70 hover:text-white hover:bg-[#4A4A4A] transition-colors"
-              >
-                {icon}
-              </a>
+            {socialLinks.map(({ icon, label }) => (
+              <a key={label} href="#" aria-label={label} className="w-[40px] h-[40px] flex items-center justify-center bg-[#3A3A3A] rounded-[4px] text-white/70 hover:text-white hover:bg-[#4A4A4A] transition-colors">{icon}</a>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Bagian Bawah Footer (Copyright) */}
+      {/* Bottom bar */}
       <div className="w-full border-t border-white/10">
-        <div className="w-full px-[20px] md:px-[24px] py-[20px] md:py-[24px] flex flex-col md:flex-row items-center justify-between gap-[12px] md:gap-[16px]">
-          <p className="font-['Manrope'] text-[13px] text-white/50">
-            © 2026 Hotel Ipsum
-          </p>
-          <div className="flex flex-col items-center md:items-end gap-[4px]">
+        <div className="w-full px-[20px] md:px-[24px] py-[20px] md:py-[24px] flex flex-col md:flex-row items-start md:items-center justify-between gap-[8px] md:gap-[16px]">
+          <p className="font-['Manrope'] text-[13px] text-white/50">© 2026 Hotel Ipsum</p>
+          <div className="flex flex-col items-start md:items-end gap-[4px]">
             <p className="font-['Manrope'] text-[11px] text-white/40">Design and Code by</p>
             <div className="flex flex-row items-center gap-[6px]">
               <img src={alpinLogo} alt="Alpin Ads" className="h-[20px] w-auto" />
