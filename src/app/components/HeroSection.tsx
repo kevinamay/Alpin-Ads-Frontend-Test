@@ -59,7 +59,10 @@ export function HeroSection() {
         </div>
 
         {/* Booking Bar */}
-        <div className="flex flex-col md:flex-row items-stretch bg-neutral-800/80 backdrop-blur-[100px] w-full md:w-fit md:mx-auto rounded-t-[8px] md:rounded-[8px] overflow-hidden">
+        <div
+          className="flex flex-col md:flex-row items-stretch bg-neutral-800/80 backdrop-blur-[100px] w-full md:w-fit md:mx-auto overflow-hidden mx-[16px] md:mx-auto md:w-auto w-[calc(100%-32px)]"
+          style={{ borderRadius: '8px 8px 0 0' }}
+        >
 
           {/* Guests */}
           <div className="flex items-center justify-between w-full md:w-[304px] h-[64px] py-[12px] px-[16px] border-b md:border-b-0 md:border-r border-white/20 cursor-pointer hover:bg-white/5 transition-colors group">
