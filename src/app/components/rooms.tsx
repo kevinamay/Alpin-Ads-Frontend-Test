@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Users, MoveHorizontal, ArrowLeft, ArrowRight } from "lucide-react";
 import Image1 from "../../assets/ImageWithFallback.png";
 import Image2 from "../../assets/ImageWithFallback(1).png";
@@ -85,6 +85,14 @@ const roomsData = [
 
 export function Rooms() {
   const [activeRoom, setActiveRoom] = useState<RoomPopupData | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({ left: -481, behavior: "smooth" });
+  };
+  const scrollRight = () => {
+    scrollRef.current?.scrollBy({ left: 481, behavior: "smooth" });
+  };
 
   return (
     <>
@@ -109,7 +117,7 @@ export function Rooms() {
           </div>
 
           {/* Cards Grid */}
-          <div className="flex flex-row gap-[16px] px-[32px] w-full justify-start">
+          <div ref={scrollRef} className="flex flex-row gap-[16px] px-[32px] w-full justify-start overflow-x-auto scroll-smooth hide-scrollbar">
             {roomsData.map((room, idx) => (
               <div key={idx} className="flex flex-col shrink-0 w-[465px] h-[545px] bg-white rounded-[8px] overflow-hidden">
                 <div className="relative w-full h-[327px]">
@@ -147,10 +155,10 @@ export function Rooms() {
 
           {/* Pagination Controls */}
           <div className="w-full flex flex-row items-center justify-center gap-[4px] h-[45px]">
-            <button className="flex items-center justify-center w-[45px] h-[45px] rounded-[8px] bg-[#A49781] opacity-50 backdrop-blur-[20px] hover:opacity-80 transition-opacity cursor-pointer">
+            <button onClick={scrollLeft} className="flex items-center justify-center w-[45px] h-[45px] rounded-[8px] bg-[#A49781] opacity-50 backdrop-blur-[20px] hover:opacity-80 transition-opacity cursor-pointer">
               <ArrowLeft className="w-[18px] h-[18px] text-[#323232]" strokeWidth={1.5} />
             </button>
-            <button className="flex items-center justify-center w-[45px] h-[45px] rounded-[8px] bg-[#A49781] backdrop-blur-[20px] hover:opacity-80 transition-opacity cursor-pointer">
+            <button onClick={scrollRight} className="flex items-center justify-center w-[45px] h-[45px] rounded-[8px] bg-[#A49781] backdrop-blur-[20px] hover:opacity-80 transition-opacity cursor-pointer">
               <ArrowRight className="w-[18px] h-[18px] text-white" strokeWidth={1.5} />
             </button>
           </div>
