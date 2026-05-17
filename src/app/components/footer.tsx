@@ -72,10 +72,11 @@ function ContactRow({ icon, value }: { icon: React.ReactNode; value: string }) {
 
 export function Footer() {
   return (
-    <footer id="contact" className="w-full bg-[#2D2D2D]">
+    <footer id="contact" className="w-full max-w-[1440px] mx-auto bg-[#2D2D2D]">
+      {/* Tag footer sekarang mengunci background di 1440px dan rata tengah */}
 
-      {/* container-top: Horizontal, Fill 1376px (px-[32px] of 1440), Hug 208px, space-between */}
-      <div className="w-full max-w-[1440px] mx-auto px-[32px] py-[54px] flex flex-row items-start justify-between gap-[40px]">
+      {/* Bagian Atas Footer */}
+      <div className="w-full px-[24px] py-[54px] flex flex-row flex-wrap items-start justify-between gap-[40px]">
 
         {/* Col 1: Logo + Address */}
         <div className="flex flex-col gap-[32px] flex-none">
@@ -146,13 +147,13 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
+      {/* Bagian Bawah Footer (Copyright) */}
       <div className="w-full border-t border-white/10">
-        <div className="w-full max-w-[1440px] mx-auto px-[32px] py-[24px] flex flex-row items-center justify-between">
+        <div className="w-full px-[24px] py-[24px] flex flex-row items-center justify-between flex-wrap gap-[16px]">
           <p className="font-['Manrope'] text-[13px] text-white/50">
             © 2026 Hotel Ipsum
           </p>
-          <div className="flex flex-col items-end gap-[4px]">
+          <div className="flex flex-col items-center md:items-end gap-[4px]">
             <p className="font-['Manrope'] text-[11px] text-white/40">Design and Code by</p>
             <div className="flex flex-row items-center gap-[6px]">
               <AlpinAdsIcon />
