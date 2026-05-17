@@ -5,42 +5,42 @@ import bgImage from "../../assets/photo-1683962808565-9c7fb094d183.avif";
 // SVG Icons (inline to avoid dependency issues)
 const UserIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
   </svg>
 );
 const MailIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+    <rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
   </svg>
 );
 const PhoneIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
   </svg>
 );
 const CalendarIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
+    <rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" />
   </svg>
 );
 const GuestsIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
   </svg>
 );
 const BedIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>
+    <path d="M2 4v16" /><path d="M2 8h18a2 2 0 0 1 2 2v10" /><path d="M2 17h20" /><path d="M6 8v9" />
   </svg>
 );
 const ChevronDownIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="m6 9 6 6 6-6"/>
+    <path d="m6 9 6 6 6-6" />
   </svg>
 );
 const CheckIcon = () => (
   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="20 6 9 17 4 12"/>
+    <polyline points="20 6 9 17 4 12" />
   </svg>
 );
 
@@ -89,9 +89,11 @@ export function Reserve() {
   };
 
   return (
+    // PERUBAHAN UTAMA: Menambahkan `max-w-[1440px] mx-auto` agar sejajar dengan Hero Section.
+    // Menghapus px-[40px] karena akan membatasi background, kita pindahkan ke container form di bawah
     <section
       id="reserve"
-      className="w-full relative flex flex-col items-center justify-center py-[120px] px-[40px]"
+      className="w-full max-w-[1440px] mx-auto relative flex flex-col items-center justify-center py-[120px]"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
@@ -102,8 +104,8 @@ export function Reserve() {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/30" />
 
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-[640px] flex flex-col items-center gap-[40px]">
+      {/* Content Container - Menambahkan px-[24px] agar padding kiri kanan sama persis dengan Hero */}
+      <div className="relative z-10 w-full max-w-[800px] px-[24px] flex flex-col items-center gap-[40px]">
         {/* Text group: badge + heading + subtitle */}
         <div className="flex flex-col items-center">
           <p className="font-['Manrope'] text-[14px] text-white/80 mb-[12px] tracking-widest">
@@ -116,21 +118,22 @@ export function Reserve() {
             Fill out the form below, and our team will get back to you within 24 hours with a non-binding offer tailored to your needs.
           </p>
         </div>
+
         {/* White Form Card */}
         <form
           onSubmit={onSubmit}
-          className="w-full bg-white rounded-[8px] p-[24px] flex flex-col gap-[24px]"
+          className="w-full bg-white rounded-[8px] p-[24px] md:p-[40px] flex flex-col gap-[24px]"
         >
           {/* === YOUR DETAILS === */}
           <div className="flex flex-col gap-[12px]">
             <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
               Your Details
             </p>
-            <div className="grid grid-cols-2 gap-[12px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
               <FormField icon={<UserIcon />} placeholder="First Name" />
               <FormField icon={<UserIcon />} placeholder="Last Name" />
             </div>
-            <div className="grid grid-cols-2 gap-[12px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
               <FormField icon={<MailIcon />} placeholder="Email Address" type="email" />
               <FormField icon={<PhoneIcon />} placeholder="Phone Number" type="tel" />
             </div>
@@ -141,7 +144,7 @@ export function Reserve() {
             <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
               Stay
             </p>
-            <div className="grid grid-cols-2 gap-[12px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
               <FormField icon={<CalendarIcon />} placeholder="Arrival & Departure" />
               <FormField icon={<GuestsIcon />} placeholder="Guests" />
             </div>
@@ -159,12 +162,12 @@ export function Reserve() {
             </div>
           </div>
 
-          {/* === ADD-ONS (labeled as "Your Details" in design) === */}
+          {/* === ADD-ONS === */}
           <div className="flex flex-col gap-[12px]">
             <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
               Your Details
             </p>
-            <div className="grid grid-cols-2 gap-[12px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
               <CheckboxField
                 label="Airport Transfer"
                 checked={selectedExtras.includes("Airport Transfer")}
@@ -196,12 +199,12 @@ export function Reserve() {
             <textarea
               rows={4}
               placeholder="Anniversary, dietary preferences, arrival time..."
-              className="w-full px-[16px] py-[14px] bg-[#F8F8F8] border border-[#E5E5E5] rounded-[4px] outline-none font-['Manrope'] text-[14px] text-[#323232] placeholder:text-[#999999] resize-none"
+              className="w-full px-[16px] py-[14px] bg-white border border-[#E5E5E5] rounded-[4px] outline-none font-['Manrope'] text-[14px] text-[#323232] placeholder:text-[#999999] resize-none"
             />
           </div>
 
           {/* === SUBMIT === */}
-          <div className="flex justify-end">
+          <div className="flex justify-end mt-[8px]">
             <button
               type="submit"
               className="px-[32px] py-[14px] bg-[#9C8E7A] hover:bg-[#8a7c69] transition-colors font-['Manrope'] text-[13px] font-medium text-white uppercase tracking-[0.1em] rounded-[4px] cursor-pointer"
