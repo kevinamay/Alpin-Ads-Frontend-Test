@@ -66,12 +66,23 @@ export function VisualMemories() {
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300" />
               {/* See All Photos label */}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-[10px]">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/>
-                  <path d="m21 15-5-5L5 21"/>
-                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                {/* Icon 26×22px as per Figma */}
+                <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="0.75" y="0.75" width="24.5" height="20.5" rx="1.25" stroke="white" strokeWidth="1.5"/>
+                  <path d="M0.75 15.5L7.5 9L13.5 15L18 11L25.25 18.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="8" cy="6.5" r="2" fill="white"/>
                 </svg>
-                <span className="font-['Manrope'] text-white text-[16px] font-normal tracking-[0.06em] uppercase underline underline-offset-4">
+                {/* Text: Manrope 24px, letter-spacing -1%, underline, white */}
+                <span
+                  className="font-['Manrope'] font-normal text-[#FFFFFF]"
+                  style={{
+                    fontSize: "24px",
+                    lineHeight: "150%",
+                    letterSpacing: "-0.01em",
+                    textDecoration: "underline",
+                    textDecorationStyle: "solid",
+                  }}
+                >
                   See All Photos
                 </span>
               </div>
