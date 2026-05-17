@@ -41,7 +41,7 @@ const MailIcon = () => (
 );
 const AlpinAdsIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 20L12 4l9 16H3z"/><path d="M7 16h10"/>
+    <path d="M3 20L12 4l9 16H3z" /><path d="M7 16h10" />
   </svg>
 );
 
@@ -72,14 +72,16 @@ function ContactRow({ icon, value }: { icon: React.ReactNode; value: string }) {
 
 export function Footer() {
   return (
-    <footer id="contact" className="w-full bg-[#2D2D2D]">
-      {/* Main footer content */}
-      <div className="w-full max-w-[1440px] mx-auto px-[40px] py-[60px] flex flex-row items-start justify-between gap-[40px]">
+    // PERUBAHAN UTAMA: Footer dikunci maksimal 1440px dan rata tengah
+    <footer id="contact" className="w-full max-w-[1440px] mx-auto bg-[#2D2D2D]">
+
+      {/* Main footer content - Padding diubah jadi px-[24px] md:px-[60px] lg:px-[120px] agar mirip komponen lainnya */}
+      <div className="w-full py-[60px] px-[24px] flex flex-col md:flex-row flex-wrap items-start justify-between gap-[40px]">
 
         {/* Col 1: Logo + Address */}
-        <div className="flex flex-col gap-[40px] w-[220px] flex-none">
+        <div className="flex flex-col gap-[40px] w-full md:w-[220px] flex-none">
           <div className="flex flex-row items-center gap-[10px]">
-            <img src={logoSvg} alt="Logoipsum" className="h-[40px]" />
+            <img src={logoSvg} alt="Logoipsum" style={{ width: "224px", height: "100px" }} />
           </div>
           <div className="flex flex-col gap-[4px]">
             <p className="font-['Manrope'] text-[14px] text-white/60 leading-[1.5]">San Valentino,</p>
@@ -88,7 +90,7 @@ export function Footer() {
         </div>
 
         {/* Col 2: Links */}
-        <div className="flex flex-col gap-[20px]">
+        <div className="flex flex-col gap-[20px] w-[120px]">
           <p className="font-['Manrope'] text-[14px] font-semibold text-white">Links</p>
           <nav className="flex flex-col gap-[12px]">
             {["Home", "Rooms", "Amenities", "Gallery"].map((item) => (
@@ -104,7 +106,7 @@ export function Footer() {
         </div>
 
         {/* Col 3: Legals */}
-        <div className="flex flex-col gap-[20px]">
+        <div className="flex flex-col gap-[20px] w-[120px]">
           <p className="font-['Manrope'] text-[14px] font-semibold text-white">Legals</p>
           <nav className="flex flex-col gap-[12px]">
             {["Imprint", "Data Protection", "Privacy Settings", "Sitemap"].map((item) => (
@@ -120,7 +122,7 @@ export function Footer() {
         </div>
 
         {/* Col 4: Contact */}
-        <div className="flex flex-col gap-[20px] w-[260px] flex-none">
+        <div className="flex flex-col gap-[20px] w-full md:w-[260px] flex-none">
           <p className="font-['Manrope'] text-[14px] font-semibold text-white">Contact</p>
           <div className="flex flex-col gap-[10px]">
             <ContactRow icon={<PhoneIcon />} value="+43 123456789" />
@@ -147,13 +149,13 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
+      {/* Bottom bar - Padding diubah ke px-[24px] agar sejajar */}
       <div className="w-full border-t border-white/10">
-        <div className="w-full max-w-[1440px] mx-auto px-[40px] py-[24px] flex flex-row items-center justify-between">
+        <div className="w-full px-[24px] py-[24px] flex flex-col md:flex-row items-center justify-between gap-[16px]">
           <p className="font-['Manrope'] text-[13px] text-white/50">
             © 2026 Hotel Ipsum
           </p>
-          <div className="flex flex-col items-end gap-[4px]">
+          <div className="flex flex-col items-center md:items-end gap-[4px]">
             <p className="font-['Manrope'] text-[11px] text-white/40">Design and Code by</p>
             <div className="flex flex-row items-center gap-[6px]">
               <AlpinAdsIcon />
