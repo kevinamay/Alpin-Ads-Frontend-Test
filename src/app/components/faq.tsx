@@ -26,29 +26,33 @@ export const Faq = () => {
   ];
 
   return (
-    <section id="faq" className="w-full max-w-[1440px] mx-auto bg-[#F4F3F0]">
-      {/* Warna abu-abu sekarang dikunci maksimal di 1440px dan posisinya di tengah (mx-auto) */}
+    <section id="faq" className="w-full bg-[#F4F3F0]">
+      <div className="w-full max-w-[1440px] mx-auto py-[80px] px-[32px] flex flex-row items-start gap-[80px]">
 
-      {/* Container untuk mengatur jarak (padding) konten di dalamnya */}
-      <div className="w-full min-h-[698px] py-[80px] px-[24px] md:px-[60px] lg:px-[120px] flex flex-row items-start gap-[60px] lg:gap-[80px]">
+        {/* Kolom Kiri: title frame — Fill × Fill (458px), gap 32px */}
+        <div className="flex flex-col flex-1 gap-[32px]" style={{ maxWidth: "648px" }}>
 
-        {/* Kolom Kiri: Teks dan Gambar */}
-        <div className="flex flex-col w-[45%]">
-          <h2 className="font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4] mb-[12px]">
-            Frequently Asked Questions
-          </h2>
-          <p className="font-['Manrope'] text-[16px] text-[#666666] leading-[1.5] mb-[40px] pr-[20px]">
-            Answers to the most common questions, so you can focus on enjoying your time with us.
-          </p>
+          {/* Frame 2147234721 — Fill × Hug (96px), gap 16px */}
+          <div className="flex flex-col gap-[16px]">
+            <h2 className="font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4]">
+              Frequently Asked Questions
+            </h2>
+            <p className="font-['Manrope'] text-[16px] text-[#666666] leading-[1.5]">
+              Answers to the most common questions, so you can focus on enjoying your time with us.
+            </p>
+          </div>
+
+          {/* Image: 648px × 330px */}
           <img
             src={faqImage}
             alt="Hotel Room Interior"
-            className="w-full h-[330px] object-cover rounded-sm"
+            className="w-full object-cover rounded-sm"
+            style={{ height: "330px" }}
           />
         </div>
 
         {/* Kolom Kanan: Accordion FAQ */}
-        <div className="flex flex-col w-[55%]">
+        <div className="flex flex-col flex-1">
           <Accordion type="single" collapsible defaultValue="item-0" className="w-full flex flex-col gap-[16px]">
             {faqs.map((faq, index) => (
               <AccordionItem
