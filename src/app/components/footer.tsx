@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logoSvg from "../../assets/logoipsum.svg";
+import alpinLogo from "../../assets/Logo.svg";
 
 // Copy to clipboard icon
 const CopyIcon = () => (
@@ -37,11 +38,6 @@ const PhoneIcon = () => (
 const MailIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-  </svg>
-);
-const AlpinAdsIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 20L12 4l9 16H3z" /><path d="M7 16h10" />
   </svg>
 );
 
@@ -156,7 +152,7 @@ export function Footer() {
           <div className="flex flex-col items-center md:items-end gap-[4px]">
             <p className="font-['Manrope'] text-[11px] text-white/40">Design and Code by</p>
             <div className="flex flex-row items-center gap-[6px]">
-              <AlpinAdsIcon />
+              <img src={alpinLogo} alt="Alpin Ads" className="h-[20px] w-auto" />
               <span className="font-['Manrope'] text-[16px] font-extrabold text-white tracking-[0.05em] uppercase">
                 ALPIN ADS
               </span>
