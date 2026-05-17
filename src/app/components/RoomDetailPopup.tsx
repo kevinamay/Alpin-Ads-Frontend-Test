@@ -1,5 +1,4 @@
 import { useState } from "react";
-import roomImage from "../../assets/image11.png";
 
 // Icons
 const ArrowLeftIcon = () => (
@@ -52,63 +51,69 @@ const CheckCircleIcon = () => (
     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" />
   </svg>
 );
-const CloseIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="18" x2="6" y1="6" y2="18" /><line x1="6" x2="18" y1="6" y2="18" />
-  </svg>
-);
 
-// The modal images (using the single provided asset for all slides)
-const images = [roomImage, roomImage, roomImage];
+export interface RoomPopupData {
+  name: string;
+  images: string[];
+  size: string;
+  bedType: string;
+  capacity: string;
+  price: string;
+  description: string;
+  amenities: string[];
+  services: string[];
+}
 
 interface RoomDetailPopupProps {
   isOpen: boolean;
   onClose: () => void;
+  room: RoomPopupData | null;
 }
 
-export function RoomDetailPopup({ isOpen, onClose }: RoomDetailPopupProps) {
+export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  if (!isOpen) return null;
+  if (!isOpen || !room) return null;
 
-  const prevSlide = () => setCurrentSlide((p) => (p - 1 + images.length) % images.length);
-  const nextSlide = () => setCurrentSlide((p) => (p + 1) % images.length);
+  const prevSlide = () => setCurrentSlide((p) => (p - 1 + room.images.length) % room.images.length);
+  const nextSlide = () => setCurrentSlide((p) => (p + 1) % room.images.length);
+
+  const amenityIcons: Record<string, JSX.Element> = {
+    "Bathtub": <BathtubIcon />,
+    "Wifi": <WifiIcon />,
+    "Mini Bar": <MiniBarIcon />,
+  };
 
   return (
-    // Backdrop
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-[24px]"
       onClick={onClose}
     >
-      {/* Modal Card */}
       <div
         className="relative bg-white rounded-[12px] overflow-hidden flex flex-row w-full max-w-[980px] max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* LEFT: Image Gallery (723px) */}
+        {/* LEFT: Image Gallery */}
         <div className="relative w-[52%] flex-none bg-black">
           <img
-            src={images[currentSlide]}
-            alt="Suite"
+            src={room.images[currentSlide]}
+            alt={room.name}
             className="w-full h-full object-cover"
           />
-          {/* Prev button */}
           <button
             onClick={prevSlide}
             className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[40px] h-[40px] flex items-center justify-center bg-white/80 hover:bg-white rounded-full transition-colors text-[#323232]"
           >
             <ArrowLeftIcon />
           </button>
-          {/* Next button */}
           <button
             onClick={nextSlide}
             className="absolute right-[16px] top-1/2 -translate-y-1/2 w-[40px] h-[40px] flex items-center justify-center bg-white/80 hover:bg-white rounded-full transition-colors text-[#323232]"
           >
             <ArrowRightIcon />
           </button>
-          {/* Dot indicators */}
           <div className="absolute bottom-[20px] left-1/2 -translate-x-1/2 flex flex-row gap-[8px]">
-            {images.map((_, i) => (
+            {room.images.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrentSlide(i)}
@@ -120,9 +125,8 @@ export function RoomDetailPopup({ isOpen, onClose }: RoomDetailPopupProps) {
 
         {/* RIGHT: Room Details */}
         <div className="flex flex-col flex-1 overflow-y-auto p-[32px] gap-[20px]">
-          {/* Title */}
           <h2 className="font-['Manrope'] text-[24px] font-normal text-[#323232] leading-[1.3]">
-            Summit Royal Suite
+            {room.name}
           </h2>
           <hr className="border-[#E5E5E5]" />
 
@@ -130,43 +134,37 @@ export function RoomDetailPopup({ isOpen, onClose }: RoomDetailPopupProps) {
           <div className="grid grid-cols-2 gap-y-[12px] gap-x-[16px]">
             <div className="flex flex-row items-center gap-[8px]">
               <span className="text-[#666666]"><SizeIcon /></span>
-              <span className="font-['Manrope'] text-[14px] text-[#323232]">75 m²</span>
+              <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.size}</span>
             </div>
             <div className="flex flex-row items-center gap-[8px]">
               <span className="text-[#666666]"><BedIcon /></span>
-              <span className="font-['Manrope'] text-[14px] text-[#323232]">King Size Luxury Bed</span>
+              <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.bedType}</span>
             </div>
             <div className="flex flex-row items-center gap-[8px]">
               <span className="text-[#666666]"><GuestsIcon /></span>
-              <span className="font-['Manrope'] text-[14px] text-[#323232]">2 – 4 Guests</span>
+              <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.capacity}</span>
             </div>
             <div className="flex flex-row items-center gap-[8px]">
               <span className="text-[#666666]"><PriceIcon /></span>
-              <span className="font-['Manrope'] text-[14px] text-[#323232]">€450 / night</span>
+              <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.price}</span>
             </div>
           </div>
 
           {/* Description */}
           <p className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.7]">
-            Experience the pinnacle of Alpine luxury. Located on the highest floor of Hotel L'Aura, the Summit Royal Suite offers an expansive living area with a private open fireplace and a freestanding designer bathtub with direct views of the Dolomites. The suite is furnished with hand-carved stone and local Swiss pine wood, known for its calming properties.
+            {room.description}
           </p>
 
           {/* Amenities */}
           <div className="flex flex-col gap-[10px]">
             <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Amenities:</p>
             <div className="flex flex-row gap-[24px]">
-              <div className="flex flex-row items-center gap-[6px] text-[#666666]">
-                <BathtubIcon />
-                <span className="font-['Manrope'] text-[13px] text-[#323232]">Bathtub</span>
-              </div>
-              <div className="flex flex-row items-center gap-[6px] text-[#666666]">
-                <WifiIcon />
-                <span className="font-['Manrope'] text-[13px] text-[#323232]">Wifi</span>
-              </div>
-              <div className="flex flex-row items-center gap-[6px] text-[#666666]">
-                <MiniBarIcon />
-                <span className="font-['Manrope'] text-[13px] text-[#323232]">Mini Bar</span>
-              </div>
+              {room.amenities.map((a) => (
+                <div key={a} className="flex flex-row items-center gap-[6px] text-[#666666]">
+                  {amenityIcons[a] ?? <WifiIcon />}
+                  <span className="font-['Manrope'] text-[13px] text-[#323232]">{a}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -174,11 +172,7 @@ export function RoomDetailPopup({ isOpen, onClose }: RoomDetailPopupProps) {
           <div className="flex flex-col gap-[10px]">
             <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Included services:</p>
             <div className="flex flex-col gap-[8px]">
-              {[
-                "Complimentary bottle of South Tyrolean sparkling wine upon arrival.",
-                "Reserved parking space in our underground garage.",
-                "Daily \"Gourmet Breakfast\" served in the suite upon request.",
-              ].map((service, i) => (
+              {room.services.map((service, i) => (
                 <div key={i} className="flex flex-row items-start gap-[8px]">
                   <span className="flex-none mt-[1px]"><CheckCircleIcon /></span>
                   <span className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.5]">{service}</span>
