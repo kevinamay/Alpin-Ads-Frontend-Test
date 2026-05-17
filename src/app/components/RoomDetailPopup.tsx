@@ -1,5 +1,4 @@
-import { useState } from "react";
-import type React from "react";
+import { useState, type ReactElement } from "react";
 
 // Icons
 const ArrowLeftIcon = () => (
@@ -79,7 +78,7 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
   const prevSlide = () => setCurrentSlide((p) => (p - 1 + room.images.length) % room.images.length);
   const nextSlide = () => setCurrentSlide((p) => (p + 1) % room.images.length);
 
-  const amenityIcons: Record<string, React.ReactElement> = {
+  const amenityIcons: Record<string, ReactElement> = {
     "Bathtub": <BathtubIcon />,
     "Wifi": <WifiIcon />,
     "Mini Bar": <MiniBarIcon />,
