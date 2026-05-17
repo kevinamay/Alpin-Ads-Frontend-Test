@@ -26,8 +26,8 @@ export const Faq = () => {
   ];
 
   return (
-    <section id="faq" className="w-full h-[698px] bg-[#F4F3F0] flex flex-col justify-center">
-      <div className="w-full max-w-[1440px] mx-auto px-[40px] flex flex-row items-start gap-[80px]">
+    <section id="faq" className="w-full bg-[#F4F3F0]">
+      <div className="w-full max-w-[1440px] mx-auto py-[80px] px-[40px] flex flex-row items-start gap-[80px]">
         {/* Left Column */}
         <div className="flex flex-col flex-1">
           <h2 className="font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4] mb-[12px]">
