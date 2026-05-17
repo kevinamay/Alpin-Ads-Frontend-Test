@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import BedroomPhoto from '../../assets/Andergassen-Druck-11011.png';
 import ExteriorPhoto from '../../assets/image(2).png';
-import CityscapePhoto from '../../assets/image44.png';
+import CityscapePhoto from '../../assets/image 44 (1).png';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const photos = [CityscapePhoto, BedroomPhoto, ExteriorPhoto];
