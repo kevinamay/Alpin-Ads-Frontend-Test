@@ -106,12 +106,12 @@ export function Reserve() {
 
       {/* Content Container - Menambahkan px-[24px] agar padding kiri kanan sama persis dengan Hero */}
       <div className="relative z-10 w-full max-w-[800px] px-[24px] flex flex-col items-center gap-[40px]">
-        {/* Text group: badge + heading + subtitle */}
-        <div className="flex flex-col items-center">
-          <p className="font-['Manrope'] text-[14px] text-white/80 mb-[12px] tracking-widest">
+        {/* container-text: Fixed 1440px × 140px, px-40px, gap-12px */}
+        <div className="w-full flex flex-col items-center justify-center px-[40px] gap-[12px]" style={{ minHeight: "140px" }}>
+          <p className="font-['Manrope'] text-[14px] text-white/80 tracking-widest">
             - Plan Your Stay -
           </p>
-          <h2 className="font-['Manrope'] text-[48px] font-normal text-white leading-[1.2] text-center mb-[12px]">
+          <h2 className="font-['Manrope'] text-[48px] font-normal text-white leading-[1.2] text-center">
             Request a Personal Quote
           </h2>
           <p className="font-['Manrope'] text-[14px] text-white/80 text-center max-w-[520px]">

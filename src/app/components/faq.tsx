@@ -61,12 +61,12 @@ export const Faq = () => {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-white rounded-sm border-none px-[24px]"
+                className="bg-white rounded-[8px] border-none px-[24px]"
               >
                 <AccordionTrigger className="hover:no-underline py-[20px] font-['Manrope'] font-normal text-[16px] text-[#323232] text-left">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="font-['Manrope'] text-[16px] text-[#666666] leading-[1.5] pb-[20px]">
+                <AccordionContent className="font-['Manrope'] text-[16px] text-[#666666] leading-[1.5] pb-[20px] pt-0 mt-0">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
