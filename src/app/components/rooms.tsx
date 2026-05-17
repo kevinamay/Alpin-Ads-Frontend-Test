@@ -60,7 +60,7 @@ const roomsData = [
   {
     name: "Family Alpine Lodge",
     price: "€380 / night",
-    img: Image3,
+    img: FamilyImage,
     desc: "Two separate bedrooms and a spacious living area, perfect for mountain families.",
     capacity: "4 Guests",
     size: "65 m²",
