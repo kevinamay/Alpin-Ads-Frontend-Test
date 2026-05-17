@@ -1,48 +1,85 @@
 import { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
-import { Checkbox } from "./ui/checkbox";
 import { toast } from "sonner";
-import { User, Mail, Phone, BedDouble } from "lucide-react";
-import { DateRangeField, GuestsField, type Guests } from "./booking-fields";
-import type { DateRange } from "react-day-picker";
+import bgImage from "../../assets/photo-1683962808565-9c7fb094d183.avif";
 
-const extras = ["Airport transfer", "Spa package", "Private dining", "Yacht excursion"];
+// SVG Icons (inline to avoid dependency issues)
+const UserIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+  </svg>
+);
+const MailIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </svg>
+);
+const PhoneIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </svg>
+);
+const CalendarIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
+  </svg>
+);
+const GuestsIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </svg>
+);
+const BedIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>
+  </svg>
+);
+const ChevronDownIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m6 9 6 6 6-6"/>
+  </svg>
+);
+const CheckIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+);
 
-const fieldClass =
-  "h-12 rounded-full border-border bg-muted/30 pl-11 pr-4 focus-visible:bg-background";
-
-function IconInput({
-  icon,
-  ...props
-}: React.InputHTMLAttributes<HTMLInputElement> & { icon: React.ReactNode }) {
+// Reusable input field with left icon
+function FormField({ icon, placeholder, type = "text" }: { icon: React.ReactNode; placeholder: string; type?: string }) {
   return (
-    <div className="relative">
-      <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">
-        {icon}
-      </span>
-      <Input {...props} className={fieldClass} />
+    <div className="flex flex-row items-center gap-[12px] px-[16px] h-[52px] bg-white border border-[#E5E5E5] rounded-[4px] w-full">
+      <span className="text-[#999999] flex-none">{icon}</span>
+      <input
+        type={type}
+        placeholder={placeholder}
+        className="flex-1 bg-transparent outline-none border-none font-['Manrope'] text-[14px] text-[#323232] placeholder:text-[#999999]"
+      />
     </div>
+  );
+}
+
+// Checkbox item
+function CheckboxField({ label, checked, onChange }: { label: string; checked: boolean; onChange: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onChange}
+      className="flex flex-row items-center gap-[12px] px-[16px] h-[52px] bg-white border border-[#E5E5E5] rounded-[4px] w-full text-left"
+    >
+      <div className={`w-[18px] h-[18px] border rounded-[3px] flex items-center justify-center flex-none transition-colors ${checked ? "bg-[#323232] border-[#323232]" : "border-[#CCCCCC] bg-white"}`}>
+        {checked && <span className="text-white"><CheckIcon /></span>}
+      </div>
+      <span className="font-['Manrope'] text-[14px] text-[#323232]">{label}</span>
+    </button>
   );
 }
 
 export function Reserve() {
   const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
-  const [dateRange, setDateRange] = useState<DateRange | undefined>();
-  const [guests, setGuests] = useState<Guests>({ adults: 2, children: 0 });
 
   const toggleExtra = (extra: string) => {
     setSelectedExtras((prev) =>
-      prev.includes(extra) ? prev.filter((e) => e !== extra) : [...prev, extra],
+      prev.includes(extra) ? prev.filter((e) => e !== extra) : [...prev, extra]
     );
   };
 
@@ -52,93 +89,129 @@ export function Reserve() {
   };
 
   return (
-    <section id="reserve" className="bg-muted/40 py-24">
-      <div className="mx-auto max-w-4xl px-6">
-        <div className="mb-10 text-center">
-          <div className="mb-3 tracking-widest uppercase text-muted-foreground">Reservations</div>
-          <h2 className="mb-3" style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)" }}>
-            Plan your stay
-          </h2>
-          <p className="text-muted-foreground">
-            Tell us a little about your trip and our concierge will craft a tailored proposal.
-          </p>
-        </div>
+    <section
+      id="reserve"
+      className="w-full relative flex flex-col items-center justify-center py-[80px] px-[40px]"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/40" />
 
-        <form onSubmit={onSubmit} className="space-y-8 rounded-3xl border bg-background p-8 shadow-sm md:p-10">
-          <div>
-            <div className="mb-4 tracking-widest uppercase text-muted-foreground" style={{ fontSize: 11 }}>
-              Your details
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-[640px] flex flex-col items-center">
+        {/* Badge */}
+        <p className="font-['Manrope'] text-[14px] text-white/80 mb-[12px] tracking-widest">
+          - Plan Your Stay -
+        </p>
+
+        {/* Heading */}
+        <h2 className="font-['Manrope'] text-[48px] font-normal text-white leading-[1.2] text-center mb-[12px]">
+          Request a Personal Quote
+        </h2>
+
+        {/* Sub-heading */}
+        <p className="font-['Manrope'] text-[14px] text-white/80 text-center mb-[32px] max-w-[520px]">
+          Fill out the form below, and our team will get back to you within 24 hours with a non-binding offer tailored to your needs.
+        </p>
+
+        {/* White Form Card */}
+        <form
+          onSubmit={onSubmit}
+          className="w-full bg-white rounded-[8px] p-[24px] flex flex-col gap-[24px]"
+        >
+          {/* === YOUR DETAILS === */}
+          <div className="flex flex-col gap-[12px]">
+            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
+              Your Details
+            </p>
+            <div className="grid grid-cols-2 gap-[12px]">
+              <FormField icon={<UserIcon />} placeholder="First Name" />
+              <FormField icon={<UserIcon />} placeholder="Last Name" />
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <IconInput icon={<User className="h-4 w-4" />} placeholder="First name" required />
-              <IconInput icon={<User className="h-4 w-4" />} placeholder="Last name" required />
-              <IconInput icon={<Mail className="h-4 w-4" />} type="email" placeholder="Email address" required />
-              <IconInput icon={<Phone className="h-4 w-4" />} type="tel" placeholder="Phone number" />
+            <div className="grid grid-cols-2 gap-[12px]">
+              <FormField icon={<MailIcon />} placeholder="Email Address" type="email" />
+              <FormField icon={<PhoneIcon />} placeholder="Phone Number" type="tel" />
             </div>
           </div>
 
-          <div>
-            <div className="mb-4 tracking-widest uppercase text-muted-foreground" style={{ fontSize: 11 }}>
+          {/* === STAY === */}
+          <div className="flex flex-col gap-[12px]">
+            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
               Stay
+            </p>
+            <div className="grid grid-cols-2 gap-[12px]">
+              <FormField icon={<CalendarIcon />} placeholder="Arrival & Departure" />
+              <FormField icon={<GuestsIcon />} placeholder="Guests" />
             </div>
-            <div className="grid gap-3 md:grid-cols-2">
-              <DateRangeField dateRange={dateRange} onChange={setDateRange} />
-              <GuestsField value={guests} onChange={setGuests} />
-            </div>
-            <div className="mt-3">
-              <Label htmlFor="rRoom" className="sr-only">Room type</Label>
-              <Select defaultValue="sea">
-                <SelectTrigger id="rRoom" className="h-12 w-full rounded-full px-4">
-                  <span className="flex items-center gap-3">
-                    <BedDouble className="h-4 w-4 text-muted-foreground" />
-                    <SelectValue />
-                  </span>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="garden">Garden Suite</SelectItem>
-                  <SelectItem value="sea">Sea View Suite</SelectItem>
-                  <SelectItem value="villa">Cliffside Villa</SelectItem>
-                </SelectContent>
-              </Select>
+            {/* Select Room */}
+            <div className="flex flex-row items-center gap-[12px] px-[16px] h-[52px] bg-white border border-[#E5E5E5] rounded-[4px] w-full">
+              <span className="text-[#999999] flex-none"><BedIcon /></span>
+              <select className="flex-1 bg-transparent outline-none border-none font-['Manrope'] text-[14px] text-[#999999] appearance-none cursor-pointer">
+                <option value="" disabled selected>Select Room</option>
+                <option value="garden">Garden Suite</option>
+                <option value="sea">Sea View Suite</option>
+                <option value="villa">Cliffside Villa</option>
+                <option value="deluxe">Deluxe Room</option>
+              </select>
+              <span className="text-[#999999] flex-none"><ChevronDownIcon /></span>
             </div>
           </div>
 
-          <div>
-            <div className="mb-4 tracking-widest uppercase text-muted-foreground" style={{ fontSize: 11 }}>
-              Optional add-ons
-            </div>
-            <div className="grid gap-2 sm:grid-cols-2">
-              {extras.map((extra) => {
-                const active = selectedExtras.includes(extra);
-                return (
-                  <label
-                    key={extra}
-                    className={`flex cursor-pointer items-center gap-3 rounded-full border px-4 py-3 transition-colors ${
-                      active ? "border-foreground bg-foreground/5" : "border-border hover:bg-muted/40"
-                    }`}
-                  >
-                    <Checkbox checked={active} onCheckedChange={() => toggleExtra(extra)} />
-                    <span>{extra}</span>
-                  </label>
-                );
-              })}
+          {/* === ADD-ONS (labeled as "Your Details" in design) === */}
+          <div className="flex flex-col gap-[12px]">
+            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
+              Your Details
+            </p>
+            <div className="grid grid-cols-2 gap-[12px]">
+              <CheckboxField
+                label="Airport Transfer"
+                checked={selectedExtras.includes("Airport Transfer")}
+                onChange={() => toggleExtra("Airport Transfer")}
+              />
+              <CheckboxField
+                label="Spa package"
+                checked={selectedExtras.includes("Spa package")}
+                onChange={() => toggleExtra("Spa package")}
+              />
+              <CheckboxField
+                label="Private dinning"
+                checked={selectedExtras.includes("Private dinning")}
+                onChange={() => toggleExtra("Private dinning")}
+              />
+              <CheckboxField
+                label="Yacht excursion"
+                checked={selectedExtras.includes("Yacht excursion")}
+                onChange={() => toggleExtra("Yacht excursion")}
+              />
             </div>
           </div>
 
-          <div>
-            <div className="mb-4 tracking-widest uppercase text-muted-foreground" style={{ fontSize: 11 }}>
-              Special requests
-            </div>
-            <Textarea
+          {/* === SPECIAL REQUESTS === */}
+          <div className="flex flex-col gap-[12px]">
+            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
+              Special Requests
+            </p>
+            <textarea
               rows={4}
-              placeholder="Anniversary, dietary preferences, arrival time…"
-              className="rounded-2xl bg-muted/30"
+              placeholder="Anniversary, dietary preferences, arrival time..."
+              className="w-full px-[16px] py-[14px] bg-[#F8F8F8] border border-[#E5E5E5] rounded-[4px] outline-none font-['Manrope'] text-[14px] text-[#323232] placeholder:text-[#999999] resize-none"
             />
           </div>
 
-          <Button type="submit" size="lg" className="w-full rounded-full md:w-auto md:px-10">
-            Submit request
-          </Button>
+          {/* === SUBMIT === */}
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="px-[32px] py-[14px] bg-[#9C8E7A] hover:bg-[#8a7c69] transition-colors font-['Manrope'] text-[13px] font-medium text-white uppercase tracking-[0.1em] rounded-[4px] cursor-pointer"
+            >
+              Submit Request
+            </button>
+          </div>
         </form>
       </div>
     </section>
