@@ -47,7 +47,7 @@ const CheckIcon = () => (
 // Reusable input field with left icon
 function FormField({ icon, placeholder, type = "text" }: { icon: React.ReactNode; placeholder: string; type?: string }) {
   return (
-    <div className="flex flex-row items-center gap-[12px] px-[16px] h-[52px] bg-white border border-[#E5E5E5] rounded-[4px] w-full">
+    <div className="flex flex-row items-center gap-[12px] px-[16px] h-[56px] bg-white border border-[#323232]/10 rounded-[8px] w-full">
       <span className="text-[#999999] flex-none">{icon}</span>
       <input
         type={type}
@@ -64,7 +64,7 @@ function CheckboxField({ label, checked, onChange }: { label: string; checked: b
     <button
       type="button"
       onClick={onChange}
-      className="flex flex-row items-center gap-[12px] px-[16px] h-[52px] bg-white border border-[#E5E5E5] rounded-[4px] w-full text-left"
+      className="flex flex-row items-center gap-[12px] px-[16px] h-[56px] bg-white border border-[#323232]/10 rounded-[8px] w-full text-left"
     >
       <div className={`w-[18px] h-[18px] border rounded-[3px] flex items-center justify-center flex-none transition-colors ${checked ? "bg-[#323232] border-[#323232]" : "border-[#CCCCCC] bg-white"}`}>
         {checked && <span className="text-white"><CheckIcon /></span>}
@@ -137,8 +137,8 @@ export function Reserve() {
           className="w-full bg-white rounded-[8px] p-[20px] flex flex-col gap-[32px]"
         >
           {/* === YOUR DETAILS === */}
-          <div className="flex flex-col gap-[12px]">
-            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
+          <div className="flex flex-col gap-[16px]">
+            <p className="font-['Manrope'] text-[16px] font-normal text-[#323232] leading-[1.4]">
               Your Details
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
@@ -152,8 +152,8 @@ export function Reserve() {
           </div>
 
           {/* === STAY === */}
-          <div className="flex flex-col gap-[12px]">
-            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
+          <div className="flex flex-col gap-[16px]">
+            <p className="font-['Manrope'] text-[16px] font-normal text-[#323232] leading-[1.4]">
               Stay
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
@@ -161,7 +161,7 @@ export function Reserve() {
               <FormField icon={<GuestsIcon />} placeholder="Guests" />
             </div>
             {/* Select Room */}
-            <div className="flex flex-row items-center gap-[12px] px-[16px] h-[52px] bg-white border border-[#E5E5E5] rounded-[4px] w-full">
+            <div className="flex flex-row items-center gap-[12px] px-[16px] h-[56px] bg-white border border-[#323232]/10 rounded-[8px] w-full">
               <span className="text-[#999999] flex-none"><BedIcon /></span>
               <select className="flex-1 bg-transparent outline-none border-none font-['Manrope'] text-[14px] text-[#999999] appearance-none cursor-pointer">
                 <option value="" disabled selected>Select Room</option>
@@ -176,7 +176,7 @@ export function Reserve() {
 
           {/* === ADD-ONS === */}
           <div className="flex flex-col gap-[12px]">
-            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
+            <p className="font-['Manrope'] text-[16px] font-normal text-[#323232] leading-[1.4]">
               Your Details
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
@@ -204,8 +204,8 @@ export function Reserve() {
           </div>
 
           {/* === SPECIAL REQUESTS === */}
-          <div className="flex flex-col gap-[12px]">
-            <p className="font-['Manrope'] text-[13px] font-medium text-[#323232] uppercase tracking-[0.08em]">
+          <div className="flex flex-col gap-[16px]">
+            <p className="font-['Manrope'] text-[16px] font-normal text-[#323232] leading-[1.4]">
               Special Requests
             </p>
             <textarea
