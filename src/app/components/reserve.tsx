@@ -213,10 +213,9 @@ export function Reserve() {
               Special Requests
             </p>
             <textarea
-              rows={5}
               placeholder="Anniversary, dietary preferences, arrival time..."
               className="w-full px-[16px] py-[14px] bg-[#FAFAFA] border border-[#323232]/10 rounded-[8px] outline-none font-['Manrope'] text-[16px] text-[#323232] placeholder:text-[#323232] placeholder:opacity-50 resize-none leading-[1.5]"
-              style={{ letterSpacing: "-0.01em" }}
+              style={{ height: "175px", letterSpacing: "-0.01em" }}
             />
           </div>
 
@@ -224,7 +223,7 @@ export function Reserve() {
           <div className="flex justify-end mt-[8px]">
             <button
               type="submit"
-              className="px-[32px] py-[14px] bg-[#9C8E7A] hover:bg-[#8a7c69] transition-colors font-['Manrope'] text-[13px] font-medium text-white uppercase tracking-[0.1em] rounded-[4px] cursor-pointer"
+              className="flex flex-row items-center gap-[10px] px-[32px] py-[12px] h-[48px] bg-[#A49781] hover:bg-[#8f8470] transition-colors font-['Manrope'] text-[13px] font-medium text-white uppercase tracking-[0.1em] rounded-[4px] cursor-pointer"
             >
               Submit Request
             </button>
