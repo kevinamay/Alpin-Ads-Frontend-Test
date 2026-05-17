@@ -79,8 +79,7 @@ export function Footer() {
         {/* Col 1: Logo + Address */}
         <div className="flex flex-col gap-[40px] w-[220px] flex-none">
           <div className="flex flex-row items-center gap-[10px]">
-            <img src={logoSvg} alt="Logoipsum" className="h-[32px] brightness-0 invert" />
-            <span className="font-['Manrope'] text-[20px] font-semibold text-white">Logoipsum</span>
+            <img src={logoSvg} alt="Logoipsum" className="h-[40px]" />
           </div>
           <div className="flex flex-col gap-[4px]">
             <p className="font-['Manrope'] text-[14px] text-white/60 leading-[1.5]">San Valentino,</p>
