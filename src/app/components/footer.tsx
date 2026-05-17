@@ -95,7 +95,7 @@ export function Footer() {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="font-['Montserrat'] text-[16px] font-medium text-white/60 hover:text-white transition-colors"
+                className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]"
               >
                 {item}
               </a>
@@ -111,7 +111,7 @@ export function Footer() {
               <a
                 key={item}
                 href="#"
-                className="font-['Montserrat'] text-[16px] font-medium text-white/60 hover:text-white transition-colors"
+                className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]"
               >
                 {item}
               </a>
