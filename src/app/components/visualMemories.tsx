@@ -31,14 +31,32 @@ export function VisualMemories() {
           </div>
         </div>
 
-        {/* Mobile: 2×2 grid + full-width See All Photos */}
+        {/* Mobile: left tall + right 2-stacked + full-width See All */}
         <div className="flex md:hidden w-full flex-col gap-[0px]">
-          {/* 2×2 photo grid */}
-          <div className="grid grid-cols-2 gap-[4px] px-[20px]">
-            <img src={florenceImage} alt="Florence" className="w-full aspect-square object-cover rounded-[4px]" />
-            <img src={landscapeImage} alt="Landscape" className="w-full aspect-square object-cover rounded-[4px]" />
-            <img src={cinqueTerreImage} alt="Coastal town" className="w-full aspect-square object-cover rounded-[4px]" />
-            <img src={colosseumImage} alt="Colosseum" className="w-full aspect-square object-cover rounded-[4px]" />
+          {/* Top: 1 tall left + 2 stacked right */}
+          <div className="flex flex-row gap-[4px] px-[20px]">
+            {/* Left: tall single image */}
+            <img
+              src={cinqueTerreImage}
+              alt="Landscape"
+              className="flex-1 object-cover rounded-[4px]"
+              style={{ height: '380px' }}
+            />
+            {/* Right: 2 stacked */}
+            <div className="flex flex-1 flex-col gap-[4px]">
+              <img
+                src={landscapeImage}
+                alt="Golden hills"
+                className="w-full object-cover rounded-[4px]"
+                style={{ height: '188px' }}
+              />
+              <img
+                src={florenceImage}
+                alt="Coastal town"
+                className="w-full object-cover rounded-[4px]"
+                style={{ height: '188px' }}
+              />
+            </div>
           </div>
 
           {/* See All Photos — full width with bg image */}
