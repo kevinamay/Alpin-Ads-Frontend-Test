@@ -97,19 +97,19 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
       </h2>
       <hr className="border-[#E5E5E5]" />
 
-      {/* Specs */}
-      <div className="grid grid-cols-2 gap-y-[12px] gap-x-[16px]">
+      {/* Specs — single column list */}
+      <div className="flex flex-col gap-[12px]">
         <div className="flex flex-row items-center gap-[8px]">
           <span className="text-[#666666]"><SizeIcon /></span>
           <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.size}</span>
         </div>
         <div className="flex flex-row items-center gap-[8px]">
-          <span className="text-[#666666]"><BedIcon /></span>
-          <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.bedType}</span>
-        </div>
-        <div className="flex flex-row items-center gap-[8px]">
           <span className="text-[#666666]"><GuestsIcon /></span>
           <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.capacity}</span>
+        </div>
+        <div className="flex flex-row items-center gap-[8px]">
+          <span className="text-[#666666]"><BedIcon /></span>
+          <span className="font-['Manrope'] text-[14px] text-[#323232]">{room.bedType}</span>
         </div>
         <div className="flex flex-row items-center gap-[8px]">
           <span className="text-[#666666]"><PriceIcon /></span>
@@ -196,10 +196,9 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
   return (
     <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/50" onClick={onClose}>
 
-      {/* ===== MOBILE: Full-screen bottom sheet ===== */}
+      {/* ===== MOBILE: Full-screen sheet ===== */}
       <div
-        className="flex md:hidden flex-col w-full bg-white rounded-t-[16px] overflow-hidden"
-        style={{ maxHeight: '92vh' }}
+        className="flex md:hidden flex-col w-full bg-white rounded-t-[16px] overflow-hidden h-screen"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drag handle */}
