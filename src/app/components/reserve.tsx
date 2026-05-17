@@ -105,7 +105,7 @@ export function Reserve() {
       <div className="absolute inset-0 bg-black/30" />
 
       {/* Content Container - Menambahkan px-[24px] agar padding kiri kanan sama persis dengan Hero */}
-      <div className="relative z-10 w-full max-w-[800px] px-[24px] flex flex-col items-center gap-[40px]">
+      <div className="relative z-10 w-full max-w-[880px] px-[24px] flex flex-col items-center gap-[40px]">
         {/* container-text: w-full, px-40px, items-center */}
         <div className="w-full flex flex-col items-center px-[40px] gap-[12px]">
 
@@ -119,21 +119,22 @@ export function Reserve() {
               <span className="font-['Manrope'] text-[14px] text-white/80">-</span>
             </div>
 
-            <h2 className="font-['Manrope'] text-[48px] font-normal text-white leading-[1.2] text-center">
+            {/* Title: 40px, line-height 140%, #FFFFFF */}
+            <h2 className="font-['Manrope'] text-[40px] font-normal text-white leading-[1.4] text-center">
               Request a Personal Quote
             </h2>
           </div>
 
-          {/* Subtitle — separate from container-title */}
-          <p className="font-['Manrope'] text-[14px] text-white/80 text-center max-w-[520px]">
+          {/* Subtitle: 16px, line-height 150%, #FFFFFF */}
+          <p className="font-['Manrope'] text-[16px] font-normal text-white text-center leading-[1.5]">
             Fill out the form below, and our team will get back to you within 24 hours with a non-binding offer tailored to your needs.
           </p>
         </div>
 
-        {/* White Form Card */}
+        {/* form-card: Fixed 880px, radius 8px, padding 20px, gap 32px */}
         <form
           onSubmit={onSubmit}
-          className="w-full bg-white rounded-[8px] p-[24px] md:p-[40px] flex flex-col gap-[24px]"
+          className="w-full bg-white rounded-[8px] p-[20px] flex flex-col gap-[32px]"
         >
           {/* === YOUR DETAILS === */}
           <div className="flex flex-col gap-[12px]">
