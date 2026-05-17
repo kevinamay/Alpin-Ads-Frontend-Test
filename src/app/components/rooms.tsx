@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Users, MoveHorizontal, ArrowLeft, ArrowRight } from "lucide-react";
 import Image1 from "../../assets/ImageWithFallback.png";
 import Image2 from "../../assets/ImageWithFallback(1).png";
@@ -83,23 +83,52 @@ const roomsData = [
   },
 ];
 
+// Carousel constants
+const CARD_W = 465;
+const GAP = 16;
+const STEP = CARD_W + GAP; // 481px per card
+const LEFT_PAD = 32;       // left padding
+const total = roomsData.length; // 3
+
+// Triple the data for infinite loop: [copy1, real, copy2]
+const extendedRooms = [...roomsData, ...roomsData, ...roomsData];
+
 export function Rooms() {
   const [activeRoom, setActiveRoom] = useState<RoomPopupData | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const total = roomsData.length;
+  const [trackIdx, setTrackIdx] = useState(total); // start in middle section
+  const [animated, setAnimated] = useState(true);
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  const prev = () => setCurrentIndex((i) => (i - 1 + total) % total);
-  const next = () => setCurrentIndex((i) => (i + 1) % total);
+  const goNext = () => {
+    setAnimated(true);
+    setTrackIdx((i) => i + 1);
+  };
 
-  // Build an infinite visible window: show items [currentIndex, currentIndex+1, currentIndex+2]
-  const visibleRooms = [0, 1, 2].map((offset) => roomsData[(currentIndex + offset) % total]);
+  const goPrev = () => {
+    setAnimated(true);
+    setTrackIdx((i) => i - 1);
+  };
+
+  // Silent snap back to middle section when reaching clone edges
+  const onTransitionEnd = () => {
+    if (trackIdx >= total * 2) {
+      setAnimated(false);
+      setTrackIdx(trackIdx - total);
+    } else if (trackIdx < total) {
+      setAnimated(false);
+      setTrackIdx(trackIdx + total);
+    }
+  };
+
+  // Translate: align the card at trackIdx to left-pad position
+  const translateX = LEFT_PAD - trackIdx * STEP;
 
   return (
     <>
       <section id="rooms" className="w-full max-w-[1440px] mx-auto bg-[#F4F3F0] overflow-hidden flex flex-col items-center pt-[88px] pb-[88px] gap-[10px]">
         <div className="w-full flex flex-col items-center gap-[40px]">
 
-          {/* Header Section */}
+          {/* Header */}
           <div className="w-full px-[40px] flex flex-col items-center text-center gap-[12px]">
             <div className="w-full flex flex-col items-center gap-[8px]">
               <div className="flex flex-row items-center justify-center gap-[6px] w-fit h-[40px] py-[8px]">
@@ -116,49 +145,73 @@ export function Rooms() {
             </p>
           </div>
 
-          {/* Cards Carousel — infinite loop via index */}
-          <div className="flex flex-row gap-[16px] px-[32px] w-full justify-start transition-all duration-500">
-            {visibleRooms.map((room, idx) => (
-              <div key={`${currentIndex}-${idx}`} className="flex flex-col shrink-0 w-[465px] h-[545px] bg-white rounded-[8px] overflow-hidden animate-fade-in">
-                <div className="relative w-full h-[327px]">
-                  <img src={room.img} alt={room.name} className="w-full h-full object-cover" />
-                </div>
-                <div className="flex flex-col p-[12px] gap-[16px] flex-grow">
-                  <div className="flex flex-col gap-[12px]">
-                    <h3 className="w-full text-[20px] font-normal text-[#323232] leading-[1.5] font-['Manrope']">
-                      {room.name}
-                    </h3>
-                    <p className="w-full text-[#323232]/70 leading-[1.5] font-['Manrope'] text-[16px] font-normal">
-                      {room.desc}
-                    </p>
+          {/* Carousel Viewport */}
+          <div className="w-full overflow-hidden">
+            <div
+              ref={trackRef}
+              className="flex flex-row"
+              style={{
+                gap: `${GAP}px`,
+                transform: `translateX(${translateX}px)`,
+                transition: animated
+                  ? "transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+                  : "none",
+                willChange: "transform",
+              }}
+              onTransitionEnd={onTransitionEnd}
+            >
+              {extendedRooms.map((room, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col shrink-0 bg-white rounded-[8px] overflow-hidden"
+                  style={{ width: `${CARD_W}px`, height: "545px" }}
+                >
+                  <div className="relative w-full h-[327px]">
+                    <img src={room.img} alt={room.name} className="w-full h-full object-cover" />
                   </div>
-                  <div className="flex flex-row items-center gap-[12px] w-full h-[24px] mt-auto">
-                    <div className="flex items-center gap-[8px]">
-                      <Users className="w-[24px] h-[24px] text-[#323232]" strokeWidth={2} />
-                      <span className="font-['Manrope'] font-normal text-[16px] leading-[24px] text-[#323232]">{room.capacity}</span>
+                  <div className="flex flex-col p-[12px] gap-[16px] flex-grow">
+                    <div className="flex flex-col gap-[12px]">
+                      <h3 className="w-full text-[20px] font-normal text-[#323232] leading-[1.5] font-['Manrope']">
+                        {room.name}
+                      </h3>
+                      <p className="w-full text-[#323232]/70 leading-[1.5] font-['Manrope'] text-[16px] font-normal">
+                        {room.desc}
+                      </p>
                     </div>
-                    <div className="flex items-center gap-[8px]">
-                      <MoveHorizontal className="w-[24px] h-[24px] text-[#323232]" strokeWidth={2} />
-                      <span className="font-['Manrope'] font-normal text-[16px] leading-[24px] text-[#323232]">{room.size}</span>
+                    <div className="flex flex-row items-center gap-[12px] w-full h-[24px] mt-auto">
+                      <div className="flex items-center gap-[8px]">
+                        <Users className="w-[24px] h-[24px] text-[#323232]" strokeWidth={2} />
+                        <span className="font-['Manrope'] font-normal text-[16px] leading-[24px] text-[#323232]">{room.capacity}</span>
+                      </div>
+                      <div className="flex items-center gap-[8px]">
+                        <MoveHorizontal className="w-[24px] h-[24px] text-[#323232]" strokeWidth={2} />
+                        <span className="font-['Manrope'] font-normal text-[16px] leading-[24px] text-[#323232]">{room.size}</span>
+                      </div>
                     </div>
+                    <button
+                      onClick={() => setActiveRoom(room.popupData)}
+                      className="w-full h-[48px] flex items-center justify-center gap-[10px] py-[12px] px-[32px] border border-[#323232]/20 rounded-[4px] backdrop-blur-[20px] hover:bg-black/5 transition-colors text-[#323232] font-['Manrope'] font-normal text-[16px] leading-[1.5] tracking-[0.05em] uppercase cursor-pointer"
+                    >
+                      SEE DETAILS
+                    </button>
                   </div>
-                  <button
-                    onClick={() => setActiveRoom(room.popupData)}
-                    className="w-full h-[48px] flex items-center justify-center gap-[10px] py-[12px] px-[32px] border border-[#323232]/20 rounded-[4px] backdrop-blur-[20px] hover:bg-black/5 transition-colors text-[#323232] font-['Manrope'] font-normal text-[16px] leading-[1.5] tracking-[0.05em] uppercase cursor-pointer"
-                  >
-                    SEE DETAILS
-                  </button>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          {/* Pagination Controls */}
+          {/* Arrow Buttons */}
           <div className="w-full flex flex-row items-center justify-center gap-[4px] h-[45px]">
-            <button onClick={prev} className="flex items-center justify-center w-[45px] h-[45px] rounded-[8px] bg-[#A49781] opacity-70 backdrop-blur-[20px] hover:opacity-100 transition-opacity cursor-pointer">
+            <button
+              onClick={goPrev}
+              className="flex items-center justify-center w-[45px] h-[45px] rounded-[8px] bg-[#A49781] opacity-70 backdrop-blur-[20px] hover:opacity-100 transition-opacity cursor-pointer"
+            >
               <ArrowLeft className="w-[18px] h-[18px] text-white" strokeWidth={1.5} />
             </button>
-            <button onClick={next} className="flex items-center justify-center w-[45px] h-[45px] rounded-[8px] bg-[#A49781] backdrop-blur-[20px] hover:opacity-80 transition-opacity cursor-pointer">
+            <button
+              onClick={goNext}
+              className="flex items-center justify-center w-[45px] h-[45px] rounded-[8px] bg-[#A49781] backdrop-blur-[20px] hover:opacity-80 transition-opacity cursor-pointer"
+            >
               <ArrowRight className="w-[18px] h-[18px] text-white" strokeWidth={1.5} />
             </button>
           </div>
@@ -166,7 +219,6 @@ export function Rooms() {
         </div>
       </section>
 
-      {/* Room Detail Popup */}
       <RoomDetailPopup
         isOpen={activeRoom !== null}
         onClose={() => setActiveRoom(null)}
@@ -175,5 +227,3 @@ export function Rooms() {
     </>
   );
 }
-
-
