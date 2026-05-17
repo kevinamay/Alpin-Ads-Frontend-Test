@@ -5,6 +5,7 @@ import Image2 from "../../assets/ImageWithFallback(1).png";
 import Image3 from "../../assets/ImageWithFallback(2).png";
 import Image11 from "../../assets/image11.png";
 import LarchImage from "../../assets/01hd34rames8z8qtkt7cr6g4et.jpeg";
+import FamilyImage from "../../assets/01gepp0vtgsybhf010q3jnr7na.jpeg";
 import { RoomDetailPopup, type RoomPopupData } from "./RoomDetailPopup";
 
 const roomsData = [
@@ -65,7 +66,7 @@ const roomsData = [
     size: "65 m²",
     popupData: {
       name: "Family Alpine Lodge",
-      images: [Image3, Image3, Image3],
+      images: [FamilyImage, FamilyImage, FamilyImage],
       size: "65 m²",
       bedType: "Two Queen Beds",
       capacity: "Up to 4 Guests",
