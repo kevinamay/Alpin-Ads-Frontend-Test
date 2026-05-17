@@ -97,7 +97,7 @@ export function Reserve() {
     // Menghapus px-[40px] karena akan membatasi background, kita pindahkan ke container form di bawah
     <section
       id="reserve"
-      className="w-full max-w-[1440px] mx-auto relative flex flex-col items-center justify-center py-[120px]"
+      className="w-full max-w-[1440px] mx-auto relative flex flex-col items-center justify-center py-[60px] md:py-[120px]"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
@@ -109,9 +109,9 @@ export function Reserve() {
       <div className="absolute inset-0 bg-black/30" />
 
       {/* Content Container - Menambahkan px-[24px] agar padding kiri kanan sama persis dengan Hero */}
-      <div className="relative z-10 w-full max-w-[880px] px-[24px] flex flex-col items-center gap-[40px]">
+      <div className="relative z-10 w-full max-w-[880px] px-[16px] md:px-[24px] flex flex-col items-center gap-[40px]">
         {/* container-text: w-full, px-40px, items-center */}
-        <div className="w-full flex flex-col items-center px-[40px] gap-[12px]">
+        <div className="w-full flex flex-col items-center px-[0px] md:px-[40px] gap-[12px]">
 
           {/* container-title: Fill × Hug(104px), gap 8px — Badge + Heading */}
           <div className="flex flex-col items-center gap-[8px]">

@@ -72,7 +72,7 @@ export function Footer() {
       {/* Tag footer sekarang mengunci background di 1440px dan rata tengah */}
 
       {/* Bagian Atas Footer */}
-      <div className="w-full px-[24px] py-[54px] flex flex-row flex-wrap items-start justify-between gap-[40px]">
+      <div className="w-full px-[20px] md:px-[24px] py-[40px] md:py-[54px] flex flex-col md:flex-row md:flex-wrap items-start justify-between gap-[32px] md:gap-[40px]">
 
         {/* Col 1: Logo + Address */}
         <div className="flex flex-col gap-[32px] flex-none">
@@ -145,7 +145,7 @@ export function Footer() {
 
       {/* Bagian Bawah Footer (Copyright) */}
       <div className="w-full border-t border-white/10">
-        <div className="w-full px-[24px] py-[24px] flex flex-row items-center justify-between flex-wrap gap-[16px]">
+        <div className="w-full px-[20px] md:px-[24px] py-[20px] md:py-[24px] flex flex-col md:flex-row items-center justify-between gap-[12px] md:gap-[16px]">
           <p className="font-['Manrope'] text-[13px] text-white/50">
             © 2026 Hotel Ipsum
           </p>

@@ -27,14 +27,14 @@ export const Faq = () => {
 
   return (
     <section id="faq" className="w-full bg-[#F4F3F0]">
-      <div className="w-full max-w-[1440px] mx-auto py-[80px] px-[32px] flex flex-row items-start gap-[80px]">
+      <div className="w-full max-w-[1440px] mx-auto py-[60px] md:py-[80px] px-[20px] md:px-[32px] flex flex-col md:flex-row items-start gap-[40px] md:gap-[80px]">
 
         {/* Kolom Kiri: title frame — Fill × Fill (458px), gap 32px */}
         <div className="flex flex-col flex-1 gap-[32px]" style={{ maxWidth: "648px" }}>
 
           {/* Frame 2147234721 — Fill × Hug (96px), gap 16px */}
           <div className="flex flex-col gap-[16px]">
-            <h2 className="font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4]">
+            <h2 className="font-['Manrope'] text-[28px] md:text-[40px] text-[#323232] font-normal leading-[1.4]">
               Frequently Asked Questions
             </h2>
             <p
