@@ -106,14 +106,25 @@ export function Reserve() {
 
       {/* Content Container - Menambahkan px-[24px] agar padding kiri kanan sama persis dengan Hero */}
       <div className="relative z-10 w-full max-w-[800px] px-[24px] flex flex-col items-center gap-[40px]">
-        {/* container-text: Fixed 1440px × 140px, px-40px, gap-12px */}
-        <div className="w-full flex flex-col items-center justify-center px-[40px] gap-[12px]" style={{ minHeight: "140px" }}>
-          <p className="font-['Manrope'] text-[14px] text-white/80 tracking-widest">
-            - Plan Your Stay -
-          </p>
-          <h2 className="font-['Manrope'] text-[48px] font-normal text-white leading-[1.2] text-center">
-            Request a Personal Quote
-          </h2>
+        {/* container-text: w-full, px-40px, items-center */}
+        <div className="w-full flex flex-col items-center px-[40px] gap-[12px]">
+
+          {/* container-title: Fill × Hug(104px), gap 8px — Badge + Heading */}
+          <div className="flex flex-col items-center gap-[8px]">
+
+            {/* Badge: Horizontal, 130×40px, py-8px, gap-6px, Stripe=true */}
+            <div className="flex flex-row items-center gap-[6px] py-[8px]">
+              <span className="font-['Manrope'] text-[14px] text-white/80">-</span>
+              <span className="font-['Manrope'] text-[14px] text-white/80 tracking-widest">Plan Your Stay</span>
+              <span className="font-['Manrope'] text-[14px] text-white/80">-</span>
+            </div>
+
+            <h2 className="font-['Manrope'] text-[48px] font-normal text-white leading-[1.2] text-center">
+              Request a Personal Quote
+            </h2>
+          </div>
+
+          {/* Subtitle — separate from container-title */}
           <p className="font-['Manrope'] text-[14px] text-white/80 text-center max-w-[520px]">
             Fill out the form below, and our team will get back to you within 24 hours with a non-binding offer tailored to your needs.
           </p>
