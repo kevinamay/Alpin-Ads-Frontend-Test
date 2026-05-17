@@ -91,7 +91,7 @@ export function Reserve() {
   return (
     <section
       id="reserve"
-      className="w-full relative flex flex-col items-center justify-center py-[80px] px-[40px]"
+      className="w-full relative flex flex-col items-center justify-center py-[120px] px-[40px]"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
@@ -100,25 +100,22 @@ export function Reserve() {
       }}
     >
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/30" />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-[640px] flex flex-col items-center">
-        {/* Badge */}
-        <p className="font-['Manrope'] text-[14px] text-white/80 mb-[12px] tracking-widest">
-          - Plan Your Stay -
-        </p>
-
-        {/* Heading */}
-        <h2 className="font-['Manrope'] text-[48px] font-normal text-white leading-[1.2] text-center mb-[12px]">
-          Request a Personal Quote
-        </h2>
-
-        {/* Sub-heading */}
-        <p className="font-['Manrope'] text-[14px] text-white/80 text-center mb-[32px] max-w-[520px]">
-          Fill out the form below, and our team will get back to you within 24 hours with a non-binding offer tailored to your needs.
-        </p>
-
+      <div className="relative z-10 w-full max-w-[640px] flex flex-col items-center gap-[40px]">
+        {/* Text group: badge + heading + subtitle */}
+        <div className="flex flex-col items-center">
+          <p className="font-['Manrope'] text-[14px] text-white/80 mb-[12px] tracking-widest">
+            - Plan Your Stay -
+          </p>
+          <h2 className="font-['Manrope'] text-[48px] font-normal text-white leading-[1.2] text-center mb-[12px]">
+            Request a Personal Quote
+          </h2>
+          <p className="font-['Manrope'] text-[14px] text-white/80 text-center max-w-[520px]">
+            Fill out the form below, and our team will get back to you within 24 hours with a non-binding offer tailored to your needs.
+          </p>
+        </div>
         {/* White Form Card */}
         <form
           onSubmit={onSubmit}
