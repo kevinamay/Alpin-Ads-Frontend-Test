@@ -31,32 +31,32 @@ export function VisualMemories() {
           </div>
         </div>
 
-        {/* Mobile: left tall + right 2-stacked + full-width See All */}
-        <div className="flex md:hidden w-full flex-col gap-[0px]">
-          {/* Top: 1 tall left + 2 stacked right */}
+        {/* Mobile: 2-stacked LEFT + 1 tall RIGHT + full-width See All */}
+        <div className="flex md:hidden w-full flex-col">
+          {/* Top row: 2 stacked left + 1 tall right */}
           <div className="flex flex-row gap-[4px] px-[20px]">
-            {/* Left: tall single image */}
-            <img
-              src={cinqueTerreImage}
-              alt="Landscape"
-              className="flex-1 object-cover rounded-[4px]"
-              style={{ height: '380px' }}
-            />
-            {/* Right: 2 stacked */}
+            {/* Left: 2 images stacked */}
             <div className="flex flex-1 flex-col gap-[4px]">
               <img
-                src={landscapeImage}
-                alt="Golden hills"
+                src={florenceImage}
+                alt="Florence"
                 className="w-full object-cover rounded-[4px]"
                 style={{ height: '188px' }}
               />
               <img
-                src={florenceImage}
+                src={cinqueTerreImage}
                 alt="Coastal town"
                 className="w-full object-cover rounded-[4px]"
                 style={{ height: '188px' }}
               />
             </div>
+            {/* Right: 1 tall image */}
+            <img
+              src={landscapeImage}
+              alt="Golden landscape"
+              className="flex-1 object-cover rounded-[4px]"
+              style={{ height: '380px' }}
+            />
           </div>
 
           {/* See All Photos — full width with bg image */}
