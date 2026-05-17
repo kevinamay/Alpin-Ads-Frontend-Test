@@ -26,10 +26,10 @@ export const Faq = () => {
   ];
 
   return (
-    <section id="faq" className="w-full h-[698px] bg-[#F4F3F0] flex flex-col items-center justify-center">
-      <div className="w-full max-w-[1440px] mx-auto flex flex-row items-start justify-between px-[40px] gap-[80px]">
+    <section id="faq" className="w-full h-[698px] bg-[#F4F3F0] flex flex-col justify-center">
+      <div className="w-full max-w-[1440px] mx-auto flex flex-row items-start justify-center px-[40px] gap-[80px]">
         {/* Left Column */}
-        <div className="flex flex-col flex-1 w-full max-w-[648px]">
+        <div className="flex flex-col w-[648px] flex-none">
           <h2 className="font-['Manrope'] text-[40px] text-[#323232] font-normal leading-[1.4] mb-[12px]">
             Frequently Asked Questions
           </h2>
@@ -40,7 +40,7 @@ export const Faq = () => {
         </div>
 
         {/* Right Column (Accordion) */}
-        <div className="flex flex-col flex-1 w-full max-w-[648px]">
+        <div className="flex flex-col w-[648px] flex-none">
           <Accordion type="single" collapsible defaultValue="item-0" className="w-full flex flex-col gap-[16px]">
             {faqs.map((faq, index) => (
               <AccordionItem 
