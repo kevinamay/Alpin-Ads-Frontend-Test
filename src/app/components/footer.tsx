@@ -54,10 +54,10 @@ function ContactRow({ icon, value }: { icon: React.ReactNode; value: string }) {
     setTimeout(() => setCopied(false), 1500);
   };
   return (
-    <div className="flex flex-row items-center justify-between gap-[12px] px-[16px] h-[48px] bg-[#3A3A3A] rounded-[4px]">
+    <div className="flex flex-row items-center justify-between gap-[12px] px-[16px] h-[48px] bg-white/5 border border-white/10 rounded-[4px]">
       <div className="flex flex-row items-center gap-[10px]">
         <span className="text-white/60">{icon}</span>
-        <span className="font-['Manrope'] text-[14px] text-white">{value}</span>
+        <span className="font-['Manrope'] text-[14px] text-white" style={{ color: '#FFFFFF' }}>{value}</span>
       </div>
       <button
         onClick={handleCopy}
