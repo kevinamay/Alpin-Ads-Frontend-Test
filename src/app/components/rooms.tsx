@@ -4,6 +4,7 @@ import Image1 from "../../assets/ImageWithFallback.png";
 import Image2 from "../../assets/ImageWithFallback(1).png";
 import Image3 from "../../assets/ImageWithFallback(2).png";
 import Image11 from "../../assets/image11.png";
+import LarchImage from "../../assets/01hd34rames8z8qtkt7cr6g4et.jpeg";
 import { RoomDetailPopup, type RoomPopupData } from "./RoomDetailPopup";
 
 const roomsData = [
@@ -16,7 +17,7 @@ const roomsData = [
     size: "45 m²",
     popupData: {
       name: "Larch Junior Suite",
-      images: [Image1, Image1, Image1],
+      images: [LarchImage, LarchImage, LarchImage],
       size: "45 m²",
       bedType: "Double Bed",
       capacity: "2 Guests",
