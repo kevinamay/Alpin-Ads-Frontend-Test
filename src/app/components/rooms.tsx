@@ -12,7 +12,7 @@ const roomsData = [
   {
     name: "Larch Junior Suite",
     price: "€280 / night",
-    img: Image1,
+    img: LarchImage,
     desc: "Panoramic views with a private balcony and natural pine interiors.",
     capacity: "2 Guests",
     size: "45 m²",
@@ -36,7 +36,7 @@ const roomsData = [
   {
     name: "Summit Royal Suite",
     price: "€450 / night",
-    img: Image2,
+    img: Image11,
     desc: "Luxurious top-floor suite featuring an open fireplace and a freestanding bathtub.",
     capacity: "2-4 Guests",
     size: "75 m²",
