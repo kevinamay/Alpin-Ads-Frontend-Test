@@ -223,7 +223,7 @@ export function Reserve() {
           <div className="flex justify-end mt-[8px]">
             <button
               type="submit"
-              className="flex flex-row items-center gap-[10px] px-[32px] py-[12px] h-[48px] bg-[#A49781] hover:bg-[#8f8470] transition-colors font-['Manrope'] text-[13px] font-medium text-white uppercase tracking-[0.1em] rounded-[4px] cursor-pointer"
+              className="flex flex-row items-center gap-[10px] px-[32px] py-[12px] h-[48px] bg-[#A49781] hover:bg-[#8f8470] transition-colors font-['Manrope'] text-[16px] font-normal text-white uppercase tracking-[0.05em] rounded-[4px] cursor-pointer"
             >
               Submit Request
             </button>

@@ -88,14 +88,14 @@ export function Footer() {
         </div>
 
         {/* Col 2: Links */}
-        <div className="flex flex-col gap-[20px] w-[120px]">
-          <p className="font-['Manrope'] text-[14px] font-semibold text-white">Links</p>
-          <nav className="flex flex-col gap-[12px]">
+        <div className="flex flex-col gap-[20px] w-[128px]">
+          <p className="font-['Montserrat'] text-[16px] font-medium text-white leading-[1.5]">Links</p>
+          <nav className="flex flex-col gap-[20px]">
             {["Home", "Rooms", "Amenities", "Gallery"].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="font-['Manrope'] text-[14px] text-white/60 hover:text-white transition-colors"
+                className="font-['Montserrat'] text-[16px] font-medium text-white/60 hover:text-white transition-colors"
               >
                 {item}
               </a>
@@ -104,14 +104,14 @@ export function Footer() {
         </div>
 
         {/* Col 3: Legals */}
-        <div className="flex flex-col gap-[20px] w-[120px]">
-          <p className="font-['Manrope'] text-[14px] font-semibold text-white">Legals</p>
-          <nav className="flex flex-col gap-[12px]">
+        <div className="flex flex-col gap-[20px] w-[128px]">
+          <p className="font-['Montserrat'] text-[16px] font-medium text-white leading-[1.5]">Legals</p>
+          <nav className="flex flex-col gap-[20px]">
             {["Imprint", "Data Protection", "Privacy Settings", "Sitemap"].map((item) => (
               <a
                 key={item}
                 href="#"
-                className="font-['Manrope'] text-[14px] text-white/60 hover:text-white transition-colors"
+                className="font-['Montserrat'] text-[16px] font-medium text-white/60 hover:text-white transition-colors"
               >
                 {item}
               </a>
