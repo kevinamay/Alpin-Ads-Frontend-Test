@@ -26,11 +26,14 @@ export const Faq = () => {
   ];
 
   return (
-    <section id="faq" className="w-full bg-[#F4F3F0]">
-      <div className="w-full max-w-[1440px] mx-auto py-[60px] md:py-[80px] px-[20px] md:px-[32px] flex flex-col md:flex-row items-start gap-[40px] md:gap-[80px]">
+    // PERUBAHAN: Background abu-abu dikunci di max-w-1440px dan rata tengah.
+    <section id="faq" className="w-full max-w-[1440px] mx-auto bg-[#F4F3F0]">
+
+      {/* PERUBAHAN: Padding kiri-kanan dikembalikan menjadi px-[24px] di semua layar agar konsisten dengan Hero. */}
+      <div className="w-full py-[60px] md:py-[80px] px-[24px] flex flex-col md:flex-row items-start gap-[40px] md:gap-[80px]">
 
         {/* Kolom Kiri: title frame — Fill × Fill (458px), gap 32px */}
-        <div className="flex flex-col flex-1 gap-[32px]" style={{ maxWidth: "648px" }}>
+        <div className="flex flex-col flex-1 gap-[32px] w-full md:max-w-[648px]">
 
           {/* Frame 2147234721 — Fill × Hug (96px), gap 16px */}
           <div className="flex flex-col gap-[16px]">
@@ -49,19 +52,18 @@ export const Faq = () => {
           <img
             src={faqImage}
             alt="Hotel Room Interior"
-            className="w-full object-cover rounded-sm"
-            style={{ height: "330px" }}
+            className="w-full object-cover rounded-sm h-auto md:h-[330px]"
           />
         </div>
 
         {/* Kolom Kanan: Accordion FAQ */}
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1 w-full">
           <Accordion type="single" collapsible defaultValue="item-0" className="w-full flex flex-col gap-[20px]">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-white rounded-[8px] border-none px-[24px]"
+                className="bg-white rounded-[8px] border-none px-[16px] md:px-[24px]"
               >
                 <AccordionTrigger className="hover:no-underline py-[20px] font-['Manrope'] font-normal text-[16px] text-[#323232] text-left">
                   {faq.question}
