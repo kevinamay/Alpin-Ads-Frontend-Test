@@ -153,9 +153,6 @@ export function Footer() {
             <p className="font-['Manrope'] text-[11px] text-white/40">Design and Code by</p>
             <div className="flex flex-row items-center gap-[6px]">
               <img src={alpinLogo} alt="Alpin Ads" className="h-[20px] w-auto" />
-              <span className="font-['Manrope'] text-[16px] font-extrabold text-white tracking-[0.05em] uppercase">
-                ALPIN ADS
-              </span>
             </div>
           </div>
         </div>
