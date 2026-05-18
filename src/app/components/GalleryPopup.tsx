@@ -16,12 +16,12 @@ const CloseIcon = () => (
   </svg>
 );
 const ChevronLeft = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="m15 18-6-6 6-6" />
   </svg>
 );
 const ChevronRight = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="m9 18 6-6-6-6" />
   </svg>
 );
@@ -30,9 +30,9 @@ type Category = "All Photos" | "Rooms" | "Wellness" | "Culinary";
 
 const allPhotos: Record<Category, string[]> = {
   "All Photos": [img1, img2, img3, img4, img5, img6, img7, img8, img9],
-  "Rooms":      [img2, img3, img4],
-  "Wellness":   [img6, img7, img9],
-  "Culinary":   [img1, img5, img8],
+  "Rooms": [img2, img3, img4],
+  "Wellness": [img6, img7, img9],
+  "Culinary": [img1, img5, img8],
 };
 
 const categories: Category[] = ["All Photos", "Rooms", "Wellness", "Culinary"];
@@ -56,32 +56,46 @@ export function GalleryPopup({ isOpen, onClose }: GalleryPopupProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50"
-      style={{ background: "#2E2E2E" }}
+      className="fixed inset-0 z-50 flex justify-center"
+      style={{
+        backdropFilter: "blur(12px)",
+        background: "rgba(37, 38, 38, 0.4)"
+      }}
       onClick={onClose}
     >
-
       {/* ========== MOBILE LAYOUT ========== */}
       <div
-        className="flex md:hidden flex-col w-full h-full"
+        className="flex md:hidden flex-col w-full h-full relative max-w-[390px]"
+        style={{ background: "#2E2E2E" }}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Tombol Close */}
+        <button
+          onClick={onClose}
+          className="absolute top-[20.5px] right-[20px] w-[28px] h-[28px] flex items-center justify-center text-white/80 hover:text-white cursor-pointer z-50"
+        >
+          <CloseIcon />
+        </button>
 
-        {/* Top bar: Filter tabs (scrollable) + X button */}
-        <div className="relative flex-none w-full" style={{ background: "#2E2E2E" }}>
-          {/* Scrollable tabs row — right-padded so last tab doesn't go under X */}
+        <div className="flex flex-col w-full mt-[110px] px-[16px] gap-[16px] pb-[32px] overflow-y-auto">
+
+          {/* Scrollable Tabs (DIJAMIN BISA DI-SWIPE KANAN KIRI) */}
           <div
-            className="flex flex-row items-center gap-[8px] pl-[16px] pr-[60px] py-[12px] overflow-x-auto"
-            style={{ scrollbarWidth: "none" }}
+            className="flex flex-row items-center gap-[12px] w-full overflow-x-auto flex-nowrap touch-pan-x [&::-webkit-scrollbar]:hidden"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch" // Efek momentum scroll yang mulus di iOS
+            }}
           >
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => handleCategoryChange(cat)}
-                className={`flex-none h-[32px] px-[14px] rounded-full text-[13px] font-['Manrope'] font-medium transition-colors cursor-pointer whitespace-nowrap
+                className={`flex-none h-[48px] px-[20px] py-[12px] rounded-[16px] text-[16px] font-['Manrope'] font-normal leading-[24px] transition-colors cursor-pointer whitespace-nowrap border flex items-center justify-center
                   ${activeCategory === cat
-                    ? "bg-white text-[#2E2E2E]"
-                    : "bg-transparent border border-white/50 text-white/90 hover:border-white"
+                    ? "bg-[#FFFFFF] border-transparent text-[#252626]"
+                    : "bg-transparent border-[#FFFFFF]/60 text-white hover:border-[#FFFFFF]"
                   }`}
               >
                 {cat}
@@ -89,89 +103,86 @@ export function GalleryPopup({ isOpen, onClose }: GalleryPopupProps) {
             ))}
           </div>
 
-          {/* X button — absolute at right of tab row */}
-          <button
-            onClick={onClose}
-            className="absolute right-[12px] top-1/2 -translate-y-1/2 w-[36px] h-[36px] flex items-center justify-center text-white/80 hover:text-white cursor-pointer z-10"
+          {/* Main Photo */}
+          <div className="w-full h-[400px] rounded-[8px] overflow-hidden bg-[#222222] flex-none">
+            <img
+              key={`${activeCategory}-${activeIdx}`}
+              src={photos[activeIdx]}
+              alt={`Photo ${activeIdx + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Thumbnails Strip (DIJAMIN BISA DI-SWIPE KANAN KIRI) */}
+          <div
+            className="flex flex-row gap-[8px] w-full flex-none overflow-x-auto flex-nowrap touch-pan-x h-[83.5px] [&::-webkit-scrollbar]:hidden"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch" // Efek momentum scroll yang mulus di iOS
+            }}
           >
-            <CloseIcon />
-          </button>
-        </div>
+            {photos.map((src, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIdx(i)}
+                className={`flex-none rounded-[6px] overflow-hidden transition-all cursor-pointer border-2 
+                  ${i === activeIdx ? "border-white opacity-100" : "border-transparent opacity-60 hover:opacity-100"}`}
+                style={{ width: "83.5px", height: "83.5px" }}
+              >
+                <img src={src} alt={`thumb-${i}`} className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
 
-        {/* Main photo — fills all remaining vertical space */}
-        <div className="flex-1 w-full overflow-hidden min-h-0" style={{ background: "#2E2E2E" }}>
-          <img
-            key={`${activeCategory}-${activeIdx}`}
-            src={photos[activeIdx]}
-            alt={`Photo ${activeIdx + 1}`}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Thumbnails strip — horizontal scroll */}
-        <div
-          className="flex flex-row gap-[6px] px-[12px] py-[10px] flex-none overflow-x-auto"
-          style={{ background: "#222222", scrollbarWidth: "none" }}
-        >
-          {photos.map((src, i) => (
+          {/* Navigation Bar */}
+          <div className="flex flex-row items-center justify-center gap-[40px] w-full h-[52px] flex-none">
             <button
-              key={i}
-              onClick={() => setActiveIdx(i)}
-              className={`flex-none rounded-[3px] overflow-hidden transition-all cursor-pointer
-                ${i === activeIdx ? "ring-2 ring-white opacity-100" : "opacity-55 hover:opacity-85"}`}
-              style={{ width: "60px", height: "44px" }}
+              onClick={goPrev}
+              className="w-[48px] h-[48px] flex items-center justify-center bg-white/15 hover:bg-white/30 rounded-[12px] text-white transition-colors cursor-pointer"
             >
-              <img src={src} alt={`thumb-${i}`} className="w-full h-full object-cover" />
+              <ChevronLeft />
             </button>
-          ))}
-        </div>
+            <span className="font-['Manrope'] text-[20px] font-normal text-white min-w-[48px] text-center">
+              {activeIdx + 1} / {total}
+            </span>
+            <button
+              onClick={goNext}
+              className="w-[48px] h-[48px] flex items-center justify-center bg-white/15 hover:bg-white/30 rounded-[12px] text-white transition-colors cursor-pointer"
+            >
+              <ChevronRight />
+            </button>
+          </div>
 
-        {/* Navigation bar */}
-        <div
-          className="flex flex-row items-center justify-center gap-[24px] py-[12px] flex-none"
-          style={{ background: "#222222" }}
-        >
-          <button
-            onClick={goPrev}
-            className="w-[36px] h-[36px] flex items-center justify-center bg-white/15 hover:bg-white/30 rounded-[6px] text-white transition-colors cursor-pointer"
-          >
-            <ChevronLeft />
-          </button>
-          <span className="font-['Manrope'] text-[14px] text-white min-w-[48px] text-center">
-            {activeIdx + 1} / {total}
-          </span>
-          <button
-            onClick={goNext}
-            className="w-[36px] h-[36px] flex items-center justify-center bg-white/15 hover:bg-white/30 rounded-[6px] text-white transition-colors cursor-pointer"
-          >
-            <ChevronRight />
-          </button>
         </div>
       </div>
 
       {/* ========== DESKTOP LAYOUT ========== */}
       <div
-        className="hidden md:flex flex-col items-center justify-center w-full h-full gap-[16px] px-[24px]"
+        className="hidden md:flex flex-col items-center justify-center w-full h-full gap-[24px] px-[24px] relative"
+        style={{ background: "#2E2E2E" }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-[20px] right-[24px] w-[36px] h-[36px] flex items-center justify-center text-white/80 hover:text-white cursor-pointer z-10"
+          className="absolute top-[24px] right-[24px] w-[36px] h-[36px] flex items-center justify-center text-white/80 hover:text-white cursor-pointer z-10"
         >
           <CloseIcon />
         </button>
 
-        {/* Category Tabs */}
-        <div className="flex flex-row items-center gap-[8px]">
+        {/* Category Tabs (Desktop) */}
+        <div
+          className="flex flex-row items-center gap-[12px] overflow-x-auto w-full max-w-[800px] justify-center [&::-webkit-scrollbar]:hidden"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => handleCategoryChange(cat)}
-              className={`h-[36px] px-[18px] rounded-full text-[13px] font-['Manrope'] font-medium transition-colors cursor-pointer
-                ${activeCategory === cat
-                  ? "bg-white text-[#323232]"
-                  : "bg-transparent border border-white/50 text-white hover:border-white hover:text-white"
+              className={`h-[48px] px-[24px] py-[12px] rounded-[16px] text-[16px] font-['Manrope'] font-normal leading-[24px] transition-colors cursor-pointer whitespace-nowrap border flex items-center justify-center flex-none
+               ${activeCategory === cat
+                  ? "bg-[#FFFFFF] border-transparent text-[#252626]"
+                  : "bg-transparent border-[#FFFFFF]/60 text-white hover:border-[#FFFFFF]"
                 }`}
             >
               {cat}
@@ -180,8 +191,8 @@ export function GalleryPopup({ isOpen, onClose }: GalleryPopupProps) {
         </div>
 
         {/* Main Image */}
-        <div className="w-full max-w-[760px]">
-          <div className="w-full aspect-[4/3] rounded-[8px] overflow-hidden bg-black">
+        <div className="w-full max-w-[800px]">
+          <div className="w-full aspect-[16/9] rounded-[12px] overflow-hidden bg-black">
             <img
               key={`${activeCategory}-${activeIdx}`}
               src={photos[activeIdx]}
@@ -191,17 +202,17 @@ export function GalleryPopup({ isOpen, onClose }: GalleryPopupProps) {
           </div>
         </div>
 
-        {/* Thumbnails */}
+        {/* Thumbnails (Desktop) */}
         <div
-          className="flex flex-row gap-[8px] w-full max-w-[760px] overflow-x-auto justify-center"
-          style={{ scrollbarWidth: "none" }}
+          className="flex flex-row gap-[12px] w-full max-w-[800px] overflow-x-auto flex-nowrap justify-center [&::-webkit-scrollbar]:hidden"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {photos.map((src, i) => (
             <button
               key={i}
               onClick={() => setActiveIdx(i)}
-              className={`flex-none w-[80px] h-[56px] rounded-[4px] overflow-hidden transition-all cursor-pointer
-                ${i === activeIdx ? "ring-2 ring-white opacity-100" : "opacity-60 hover:opacity-90"}`}
+              className={`flex-none w-[88px] h-[64px] rounded-[6px] overflow-hidden transition-all cursor-pointer border-2
+                ${i === activeIdx ? "border-white opacity-100" : "border-transparent opacity-60 hover:opacity-100"}`}
             >
               <img src={src} alt={`thumb-${i}`} className="w-full h-full object-cover" />
             </button>
@@ -209,14 +220,14 @@ export function GalleryPopup({ isOpen, onClose }: GalleryPopupProps) {
         </div>
 
         {/* Pagination */}
-        <div className="flex flex-row items-center gap-[16px]">
-          <button onClick={goPrev} className="w-[40px] h-[40px] flex items-center justify-center bg-white/15 hover:bg-white/30 rounded-[6px] text-white transition-colors cursor-pointer">
+        <div className="flex flex-row items-center gap-[32px]">
+          <button onClick={goPrev} className="w-[48px] h-[48px] flex items-center justify-center bg-white/15 hover:bg-white/30 rounded-[12px] text-white transition-colors cursor-pointer">
             <ChevronLeft />
           </button>
-          <span className="font-['Manrope'] text-[14px] text-white min-w-[36px] text-center">
+          <span className="font-['Manrope'] text-[20px] text-white min-w-[36px] text-center">
             {activeIdx + 1} / {total}
           </span>
-          <button onClick={goNext} className="w-[40px] h-[40px] flex items-center justify-center bg-white/15 hover:bg-white/30 rounded-[6px] text-white transition-colors cursor-pointer">
+          <button onClick={goNext} className="w-[48px] h-[48px] flex items-center justify-center bg-white/15 hover:bg-white/30 rounded-[12px] text-white transition-colors cursor-pointer">
             <ChevronRight />
           </button>
         </div>
