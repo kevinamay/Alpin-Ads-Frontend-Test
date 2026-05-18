@@ -66,6 +66,14 @@ export function Footer() {
     { icon: <FacebookIcon />, label: "Facebook" },
   ];
 
+  // Konfigurasi Link: Home diset ke "#" agar otomatis kembali ke paling atas
+  const navLinks = [
+    { name: "Home", href: "#" },
+    { name: "Rooms", href: "#rooms" },
+    { name: "Amenities", href: "#amenities" },
+    { name: "Gallery", href: "#gallery" },
+  ];
+
   return (
     <footer id="contact" className="w-full max-w-[1440px] mx-auto bg-[#2D2D2D]">
 
@@ -87,9 +95,9 @@ export function Footer() {
           <div className="flex flex-col gap-[16px] flex-1">
             <p className="font-['Montserrat'] text-[16px] font-medium text-white leading-[1.5]">Links</p>
             <nav className="flex flex-col gap-[16px]">
-              {["Home", "Rooms", "Amenities", "Gallery"].map((item) => (
-                <a key={item} href={`#${item.toLowerCase()}`} className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]">
-                  {item}
+              {navLinks.map((item) => (
+                <a key={item.name} href={item.href} className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]">
+                  {item.name}
                 </a>
               ))}
             </nav>
@@ -139,8 +147,10 @@ export function Footer() {
         <div className="flex flex-col gap-[20px] w-[128px]">
           <p className="font-['Montserrat'] text-[16px] font-medium text-white leading-[1.5]">Links</p>
           <nav className="flex flex-col gap-[20px]">
-            {["Home", "Rooms", "Amenities", "Gallery"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]">{item}</a>
+            {navLinks.map((item) => (
+              <a key={item.name} href={item.href} className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]">
+                {item.name}
+              </a>
             ))}
           </nav>
         </div>
@@ -149,7 +159,9 @@ export function Footer() {
           <p className="font-['Montserrat'] text-[16px] font-medium text-white leading-[1.5]">Legals</p>
           <nav className="flex flex-col gap-[20px]">
             {["Imprint", "Data Protection", "Privacy Settings", "Sitemap"].map((item) => (
-              <a key={item} href="#" className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]">{item}</a>
+              <a key={item} href="#" className="font-['Montserrat'] text-[16px] font-normal text-white/80 hover:text-white transition-colors leading-[1.5]">
+                {item}
+              </a>
             ))}
           </nav>
         </div>

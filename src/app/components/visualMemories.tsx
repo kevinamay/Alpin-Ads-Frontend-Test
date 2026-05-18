@@ -12,7 +12,8 @@ export function VisualMemories() {
 
   return (
     <>
-      <section id="visual-memories" className="w-full max-w-[1440px] mx-auto bg-white flex flex-col items-center pt-[60px] md:pt-[80px] pb-[0px] md:pb-[120px] gap-[40px]">
+      {/* PERUBAHAN: id="visual-memories" diubah menjadi id="gallery" agar link footer berfungsi */}
+      <section id="gallery" className="w-full max-w-[1440px] mx-auto bg-white flex flex-col items-center pt-[60px] md:pt-[80px] pb-[0px] md:pb-[120px] gap-[40px]">
 
         {/* Header */}
         <div className="w-full flex flex-row px-[20px] md:px-[40px] gap-[120px]">
@@ -73,9 +74,9 @@ export function VisualMemories() {
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300" />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-[10px]">
               <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0.75" y="0.75" width="24.5" height="20.5" rx="1.25" stroke="white" strokeWidth="1.5"/>
-                <path d="M0.75 15.5L7.5 9L13.5 15L18 11L25.25 18.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <circle cx="8" cy="6.5" r="2" fill="white"/>
+                <rect x="0.75" y="0.75" width="24.5" height="20.5" rx="1.25" stroke="white" strokeWidth="1.5" />
+                <path d="M0.75 15.5L7.5 9L13.5 15L18 11L25.25 18.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="8" cy="6.5" r="2" fill="white" />
               </svg>
               <span className="font-['Manrope'] font-normal text-[#FFFFFF] text-[20px] leading-[150%]" style={{ letterSpacing: '-0.01em', textDecoration: 'underline' }}>
                 See All Photos
@@ -110,9 +111,9 @@ export function VisualMemories() {
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300" />
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-[10px]">
                 <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="0.75" y="0.75" width="24.5" height="20.5" rx="1.25" stroke="white" strokeWidth="1.5"/>
-                  <path d="M0.75 15.5L7.5 9L13.5 15L18 11L25.25 18.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  <circle cx="8" cy="6.5" r="2" fill="white"/>
+                  <rect x="0.75" y="0.75" width="24.5" height="20.5" rx="1.25" stroke="white" strokeWidth="1.5" />
+                  <path d="M0.75 15.5L7.5 9L13.5 15L18 11L25.25 18.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="8" cy="6.5" r="2" fill="white" />
                 </svg>
                 <span className="font-['Manrope'] font-normal text-[#FFFFFF]" style={{ fontSize: '24px', lineHeight: '150%', letterSpacing: '-0.01em', textDecoration: 'underline' }}>
                   See All Photos
