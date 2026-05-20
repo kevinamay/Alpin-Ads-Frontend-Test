@@ -36,12 +36,12 @@ export function VisualMemories() {
         {/* Mobile: 1 column stack (max 3 images) + See All */}
         <div className="flex md:hidden w-full flex-col gap-[12px] px-[20px]">
           <img
-            src={florenceImage}
+            src={cinqueTerreImage}
             alt="Florence"
             className="w-full h-[220px] object-cover rounded-[4px]"
           />
           <img
-            src={cinqueTerreImage}
+            src={florenceImage}
             alt="Coastal town"
             className="w-full h-[220px] object-cover rounded-[4px]"
           />
@@ -82,8 +82,8 @@ export function VisualMemories() {
           <div className="flex flex-col gap-[16px] w-[888px] flex-none">
             <div className="flex flex-row gap-[16px] w-full h-[608px]">
               <div className="flex flex-col gap-[16px] w-[436px] h-[608px]">
-                <img src={florenceImage} alt="Florence" className="w-[436px] h-[296px] object-cover" />
-                <img src={cinqueTerreImage} alt="Coastal town" className="w-[436px] h-[296px] object-cover" />
+                <img src={cinqueTerreImage} alt="Florence" className="w-[436px] h-[296px] object-cover" />
+                <img src={florenceImage} alt="Coastal town" className="w-[436px] h-[296px] object-cover" />
               </div>
               <img src={landscapeImage} alt="Landscape" className="w-[436px] h-[608px] object-cover" />
             </div>
