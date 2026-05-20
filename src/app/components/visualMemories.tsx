@@ -13,7 +13,7 @@ export function VisualMemories() {
   return (
     <>
       {/* PERUBAHAN: id="visual-memories" diubah menjadi id="gallery" agar link footer berfungsi */}
-      <section id="gallery" className="w-full bg-white flex flex-col items-center pt-[60px] md:pt-[80px] pb-[0px] md:pb-[120px]">
+      <section id="gallery" className="w-full bg-white flex flex-col items-center pt-[60px] md:pt-[80px] pb-[40px] md:pb-[120px] overflow-hidden">
         <div className="w-full max-w-[1440px] mx-auto flex flex-col items-center gap-[40px]">
 
         {/* Header */}
@@ -33,38 +33,28 @@ export function VisualMemories() {
           </div>
         </div>
 
-        {/* Mobile: 2-stacked LEFT + 1 tall RIGHT + full-width See All */}
-        <div className="flex md:hidden w-full flex-col">
-          {/* Top row: 2 stacked left + 1 tall right */}
-          <div className="flex flex-row gap-[4px] px-[20px]">
-            {/* Left: 2 images stacked */}
-            <div className="flex flex-1 flex-col gap-[4px]">
-              <img
-                src={florenceImage}
-                alt="Florence"
-                className="w-full object-cover rounded-[4px]"
-                style={{ height: '188px' }}
-              />
-              <img
-                src={cinqueTerreImage}
-                alt="Coastal town"
-                className="w-full object-cover rounded-[4px]"
-                style={{ height: '188px' }}
-              />
-            </div>
-            {/* Right: 1 tall image */}
-            <img
-              src={landscapeImage}
-              alt="Golden landscape"
-              className="flex-1 object-cover rounded-[4px]"
-              style={{ height: '380px' }}
-            />
-          </div>
+        {/* Mobile: 1 column stack (max 3 images) + See All */}
+        <div className="flex md:hidden w-full flex-col gap-[12px] px-[20px]">
+          <img
+            src={florenceImage}
+            alt="Florence"
+            className="w-full h-[220px] object-cover rounded-[4px]"
+          />
+          <img
+            src={cinqueTerreImage}
+            alt="Coastal town"
+            className="w-full h-[220px] object-cover rounded-[4px]"
+          />
+          <img
+            src={landscapeImage}
+            alt="Golden landscape"
+            className="w-full h-[220px] object-cover rounded-[4px]"
+          />
 
-          {/* See All Photos — full width with bg image */}
+          {/* See All Photos */}
           <button
             onClick={() => setGalleryOpen(true)}
-            className="relative w-full h-[200px] overflow-hidden group cursor-pointer outline-none mt-[4px]"
+            className="relative w-full h-[200px] overflow-hidden group cursor-pointer outline-none rounded-[4px]"
             aria-label="See All Photos"
           >
             <img
