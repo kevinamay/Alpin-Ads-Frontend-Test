@@ -39,7 +39,7 @@ export const Faq = () => {
 
         {/* Kolom Kanan: Accordion */}
         <div className="flex flex-col flex-1 w-full">
-          <Accordion type="single" collapsible defaultValue="item-0" className="w-full flex flex-col gap-[16px] md:gap-[20px]">
+          <Accordion type="multiple" defaultValue={["item-0"]} className="w-full flex flex-col gap-[16px] md:gap-[20px]">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
