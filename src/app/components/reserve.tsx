@@ -44,24 +44,33 @@ function FormField({
   type = "text",
   value,
   onChange,
+  error,
 }: {
   icon: React.ReactNode;
   placeholder: string;
   type?: string;
   value?: string;
   onChange?: (val: string) => void;
+  error?: string;
 }) {
   return (
-    <div className="flex flex-row items-center gap-[12px] px-[16px] h-[56px] bg-[#FAFAFA] border border-[#323232]/10 rounded-[8px] w-full">
-      <span className="text-[#323232]/50 flex-none">{icon}</span>
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange?.(e.target.value)}
-        className="flex-1 bg-transparent outline-none border-none font-['Manrope'] text-[16px] text-[#323232] leading-[1.5] placeholder:text-[#323232] placeholder:opacity-50"
-        style={{ letterSpacing: "-0.01em" }}
-      />
+    <div className="flex flex-col gap-[6px] w-full items-start">
+      <div className={`flex flex-row items-center gap-[12px] px-[16px] h-[56px] bg-[#FAFAFA] border rounded-[8px] w-full transition-all duration-200 ${error ? "border-red-500 focus-within:border-red-500 ring-1 ring-red-500/20" : "border-[#323232]/10 focus-within:border-[#323232]/30"}`}>
+        <span className={`${error ? "text-red-500/70" : "text-[#323232]/50"} flex-none transition-colors`}>{icon}</span>
+        <input
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange?.(e.target.value)}
+          className="flex-1 bg-transparent outline-none border-none font-['Manrope'] text-[16px] text-[#323232] leading-[1.5] placeholder:text-[#323232] placeholder:opacity-50"
+          style={{ letterSpacing: "-0.01em" }}
+        />
+      </div>
+      {error && (
+        <span className="font-['Manrope'] text-[12px] text-red-500 font-medium px-[4px] leading-none">
+          {error}
+        </span>
+      )}
     </div>
   );
 }
@@ -101,6 +110,34 @@ export function Reserve({ dateRange, setDateRange, guests, setGuests }: ReserveP
   const [selectedRoom, setSelectedRoom] = useState("");
   const [specialRequests, setSpecialRequests] = useState("");
 
+  const [firstNameError, setFirstNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const handleFirstNameChange = (val: string) => {
+    setFirstName(val);
+    if (firstNameError && val.trim() !== "") {
+      setFirstNameError("");
+    }
+  };
+
+  const handleLastNameChange = (val: string) => {
+    setLastName(val);
+    if (lastNameError && val.trim() !== "") {
+      setLastNameError("");
+    }
+  };
+
+  const handleEmailChange = (val: string) => {
+    setEmail(val);
+    if (emailError) {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (val.trim() !== "" && emailRegex.test(val)) {
+        setEmailError("");
+      }
+    }
+  };
+
   const toggleExtra = (extra: string) => {
     setSelectedExtras((prev) =>
       prev.includes(extra) ? prev.filter((e) => e !== extra) : [...prev, extra]
@@ -109,10 +146,41 @@ export function Reserve({ dateRange, setDateRange, guests, setGuests }: ReserveP
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!firstName.trim() || !lastName.trim() || !email.trim()) {
-      toast.error("Please fill in your name and email address.");
+    
+    let isValid = true;
+
+    // Validate First Name
+    if (!firstName.trim()) {
+      setFirstNameError("First Name is required");
+      isValid = false;
+    } else {
+      setFirstNameError("");
+    }
+
+    // Validate Last Name
+    if (!lastName.trim()) {
+      setLastNameError("Last Name is required");
+      isValid = false;
+    } else {
+      setLastNameError("");
+    }
+
+    // Validate Email Address
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email.trim()) {
+      setEmailError("Email Address is required");
+      isValid = false;
+    } else if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+
+    if (!isValid) {
       return;
     }
+
     if (!dateRange?.from || !dateRange?.to) {
       toast.error("Please select your Arrival & Departure dates.");
       return;
@@ -188,13 +256,15 @@ export function Reserve({ dateRange, setDateRange, guests, setGuests }: ReserveP
                 icon={<UserIcon />}
                 placeholder="First Name"
                 value={firstName}
-                onChange={setFirstName}
+                onChange={handleFirstNameChange}
+                error={firstNameError}
               />
               <FormField
                 icon={<UserIcon />}
                 placeholder="Last Name"
                 value={lastName}
-                onChange={setLastName}
+                onChange={handleLastNameChange}
+                error={lastNameError}
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
@@ -203,7 +273,8 @@ export function Reserve({ dateRange, setDateRange, guests, setGuests }: ReserveP
                 placeholder="Email Address"
                 type="email"
                 value={email}
-                onChange={setEmail}
+                onChange={handleEmailChange}
+                error={emailError}
               />
               <FormField
                 icon={<PhoneIcon />}
