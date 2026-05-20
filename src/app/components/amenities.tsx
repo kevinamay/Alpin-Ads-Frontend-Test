@@ -23,8 +23,8 @@ export function Amenities() {
   const item = items[idx];
 
   return (
-    <section id="amenities" className="w-full max-w-[1440px] mx-auto bg-white flex flex-col items-center pt-[60px] md:pt-[80px] pb-[60px] md:pb-[120px] gap-[40px]">
-      <div className="w-full flex flex-col items-center gap-[40px]">
+    <section id="amenities" className="w-full bg-white flex flex-col items-center pt-[60px] md:pt-[80px] pb-[60px] md:pb-[120px]">
+      <div className="w-full max-w-[1440px] mx-auto flex flex-col items-center gap-[40px]">
 
         {/* Header */}
         <div className="w-full flex flex-row px-[20px] md:px-[40px]">

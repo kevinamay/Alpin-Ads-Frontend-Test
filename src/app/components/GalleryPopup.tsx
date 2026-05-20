@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import img1 from "../../assets/Andergassen-Druck-1101 1 (3).png";
 import img2 from "../../assets/01hd34rames8z8qtkt7cr6g4et.jpeg";
@@ -46,7 +46,22 @@ export function GalleryPopup({ isOpen, onClose }: GalleryPopupProps) {
   const [activeCategory, setActiveCategory] = useState<Category>("All Photos");
   const [activeIdx, setActiveIdx] = useState(0);
 
-  if (!isOpen) return null;
+  const [isRendered, setIsRendered] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsRendered(true);
+      const timer = setTimeout(() => setIsAnimating(true), 10);
+      return () => clearTimeout(timer);
+    } else {
+      setIsAnimating(false);
+      const timer = setTimeout(() => setIsRendered(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  if (!isRendered) return null;
 
   const photos = allPhotos[activeCategory];
   const total = photos.length;
@@ -56,16 +71,16 @@ export function GalleryPopup({ isOpen, onClose }: GalleryPopupProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex justify-center"
-      style={{
-        backdropFilter: "blur(12px)",
-        background: "rgba(37, 38, 38, 0.4)"
-      }}
+      className={`fixed inset-0 z-50 flex justify-center transition-all duration-300 ${
+        isAnimating ? "backdrop-blur-[12px] bg-[#252626]/40 opacity-100" : "backdrop-blur-none bg-transparent opacity-0"
+      }`}
       onClick={onClose}
     >
       {/* ========== MOBILE LAYOUT ========== */}
       <div
-        className="flex md:hidden flex-col w-full h-full relative max-w-[390px]"
+        className={`flex md:hidden flex-col w-full h-full relative max-w-[390px] transition-all duration-300 ease-out transform ${
+          isAnimating ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+        }`}
         style={{ background: "#2E2E2E" }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -159,7 +174,9 @@ export function GalleryPopup({ isOpen, onClose }: GalleryPopupProps) {
 
       {/* ========== DESKTOP LAYOUT ========== */}
       <div
-        className="hidden md:flex flex-col items-center justify-center w-full h-full gap-[24px] px-[24px] relative"
+        className={`hidden md:flex flex-col items-center justify-center w-full h-full gap-[24px] px-[24px] relative transition-all duration-300 ease-out transform ${
+          isAnimating ? "scale-100 opacity-100" : "scale-95 opacity-0"
+        }`}
         style={{ background: "#2E2E2E" }}
         onClick={(e) => e.stopPropagation()}
       >

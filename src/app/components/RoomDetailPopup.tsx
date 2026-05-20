@@ -66,19 +66,43 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
   const snapY0 = useRef(SNAP_HALF);
   const dragHandleRef = useRef<HTMLDivElement>(null);
 
-  // Reset to half when popup opens
+  const [localRoom, setLocalRoom] = useState<RoomPopupData | null>(null);
+  const [isRendered, setIsRendered] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Sync prop changes with local state to allow exit animations even when room is set to null in parent
+  useEffect(() => {
+    if (room) {
+      setLocalRoom(room);
+    }
+  }, [room]);
+
+  // Handle enter and exit animation timings
   useEffect(() => {
     if (isOpen) {
+      setIsRendered(true);
       setSnap(SNAP_HALF);
-      setLiveTranslate(SNAP_HALF);
+      setLiveTranslate(100); // Start fully hidden off-screen on mobile
       setCurrentSlide(0);
+      const timer = setTimeout(() => {
+        setIsAnimating(true);
+        setLiveTranslate(SNAP_HALF);
+      }, 10);
+      return () => clearTimeout(timer);
+    } else {
+      setIsAnimating(false);
+      setLiveTranslate(100); // Slide off-screen on mobile during exit
+      const timer = setTimeout(() => {
+        setIsRendered(false);
+      }, 380); // Wait for transition duration to complete
+      return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  if (!isOpen || !room) return null;
+  if (!isRendered || !localRoom) return null;
 
-  const prevSlide = () => setCurrentSlide((p) => (p - 1 + room.images.length) % room.images.length);
-  const nextSlide = () => setCurrentSlide((p) => (p + 1) % room.images.length);
+  const prevSlide = () => setCurrentSlide((p) => (p - 1 + localRoom.images.length) % localRoom.images.length);
+  const nextSlide = () => setCurrentSlide((p) => (p + 1) % localRoom.images.length);
 
   const amenityIcons: Record<string, ReactElement> = {
     "Bathtub": <BathtubIcon />,
@@ -139,7 +163,9 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/50"
+      className={`fixed inset-0 z-50 transition-colors duration-[380ms] ${
+        isAnimating ? "bg-black/50" : "bg-black/0"
+      }`}
       onClick={onClose}
     >
       {/* ===== MOBILE: Draggable bottom sheet ===== */}
@@ -192,7 +218,7 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
 
         {/* Photo carousel */}
         <div className="relative w-full flex-none bg-black overflow-hidden" style={{ height: "240px" }}>
-          <img src={room.images[currentSlide]} alt={room.name} className="w-full h-full object-cover" />
+          <img src={localRoom.images[currentSlide]} alt={localRoom.name} className="w-full h-full object-cover" />
           <button onClick={prevSlide} className="absolute left-[12px] top-1/2 -translate-y-1/2 w-[36px] h-[36px] flex items-center justify-center bg-white/80 hover:bg-white rounded-full transition-colors text-[#323232]">
             <ArrowLeftIcon />
           </button>
@@ -200,7 +226,7 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
             <ArrowRightIcon />
           </button>
           <div className="absolute bottom-[12px] left-1/2 -translate-x-1/2 flex flex-row gap-[8px]">
-            {room.images.map((_, i) => (
+            {localRoom.images.map((_, i) => (
               <button key={i} onClick={() => setCurrentSlide(i)} className={`w-[8px] h-[8px] rounded-full transition-colors ${i === currentSlide ? "bg-white" : "bg-white/40"}`} />
             ))}
           </div>
@@ -208,14 +234,14 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
 
         {/* Scrollable content */}
         <div className="flex flex-col overflow-y-auto p-[20px] gap-[16px] flex-1">
-          <h2 className="font-['Manrope'] text-[22px] font-normal text-[#323232] leading-[1.3]">{room.name}</h2>
+          <h2 className="font-['Manrope'] text-[22px] font-normal text-[#323232] leading-[1.3]">{localRoom.name}</h2>
           <hr className="border-[#E5E5E5]" />
           <div className="flex flex-col gap-[12px]">
             {[
-              { icon: <SizeIcon />, val: room.size },
-              { icon: <GuestsIcon />, val: room.capacity },
-              { icon: <BedIcon />, val: room.bedType },
-              { icon: <PriceIcon />, val: room.price },
+              { icon: <SizeIcon />, val: localRoom.size },
+              { icon: <GuestsIcon />, val: localRoom.capacity },
+              { icon: <BedIcon />, val: localRoom.bedType },
+              { icon: <PriceIcon />, val: localRoom.price },
             ].map(({ icon, val }) => (
               <div key={val} className="flex flex-row items-center gap-[8px]">
                 <span className="text-[#666666]">{icon}</span>
@@ -223,10 +249,10 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
               </div>
             ))}
           </div>
-          <p className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.7]">{room.description}</p>
+          <p className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.7]">{localRoom.description}</p>
           <div className="flex flex-col gap-[8px]">
             <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Amenities:</p>
-            {room.amenities.map((a) => (
+            {localRoom.amenities.map((a) => (
               <div key={a} className="flex flex-row items-center gap-[6px] text-[#666666]">
                 {amenityIcons[a] ?? <WifiIcon />}
                 <span className="font-['Manrope'] text-[13px] text-[#323232]">{a}</span>
@@ -235,7 +261,7 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
           </div>
           <div className="flex flex-col gap-[8px]">
             <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Included services:</p>
-            {room.services.map((s, i) => (
+            {localRoom.services.map((s, i) => (
               <div key={i} className="flex flex-row items-start gap-[8px]">
                 <span className="flex-none mt-[1px]"><CheckCircleIcon /></span>
                 <span className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.5]">{s}</span>
@@ -255,39 +281,41 @@ export function RoomDetailPopup({ isOpen, onClose, room }: RoomDetailPopupProps)
         onClick={onClose}
       >
         <div
-          className="relative bg-white rounded-[12px] overflow-hidden flex flex-row w-full max-w-[980px] max-h-[90vh]"
+          className={`relative bg-white rounded-[12px] overflow-hidden flex flex-row w-full max-w-[980px] max-h-[90vh] transition-all duration-[380ms] ease-out transform ${
+            isAnimating ? "scale-100 opacity-100" : "scale-95 opacity-0"
+          }`}
           onClick={(e) => e.stopPropagation()}
         >
           <button onClick={onClose} className="absolute top-[16px] right-[16px] z-10 w-[36px] h-[36px] flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-md transition-colors text-[#323232] cursor-pointer">
             <CloseIcon />
           </button>
           <div className="relative w-[52%] flex-none bg-black">
-            <img src={room.images[currentSlide]} alt={room.name} className="w-full h-full object-cover" />
+            <img src={localRoom.images[currentSlide]} alt={localRoom.name} className="w-full h-full object-cover" />
             <button onClick={prevSlide} className="absolute left-[16px] top-1/2 -translate-y-1/2 w-[40px] h-[40px] flex items-center justify-center bg-white/80 hover:bg-white rounded-full transition-colors text-[#323232]"><ArrowLeftIcon /></button>
             <button onClick={nextSlide} className="absolute right-[16px] top-1/2 -translate-y-1/2 w-[40px] h-[40px] flex items-center justify-center bg-white/80 hover:bg-white rounded-full transition-colors text-[#323232]"><ArrowRightIcon /></button>
             <div className="absolute bottom-[20px] left-1/2 -translate-x-1/2 flex flex-row gap-[8px]">
-              {room.images.map((_, i) => (<button key={i} onClick={() => setCurrentSlide(i)} className={`w-[8px] h-[8px] rounded-full transition-colors ${i === currentSlide ? "bg-white" : "bg-white/40"}`} />))}
+              {localRoom.images.map((_, i) => (<button key={i} onClick={() => setCurrentSlide(i)} className={`w-[8px] h-[8px] rounded-full transition-colors ${i === currentSlide ? "bg-white" : "bg-white/40"}`} />))}
             </div>
           </div>
           <div className="flex flex-col flex-1 overflow-y-auto p-[32px] gap-[20px]">
-            <h2 className="font-['Manrope'] text-[24px] font-normal text-[#323232] leading-[1.3]">{room.name}</h2>
+            <h2 className="font-['Manrope'] text-[24px] font-normal text-[#323232] leading-[1.3]">{localRoom.name}</h2>
             <hr className="border-[#E5E5E5]" />
             <div className="grid grid-cols-2 gap-y-[12px] gap-x-[16px]">
-              {[{ icon: <SizeIcon />, val: room.size }, { icon: <BedIcon />, val: room.bedType }, { icon: <GuestsIcon />, val: room.capacity }, { icon: <PriceIcon />, val: room.price }].map(({ icon, val }) => (
+              {[{ icon: <SizeIcon />, val: localRoom.size }, { icon: <BedIcon />, val: localRoom.bedType }, { icon: <GuestsIcon />, val: localRoom.capacity }, { icon: <PriceIcon />, val: localRoom.price }].map(({ icon, val }) => (
                 <div key={val} className="flex flex-row items-center gap-[8px]"><span className="text-[#666666]">{icon}</span><span className="font-['Manrope'] text-[14px] text-[#323232]">{val}</span></div>
               ))}
             </div>
-            <p className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.7]">{room.description}</p>
+            <p className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.7]">{localRoom.description}</p>
             <div className="flex flex-col gap-[10px]">
               <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Amenities:</p>
               <div className="flex flex-row gap-[24px]">
-                {room.amenities.map((a) => (<div key={a} className="flex flex-row items-center gap-[6px] text-[#666666]">{amenityIcons[a] ?? <WifiIcon />}<span className="font-['Manrope'] text-[13px] text-[#323232]">{a}</span></div>))}
+                {localRoom.amenities.map((a) => (<div key={a} className="flex flex-row items-center gap-[6px] text-[#666666]">{amenityIcons[a] ?? <WifiIcon />}<span className="font-['Manrope'] text-[13px] text-[#323232]">{a}</span></div>))}
               </div>
             </div>
             <div className="flex flex-col gap-[10px]">
               <p className="font-['Manrope'] text-[13px] font-medium text-[#323232]">Included services:</p>
               <div className="flex flex-col gap-[8px]">
-                {room.services.map((s, i) => (<div key={i} className="flex flex-row items-start gap-[8px]"><span className="flex-none mt-[1px]"><CheckCircleIcon /></span><span className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.5]">{s}</span></div>))}
+                {localRoom.services.map((s, i) => (<div key={i} className="flex flex-row items-start gap-[8px]"><span className="flex-none mt-[1px]"><CheckCircleIcon /></span><span className="font-['Manrope'] text-[13px] text-[#555555] leading-[1.5]">{s}</span></div>))}
               </div>
             </div>
             <div className="flex flex-row gap-[12px] mt-auto pt-[8px]">

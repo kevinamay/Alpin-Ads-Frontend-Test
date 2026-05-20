@@ -66,8 +66,8 @@ export function IntroductionSection() {
   const desktopTranslateX = LEFT_PAD + (total - trackIdx) * STEP;
 
   return (
-    <section className="w-full max-w-[1440px] mx-auto bg-white overflow-hidden flex flex-col items-center pt-[60px] md:pt-[80px] pb-[60px] md:pb-[120px] gap-[40px]">
-      <div className="w-full flex flex-col gap-[40px]">
+    <section className="w-full bg-white overflow-hidden flex flex-col items-center pt-[60px] md:pt-[80px] pb-[60px] md:pb-[120px]">
+      <div className="w-full max-w-[1440px] mx-auto flex flex-col gap-[40px]">
 
         {/* Top: text + arrows */}
         <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-end px-[20px] md:px-[40px] gap-[24px] md:gap-[120px]">

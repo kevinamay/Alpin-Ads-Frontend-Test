@@ -13,7 +13,8 @@ export function VisualMemories() {
   return (
     <>
       {/* PERUBAHAN: id="visual-memories" diubah menjadi id="gallery" agar link footer berfungsi */}
-      <section id="gallery" className="w-full max-w-[1440px] mx-auto bg-white flex flex-col items-center pt-[60px] md:pt-[80px] pb-[0px] md:pb-[120px] gap-[40px]">
+      <section id="gallery" className="w-full bg-white flex flex-col items-center pt-[60px] md:pt-[80px] pb-[0px] md:pb-[120px]">
+        <div className="w-full max-w-[1440px] mx-auto flex flex-col items-center gap-[40px]">
 
         {/* Header */}
         <div className="w-full flex flex-row px-[20px] md:px-[40px] gap-[120px]">
@@ -121,6 +122,7 @@ export function VisualMemories() {
               </div>
             </button>
           </div>
+        </div>
         </div>
       </section>
 

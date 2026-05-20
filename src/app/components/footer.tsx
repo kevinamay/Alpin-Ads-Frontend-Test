@@ -75,7 +75,8 @@ export function Footer() {
   ];
 
   return (
-    <footer id="contact" className="w-full max-w-[1440px] mx-auto bg-[#2D2D2D]">
+    <footer id="contact" className="w-full bg-[#2D2D2D]">
+      <div className="w-full max-w-[1440px] mx-auto">
 
       {/* ========== MOBILE LAYOUT ========== */}
       <div className="flex md:hidden flex-col px-[20px] py-[40px] gap-[32px]">
@@ -191,6 +192,7 @@ export function Footer() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </footer>
   );

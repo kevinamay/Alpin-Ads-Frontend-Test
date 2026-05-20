@@ -120,8 +120,8 @@ export function Rooms() {
 
   return (
     <>
-      <section id="rooms" className="w-full max-w-[1440px] mx-auto bg-[#F4F3F0] overflow-hidden flex flex-col items-center pt-[60px] md:pt-[88px] pb-[60px] md:pb-[88px] gap-[10px]">
-        <div className="w-full flex flex-col items-center gap-[40px]">
+      <section id="rooms" className="w-full bg-[#F4F3F0] overflow-hidden flex flex-col items-center pt-[60px] md:pt-[88px] pb-[60px] md:pb-[88px]">
+        <div className="w-full max-w-[1440px] mx-auto flex flex-col items-center gap-[40px]">
 
           {/* Header */}
           <div className="w-full px-[20px] md:px-[40px] flex flex-col items-center text-center gap-[12px]">

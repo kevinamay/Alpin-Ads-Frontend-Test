@@ -11,8 +11,8 @@ export const Faq = () => {
   ];
 
   return (
-    <section id="faq" className="w-full max-w-[1440px] mx-auto bg-[#F4F3F0]">
-      <div className="w-full py-[60px] md:py-[80px] px-[20px] md:px-[32px] flex flex-col md:flex-row items-start gap-[40px] md:gap-[80px]">
+    <section id="faq" className="w-full bg-[#F4F3F0]">
+      <div className="w-full max-w-[1440px] mx-auto py-[60px] md:py-[80px] px-[20px] md:px-[32px] flex flex-col md:flex-row items-start gap-[40px] md:gap-[80px]">
 
         {/* Kolom Kiri */}
         <div className="flex flex-col flex-1 gap-[24px] w-full md:max-w-[648px]">

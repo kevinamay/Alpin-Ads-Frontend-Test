@@ -23,7 +23,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative w-full max-w-[1440px] mx-auto h-[844px] md:h-[1024px] overflow-hidden font-sans">
+    <section className="relative w-full h-[100dvh] md:h-screen overflow-hidden font-sans">
 
       {/* Background Images dengan efek crossfade yang halus */}
       {heroImages.map((img, index) => (
@@ -39,45 +39,49 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 z-10" />
 
       {/* Navbar */}
-      <nav className="absolute top-0 left-0 w-full z-20 flex items-center justify-between px-[20px] md:px-[24px] h-[72px] md:h-[124px] text-white">
-        {/* Logo */}
-        <div className="flex items-center">
-          <img
-            src={Logo}
-            alt="Logo"
-            className="w-[120px] h-auto md:w-[224px] md:h-[100px] object-contain"
-          />
-        </div>
+      <nav className="absolute top-0 left-0 w-full z-20 flex items-center justify-center h-[72px] md:h-[124px] text-white">
+        <div className="w-full max-w-[1440px] flex items-center justify-between px-[20px] md:px-[24px] h-full">
+          {/* Logo */}
+          <div className="flex items-center">
+            <img
+              src={Logo}
+              alt="Logo"
+              className="w-[120px] h-auto md:w-[224px] md:h-[100px] object-contain"
+            />
+          </div>
 
-        {/* Navigation Links — desktop only */}
-        <div className="hidden md:flex flex-1 items-center justify-center h-[46px] pb-[24px] gap-[24px] font-['Manrope'] font-normal text-[16px] leading-none tracking-[0.05em] uppercase text-[#fefefe]">
-          <a href="#rooms" className="hover:text-gray-300 transition-colors">ROOMS</a>
-          <a href="#amenities" className="hover:text-gray-300 transition-colors">AMENITIES</a>
-          <a href="#reserve" className="hover:text-gray-300 transition-colors">RESERVE</a>
-        </div>
+          {/* Navigation Links — desktop only */}
+          <div className="hidden md:flex flex-1 items-center justify-center h-[46px] pb-[24px] gap-[24px] font-['Manrope'] font-normal text-[16px] leading-none tracking-[0.05em] uppercase text-[#fefefe]">
+            <a href="#rooms" className="hover:text-gray-300 transition-colors">ROOMS</a>
+            <a href="#amenities" className="hover:text-gray-300 transition-colors">AMENITIES</a>
+            <a href="#reserve" className="hover:text-gray-300 transition-colors">RESERVE</a>
+          </div>
 
-        {/* Book Now Button */}
-        <div className="flex items-center justify-end md:pb-[24px]">
-          <button className="flex items-center justify-center whitespace-nowrap h-[40px] md:h-[48px] py-[8px] md:py-[12px] px-[20px] md:px-[32px] bg-black/15 border border-white/20 backdrop-blur-[20px] rounded-[8px] hover:bg-black/25 transition-colors font-['Manrope'] font-normal text-[14px] md:text-[16px] leading-[1.5] tracking-[0.05em] uppercase text-white">
-            BOOK NOW
-          </button>
+          {/* Book Now Button */}
+          <div className="flex items-center justify-end md:pb-[24px]">
+            <button className="flex items-center justify-center whitespace-nowrap h-[40px] md:h-[48px] py-[8px] md:py-[12px] px-[20px] md:px-[32px] bg-black/15 border border-white/20 backdrop-blur-[20px] rounded-[8px] hover:bg-black/25 transition-colors font-['Manrope'] font-normal text-[14px] md:text-[16px] leading-[1.5] tracking-[0.05em] uppercase text-white">
+              BOOK NOW
+            </button>
+          </div>
         </div>
       </nav>
 
       {/* Arrow buttons - Ditambahkan event onClick */}
-      <div className="absolute top-[380px] md:top-[492px] left-0 w-full h-[40px] z-20 flex items-center justify-between px-[20px] md:px-[24px]">
-        <button
-          onClick={prevImage}
-          className="flex items-center justify-center w-[40px] h-[40px] bg-black/20 backdrop-blur-[111.11px] transition-colors text-white cursor-pointer hover:bg-black/40"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={nextImage}
-          className="flex items-center justify-center w-[40px] h-[40px] bg-black/20 backdrop-blur-[111.11px] transition-colors text-white cursor-pointer hover:bg-black/40"
-        >
-          <ArrowRight className="w-5 h-5" />
-        </button>
+      <div className="absolute top-[380px] md:top-[492px] left-0 w-full h-[40px] z-20 flex items-center justify-center">
+        <div className="w-full max-w-[1440px] flex items-center justify-between px-[20px] md:px-[24px]">
+          <button
+            onClick={prevImage}
+            className="flex items-center justify-center w-[40px] h-[40px] bg-black/20 backdrop-blur-[111.11px] transition-colors text-white cursor-pointer hover:bg-black/40"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={nextImage}
+            className="flex items-center justify-center w-[40px] h-[40px] bg-black/20 backdrop-blur-[111.11px] transition-colors text-white cursor-pointer hover:bg-black/40"
+          >
+            <ArrowRight className="w-5 h-5" />
+          </button>
+        </div>
       </div>
 
       {/* Booking Widget — bottom overlay */}

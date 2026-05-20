@@ -93,11 +93,10 @@ export function Reserve() {
   };
 
   return (
-    // PERUBAHAN UTAMA: Menambahkan `max-w-[1440px] mx-auto` agar sejajar dengan Hero Section.
-    // Menghapus px-[40px] karena akan membatasi background, kita pindahkan ke container form di bawah
+    // PERUBAHAN UTAMA: Menghapus max-w-[1440px] agar background image memenuhi lebar layar penuh.
     <section
       id="reserve"
-      className="w-full max-w-[1440px] mx-auto relative flex flex-col items-center justify-center py-[60px] md:py-[120px]"
+      className="w-full relative flex flex-col items-center justify-center py-[60px] md:py-[120px]"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
