@@ -33,28 +33,35 @@ export function VisualMemories() {
           </div>
         </div>
 
-        {/* Mobile: 1 column stack (max 3 images) + See All */}
-        <div className="flex md:hidden w-full flex-col gap-[12px] px-[20px]">
-          <img
-            src={cinqueTerreImage}
-            alt="Florence"
-            className="w-full h-[220px] object-cover rounded-[4px]"
-          />
-          <img
-            src={florenceImage}
-            alt="Coastal town"
-            className="w-full h-[220px] object-cover rounded-[4px]"
-          />
-          <img
-            src={landscapeImage}
-            alt="Golden landscape"
-            className="w-full h-[220px] object-cover rounded-[4px]"
-          />
+        {/* Mobile: 2-column grid matching Figma design (390×885) */}
+        <div className="flex md:hidden w-full flex-col gap-[8px] px-[20px]">
+          {/* 2-col grid: left = 2 stacked small images, right = 1 tall image */}
+          <div className="grid grid-cols-2 gap-[8px]">
+            {/* Left column */}
+            <div className="flex flex-col gap-[8px]">
+              <img
+                src={florenceImage}
+                alt="Florence"
+                className="w-full h-[165px] object-cover rounded-[4px]"
+              />
+              <img
+                src={cinqueTerreImage}
+                alt="Coastal town"
+                className="w-full h-[165px] object-cover rounded-[4px]"
+              />
+            </div>
+            {/* Right column – tall image spanning both rows */}
+            <img
+              src={landscapeImage}
+              alt="Golden landscape"
+              className="w-full h-[338px] object-cover rounded-[4px]"
+            />
+          </div>
 
-          {/* See All Photos */}
+          {/* See All Photos – full-width overlay */}
           <button
             onClick={() => setGalleryOpen(true)}
-            className="relative w-full h-[200px] overflow-hidden group cursor-pointer outline-none rounded-[4px]"
+            className="relative w-full h-[160px] overflow-hidden group cursor-pointer outline-none rounded-[4px]"
             aria-label="See All Photos"
           >
             <img
@@ -74,6 +81,13 @@ export function VisualMemories() {
               </span>
             </div>
           </button>
+
+          {/* Bottom image – full width */}
+          <img
+            src={colosseumImage}
+            alt="Architecture"
+            className="w-full h-[200px] object-cover rounded-[4px]"
+          />
         </div>
 
         {/* Desktop: original complex layout */}
