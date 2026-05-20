@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import bgImage from "../../assets/photo-1683962808565-9c7fb094d183.avif";
+import type { DateRange } from "react-day-picker";
+import { DateRangeField, GuestsField } from "./booking-fields";
+import { format } from "date-fns";
 
 // SVG Icons (inline to avoid dependency issues)
 const UserIcon = () => (
@@ -16,16 +19,6 @@ const MailIcon = () => (
 const PhoneIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-  </svg>
-);
-const CalendarIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect width="18" height="18" x="3" y="4" rx="2" ry="2" /><line x1="16" x2="16" y1="2" y2="6" /><line x1="8" x2="8" y1="2" y2="6" /><line x1="3" x2="21" y1="10" y2="10" />
-  </svg>
-);
-const GuestsIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
   </svg>
 );
 const BedIcon = () => (
@@ -45,13 +38,27 @@ const CheckIcon = () => (
 );
 
 // Reusable input field with left icon
-function FormField({ icon, placeholder, type = "text" }: { icon: React.ReactNode; placeholder: string; type?: string }) {
+function FormField({
+  icon,
+  placeholder,
+  type = "text",
+  value,
+  onChange,
+}: {
+  icon: React.ReactNode;
+  placeholder: string;
+  type?: string;
+  value?: string;
+  onChange?: (val: string) => void;
+}) {
   return (
     <div className="flex flex-row items-center gap-[12px] px-[16px] h-[56px] bg-[#FAFAFA] border border-[#323232]/10 rounded-[8px] w-full">
       <span className="text-[#323232]/50 flex-none">{icon}</span>
       <input
         type={type}
         placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange?.(e.target.value)}
         className="flex-1 bg-transparent outline-none border-none font-['Manrope'] text-[16px] text-[#323232] leading-[1.5] placeholder:text-[#323232] placeholder:opacity-50"
         style={{ letterSpacing: "-0.01em" }}
       />
@@ -78,8 +85,21 @@ function CheckboxField({ label, checked, onChange }: { label: string; checked: b
   );
 }
 
-export function Reserve() {
+interface ReserveProps {
+  dateRange: DateRange | undefined;
+  setDateRange: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
+  guests: { adults: number; children: number };
+  setGuests: React.Dispatch<React.SetStateAction<{ adults: number; children: number }>>;
+}
+
+export function Reserve({ dateRange, setDateRange, guests, setGuests }: ReserveProps) {
   const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [selectedRoom, setSelectedRoom] = useState("");
+  const [specialRequests, setSpecialRequests] = useState("");
 
   const toggleExtra = (extra: string) => {
     setSelectedExtras((prev) =>
@@ -89,11 +109,33 @@ export function Reserve() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Request received — our concierge will be in touch within 24 hours.");
+    if (!firstName.trim() || !lastName.trim() || !email.trim()) {
+      toast.error("Please fill in your name and email address.");
+      return;
+    }
+    if (!dateRange?.from || !dateRange?.to) {
+      toast.error("Please select your Arrival & Departure dates.");
+      return;
+    }
+
+    const checkIn = format(dateRange.from, "MMM d, yyyy");
+    const checkOut = format(dateRange.to, "MMM d, yyyy");
+    const totalGuests = guests.adults + guests.children;
+    const roomMap: Record<string, string> = {
+      garden: "Garden Suite",
+      sea: "Sea View Suite",
+      villa: "Cliffside Villa",
+      deluxe: "Deluxe Room",
+    };
+    const roomName = roomMap[selectedRoom] || "selected suite";
+
+    toast.success(`Request received!`, {
+      description: `Thank you, ${firstName}. We will check availability for the ${roomName} from ${checkIn} to ${checkOut} for ${totalGuests} guests and reply within 24 hours.`,
+      duration: 6000,
+    });
   };
 
   return (
-    // PERUBAHAN UTAMA: Menghapus max-w-[1440px] agar background image memenuhi lebar layar penuh.
     <section
       id="reserve"
       className="w-full relative flex flex-col items-center justify-center py-[60px] md:py-[120px]"
@@ -107,34 +149,31 @@ export function Reserve() {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/30" />
 
-      {/* Content Container - Menambahkan px-[24px] agar padding kiri kanan sama persis dengan Hero */}
+      {/* Content Container */}
       <div className="relative z-10 w-full max-w-[880px] px-[16px] md:px-[24px] flex flex-col items-center gap-[40px]">
-        {/* container-text: w-full, px-40px, items-center */}
+        {/* container-text */}
         <div className="w-full flex flex-col items-center px-[0px] md:px-[40px] gap-[12px]">
-
-          {/* container-title: Fill × Hug(104px), gap 8px — Badge + Heading */}
           <div className="flex flex-col items-center gap-[8px]">
-
-            {/* Badge: Horizontal, 130×40px, py-8px, gap-6px, Stripe=true */}
+            {/* Badge */}
             <div className="flex flex-row items-center gap-[6px] py-[8px]">
               <span className="font-['Manrope'] text-[14px] text-white/80">-</span>
               <span className="font-['Manrope'] text-[14px] text-white/80 tracking-widest">Plan Your Stay</span>
               <span className="font-['Manrope'] text-[14px] text-white/80">-</span>
             </div>
 
-            {/* Title: 40px, line-height 140%, #FFFFFF */}
+            {/* Title */}
             <h2 className="font-['Manrope'] text-[40px] font-normal text-white leading-[1.4] text-center">
               Request a Personal Quote
             </h2>
           </div>
 
-          {/* Subtitle: 16px, line-height 150%, #FFFFFF */}
+          {/* Subtitle */}
           <p className="font-['Manrope'] text-[16px] font-normal text-white text-center leading-[1.5]">
             Fill out the form below, and our team will get back to you within 24 hours with a non-binding offer tailored to your needs.
           </p>
         </div>
 
-        {/* form-card: Fixed 880px, radius 8px, padding 20px, gap 32px */}
+        {/* form-card */}
         <form
           onSubmit={onSubmit}
           className="w-full bg-white rounded-[8px] p-[20px] flex flex-col gap-[32px]"
@@ -145,12 +184,34 @@ export function Reserve() {
               Your Details
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
-              <FormField icon={<UserIcon />} placeholder="First Name" />
-              <FormField icon={<UserIcon />} placeholder="Last Name" />
+              <FormField
+                icon={<UserIcon />}
+                placeholder="First Name"
+                value={firstName}
+                onChange={setFirstName}
+              />
+              <FormField
+                icon={<UserIcon />}
+                placeholder="Last Name"
+                value={lastName}
+                onChange={setLastName}
+              />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
-              <FormField icon={<MailIcon />} placeholder="Email Address" type="email" />
-              <FormField icon={<PhoneIcon />} placeholder="Phone Number" type="tel" />
+              <FormField
+                icon={<MailIcon />}
+                placeholder="Email Address"
+                type="email"
+                value={email}
+                onChange={setEmail}
+              />
+              <FormField
+                icon={<PhoneIcon />}
+                placeholder="Phone Number"
+                type="tel"
+                value={phone}
+                onChange={setPhone}
+              />
             </div>
           </div>
 
@@ -160,14 +221,18 @@ export function Reserve() {
               Stay
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
-              <FormField icon={<CalendarIcon />} placeholder="Arrival & Departure" />
-              <FormField icon={<GuestsIcon />} placeholder="Guests" />
+              <DateRangeField dateRange={dateRange} onChange={setDateRange} variant="light" />
+              <GuestsField value={guests} onChange={setGuests} variant="light" />
             </div>
             {/* Select Room */}
             <div className="flex flex-row items-center gap-[12px] px-[16px] h-[56px] bg-[#FAFAFA] border border-[#323232]/10 rounded-[8px] w-full">
               <span className="text-[#999999] flex-none"><BedIcon /></span>
-              <select className="flex-1 bg-transparent outline-none border-none font-['Manrope'] text-[14px] text-[#999999] appearance-none cursor-pointer">
-                <option value="" disabled selected>Select Room</option>
+              <select
+                value={selectedRoom}
+                onChange={(e) => setSelectedRoom(e.target.value)}
+                className="flex-1 bg-transparent outline-none border-none font-['Manrope'] text-[14px] text-[#999999] appearance-none cursor-pointer"
+              >
+                <option value="" disabled>Select Room</option>
                 <option value="garden">Garden Suite</option>
                 <option value="sea">Sea View Suite</option>
                 <option value="villa">Cliffside Villa</option>
@@ -180,7 +245,7 @@ export function Reserve() {
           {/* === ADD-ONS === */}
           <div className="flex flex-col gap-[12px]">
             <p className="font-['Manrope'] text-[16px] font-normal text-[#323232] leading-[1.4]">
-              Your Details
+              Add-ons (Optional)
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px]">
               <CheckboxField
@@ -194,9 +259,9 @@ export function Reserve() {
                 onChange={() => toggleExtra("Spa package")}
               />
               <CheckboxField
-                label="Private dinning"
-                checked={selectedExtras.includes("Private dinning")}
-                onChange={() => toggleExtra("Private dinning")}
+                label="Private dining"
+                checked={selectedExtras.includes("Private dining")}
+                onChange={() => toggleExtra("Private dining")}
               />
               <CheckboxField
                 label="Yacht excursion"
@@ -213,6 +278,8 @@ export function Reserve() {
             </p>
             <textarea
               placeholder="Anniversary, dietary preferences, arrival time..."
+              value={specialRequests}
+              onChange={(e) => setSpecialRequests(e.target.value)}
               className="w-full px-[16px] py-[14px] bg-[#FAFAFA] border border-[#323232]/10 rounded-[8px] outline-none font-['Manrope'] text-[16px] text-[#323232] placeholder:text-[#323232] placeholder:opacity-50 resize-none leading-[1.5]"
               style={{ height: "175px", letterSpacing: "-0.01em" }}
             />
