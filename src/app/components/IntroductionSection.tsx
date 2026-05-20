@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import BedroomPhoto from '../../assets/Andergassen-Druck-11011.png';
 import ExteriorPhoto from '../../assets/image(2).png';
 import CityscapePhoto from '../../assets/image 44 (1).png';
@@ -30,6 +30,10 @@ export function IntroductionSection() {
   // Mobile carousel state
   const [mobileIdx, setMobileIdx] = useState(0);
 
+  // Touch swipe refs
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
   const goNext = () => {
     if (isMobile) {
       setMobileIdx((i) => (i + 1) % photos.length);
@@ -55,6 +59,23 @@ export function IntroductionSection() {
     } else if (trackIdx < total) {
       setAnimated(false);
       setTrackIdx(trackIdx + total);
+    }
+  };
+
+  // Touch swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX.current;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
     }
   };
 
@@ -123,23 +144,30 @@ export function IntroductionSection() {
           </div>
         </div>
 
-        {/* Mobile peek carousel */}
-        <div className="flex md:hidden w-full overflow-hidden">
+        {/* Mobile full-width carousel with swipe */}
+        <div
+          className="flex md:hidden w-full overflow-hidden px-[20px]"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
-            className="flex flex-row"
+            className="flex flex-row w-full"
             style={{
-              gap: "12px",
-              transform: `translateX(calc(20px + ${mobileIdx * -1} * (calc(100vw - 60px) + 12px)))`,
-              transition: "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+              transform: `translateX(${mobileIdx * -100}%)`,
+              transition: "transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
             }}
           >
             {photos.map((photo, i) => (
               <div
                 key={i}
-                className="shrink-0 rounded-[8px] overflow-hidden"
-                style={{ width: "calc(100vw - 60px)", height: "240px" }}
+                className="w-full shrink-0 rounded-[8px] overflow-hidden"
               >
-                <img src={photo} alt={`Heritage ${i + 1}`} className="w-full h-full object-cover" />
+                <img
+                  src={photo}
+                  alt={`Heritage ${i + 1}`}
+                  className="w-full aspect-[4/3] object-cover"
+                  draggable={false}
+                />
               </div>
             ))}
           </div>
